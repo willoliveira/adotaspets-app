@@ -6,7 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 
-// import { Home } 
+import { HomeModule } from '../pages/home/home.module';
 
 import { Camera } from '@ionic-native/camera';
 
@@ -17,6 +17,9 @@ import { Camera } from '@ionic-native/camera';
 	],
 	imports: [
 		BrowserModule,
+		
+		HomeModule,
+
 		IonicModule.forRoot(MyApp)
 	],
 	bootstrap: [IonicApp],
@@ -28,6 +31,7 @@ import { Camera } from '@ionic-native/camera';
 		SplashScreen,
 		{provide: ErrorHandler, useClass: IonicErrorHandler},
 		
+
 		Camera
 	]
 })

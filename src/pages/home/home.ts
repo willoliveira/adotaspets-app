@@ -5,6 +5,10 @@ import { IonicPage, NavController } from 'ionic-angular';
 
 import firebase from 'firebase';
 
+import { TabMessages } from '../tab-messages/tab-messages';
+import { TabPerfil } from '../tab-perfil/tab-perfil';
+import { TabSearch } from '../tab-search/tab-search';
+
 @IonicPage()
 @Component({
 	selector: 'page-home',
@@ -14,13 +18,20 @@ export class Home {
 
 	captureDataUrl: string;
 
+	tabPefil;
+	tabMessages;
+	tabSearch;
+
 	constructor(
 		public navCtrl: NavController,
 		public camera: Camera) {
 		
+		this.tabMessages = TabMessages;
+		this.tabPefil = TabPerfil;
+		this.tabSearch = TabSearch;
 	}
 	
-	
+	//Test Firebase Storage
 	capture() {
 		var cameraOptions: CameraOptions = {
 			quality: 50,
