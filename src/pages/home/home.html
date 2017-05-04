@@ -1,14 +1,22 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
+	<ion-navbar>
+		<ion-title>
+			Ionic Camera Firebase
+		</ion-title>
+	</ion-navbar>
 </ion-header>
-
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+	<!--<div style="display:flex; flex-direction:column;justify-content:center">
+		<button ion-button (click)="capture()">Lets take a picture!</button>
+		<img [src]="captureDataUrl"  *ngIf="captureDataUrl"/>
+
+		<button ion-button (click)="upload()" *ngIf="captureDataUrl">Upload to Firebase!</button>
+	</div>-->
+
+	<ion-tabs>
+		<ion-tab [root]="tabPefil"></ion-tab>
+		<ion-tab [root]="tabMessage"></ion-tab>
+		<ion-tab [root]="tabSearch"></ion-tab>
+	</ion-tabs>
+
 </ion-content>
