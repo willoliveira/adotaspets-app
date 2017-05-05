@@ -8,46 +8,63 @@
 
 		<ion-item>
 			<ion-avatar item-left>
-				<img src="assets/img/marty-avatar.png">
+				<img src="assets/img/avatar-ts-jessie.png">
 			</ion-avatar>
-			<h2>Marty McFly</h2>
+			<h2>Jessie</h2>
 			<p>November 5, 1955</p>
 		</ion-item>
 
-		<img src="assets/img/advance-card-bttf.png">
+		<ion-slides loop="true" paginationType="bullets">
+			<ion-slide>
+				<img src="assets/img/rex-bg.jpg">
+			</ion-slide>
+			<ion-slide>
+				<img src="assets/img/rex-bg-1.jpg">
+			</ion-slide>
+			<ion-slide>
+				<img src="assets/img/rex-bg-2.jpeg">
+			</ion-slide>
+		</ion-slides>
 
 		<ion-card-content>
+			<h1>Rex</h1>
 			<p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
 		</ion-card-content>
 
 		<ion-row>
 			<ion-col>
 				<button ion-button icon-left clear small>
-				<ion-icon name="thumbs-up"></ion-icon>
-				<div>12 Likes</div>
+				<ion-icon name="paw"></ion-icon>
+				<div>Dinossauro</div>
 				</button>
 			</ion-col>
 			<ion-col>
 				<button ion-button icon-left clear small>
-				<ion-icon name="text"></ion-icon>
-				<div>4 Comments</div>
+				<ion-icon name="pin"></ion-icon>
+				<div>4km de distância</div>
 				</button>
 			</ion-col>
 			<ion-col center text-center>
-				<ion-note>
-				11h ago
-				</ion-note>
+				<ion-note>11h ago</ion-note>
 			</ion-col>
 		</ion-row>
 
 	</ion-card>
 
 	<ion-card>
-		<img src="assets/img/nin-live.png"/>
+		<ion-slides loop="true" paginationType="bullets">
+			<ion-slide>
+				<img src="assets/img/rex-bg.jpg">
+			</ion-slide>
+			<ion-slide>
+				<img src="assets/img/rex-bg-1.jpg">
+			</ion-slide>
+			<ion-slide>
+				<img src="assets/img/rex-bg-2.jpeg">
+			</ion-slide>
+		</ion-slides>
 		<ion-card-content>
-			<ion-card-title>
-				Nine Inch Nails Live
-			</ion-card-title>
+			<ion-card-title>Rex</ion-card-title>
 			<p>The most popular industrial group ever, and largely responsible for bringing the music to a mass audience.</p>
 		</ion-card-content>
 	</ion-card>
@@ -59,7 +76,8 @@
 		<ion-icon name="close-circle"></ion-icon>
 	</button>
 
-	<button ion-button icon-only clear small>
+	<button ion-button icon-only clear small
+		(click)="goToInfoPet()">
 		<ion-icon name="information-circle"></ion-icon>
 	</button>
 

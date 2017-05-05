@@ -7,6 +7,11 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 
 import { HomeModule } from '../pages/home/home.module';
+import { LoginModule } from '../pages/login/login.module';
+import { MessagesModule } from '../pages/messages/messages.module';
+import { PerfilModule } from '../pages/perfil/perfil.module';
+import { PetModule } from '../pages/pet/pet.module';
+import { ResponsibleModule } from '../pages/responsible/responsible.module';
 
 import { Camera } from '@ionic-native/camera';
 
@@ -18,7 +23,8 @@ import { Camera } from '@ionic-native/camera';
 	imports: [
 		BrowserModule,
 		
-		HomeModule,
+		HomeModule, LoginModule, MessagesModule, 
+		PerfilModule, PetModule, ResponsibleModule,
 
 		IonicModule.forRoot(MyApp)
 	],
@@ -31,7 +37,6 @@ import { Camera } from '@ionic-native/camera';
 		SplashScreen,
 		{provide: ErrorHandler, useClass: IonicErrorHandler},
 		
-
 		Camera
 	]
 })

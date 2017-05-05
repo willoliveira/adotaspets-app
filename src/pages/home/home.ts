@@ -1,13 +1,15 @@
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
-import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, Nav, NavController } from 'ionic-angular';
 
 import firebase from 'firebase';
 
 import { TabMessages } from '../tab-messages/tab-messages';
 import { TabPerfil } from '../tab-perfil/tab-perfil';
 import { TabSearch } from '../tab-search/tab-search';
+
+import { Pet } from '../pet/pet';
 
 @IonicPage()
 @Component({
@@ -30,6 +32,7 @@ export class Home {
 		this.tabPefil = TabPerfil;
 		this.tabSearch = TabSearch;
 	}
+
 	
 	//Test Firebase Storage
 	capture() {
