@@ -1,7 +1,54 @@
 <ion-content padding>
 
-	<ion-item>
-		tab-perfil
-	</ion-item>
+	<ion-segment [(ngModel)]="tab">
+		<ion-segment-button value="perfil">
+			Meu perfil
+		</ion-segment-button>
+		<ion-segment-button value="pets">
+			Meus pets
+		</ion-segment-button>
+	</ion-segment>
+
+	<div [ngSwitch]="tab">
+		<div *ngSwitchCase="'perfil'">
+			Meu perfil
+		</div>
+
+		<div *ngSwitchCase="'pets'">
+			<ion-list>
+				<ion-item>
+					<ion-avatar item-left>
+						<img src="assets/img/avatar-ts-potatohead.png">
+					</ion-avatar>
+					<h2>Potatohead</h2>
+					<p>Batata</p>
+				</ion-item>
+				
+				<ion-item>
+					<ion-avatar item-left>
+						<img src="assets/img/avatar-ts-rex.png">
+					</ion-avatar>
+					<h2>Rex</h2>
+					<p>Dinosauro</p>
+				</ion-item>
+
+				<ion-item>
+					<ion-avatar item-left>
+						<img src="assets/img/avatar-ts-slinky.png">
+					</ion-avatar>
+					<h2>Slinky</h2>
+					<p>Cachorro</p>
+				</ion-item>
+
+				<ion-item>
+					<ion-avatar item-left>
+						<img src="assets/img/avatar-ts-bullseye.png">
+					</ion-avatar>
+					<h2>Bulleye</h2>
+					<p>Cavalo</p>
+				</ion-item>
+			</ion-list>
+		</div>
+	</div>
 
 </ion-content>
