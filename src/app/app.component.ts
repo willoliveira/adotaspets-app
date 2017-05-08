@@ -5,13 +5,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import firebase from 'firebase';
 
-import { Home } from '../pages/home/home';
+import { Login } from '../pages/login/login';
 
 @Component({
 	templateUrl: 'app.html'
 })
 export class MyApp {
-	rootPage:any = Home;
+	rootPage:any = Login;
 	
 	constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
 		platform.ready().then(() => {

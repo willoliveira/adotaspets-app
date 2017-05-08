@@ -1,3 +1,18 @@
 page-login {
+    .logo {
+        display: block;        
+        margin: 0 auto;
+        margin-top: 15px;
+    }
 
+    .bt-jump-login {
+        color: #7f8c8d;
+        margin-top: 15px;
+    }    
+
+    ion-slides {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        height: 50%;
+    }
 }
