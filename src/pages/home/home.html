@@ -1,4 +1,4 @@
-<ion-content padding>
+<ion-content>
 	<!--<div style="display:flex; flex-direction:column;justify-content:center">
 		<button ion-button (click)="capture()">Lets take a picture!</button>
 		<img [src]="captureDataUrl"  *ngIf="captureDataUrl"/>
@@ -6,7 +6,7 @@
 		<button ion-button (click)="upload()" *ngIf="captureDataUrl">Upload to Firebase!</button>
 	</div>-->
 
-	<ion-tabs tabsPlacement="top" selectedIndex="1">
+	<ion-tabs tabsPlacement="top" selectedIndex="1">	    
 		<ion-tab tabIcon="contact" [root]="tabPefil"></ion-tab>
 		<ion-tab tabIcon="search" [root]="tabSearch"></ion-tab>
 		<ion-tab tabIcon="chatbubbles" [root]="tabMessages"></ion-tab>

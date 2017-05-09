@@ -1,14 +1,16 @@
-<ion-content padding>	
-	<button ion-button icon-right block round color="greenDarkTheme" outline class="bt-filter"> 
-		Filtros <ion-icon name="options"></ion-icon>
-	</button>	
+<ion-content>	
+	<div class="container-bt-filter">
+		<button ion-button icon-right block round color="greenDarkTheme" outline class="bt-filter"> 
+			Filtros <ion-icon name="options"></ion-icon>
+		</button>	
+	</div>
 
 	<ion-card>
 		<ion-item>
 			<ion-avatar item-left>
 				<img src="assets/img/avatar-ts-jessie.png">
 			</ion-avatar>
-			<h2 class="name-responsible">Jessie</h2>
+			<h2>Luís Inacio Lula da Silva</h2>
 			<p>Responsável</p>
 		</ion-item>
 
@@ -25,76 +27,39 @@
 		</ion-slides>
 
 		<ion-card-content>
-			<h1 class="name-pet">Rex</h1>
-			
-			<div class="container-tipo">
-				<ion-icon name="paw"></ion-icon>
-				<span class="txt">Cachorro, porte grande</span>			
-			</div>
+			<ion-card-title>
+				Joaquim
+			</ion-card-title>						
+		</ion-card-content>		
 
-			<div class="container-km">
-				<ion-icon name="pin"></ion-icon>
-				<span class="txt">10 km de distância</span>			
-			</div>
-		</ion-card-content>
-	</ion-card>	
-	
-	<div class="container-bt-actions">
-		<button ion-fab class="nop"><ion-icon name="close"></ion-icon></button>
-		<button ion-fab mini class="info"><ion-icon name="paw"></ion-icon></button>
-		<button ion-fab class="like"><ion-icon name="heart"></ion-icon></button>
-	</div>
-</ion-content>
+		<ion-item>
+			<ion-icon name="paw" item-left small></ion-icon>
+    		<p item-left>Cachorro</p>    		
+  		</ion-item>
 
-		<!--<ion-row>
+		<ion-item>
+			<ion-icon name="pin" item-left small></ion-icon>
+    		<p item-left>7 Km de distância</p>    		
+  		</ion-item>
+
+		<ion-item (click)="goToInfoPet()" class="info-pet">
+			<ion-icon name="information-circle" item-left small></ion-icon>
+    		<p item-left>Ver mais informações</p>    		
+  		</ion-item>
+
+		<ion-row no-padding>
 			<ion-col>
-				<button ion-button icon-left clear small>
-				<ion-icon name="paw"></ion-icon>
-				<div>Dinossauro</div>
+				<button ion-button clear small color="notlikePet" icon-left>
+					<ion-icon name='close'></ion-icon>
+					Não gostei
 				</button>
-			</ion-col>
-			<ion-col>
-				<button ion-button icon-left clear small>
-				<ion-icon name="pin"></ion-icon>
-				<div>4km de distância</div>
+			</ion-col>			
+			<ion-col text-right>
+				<button ion-button clear small color="likePet" icon-left>
+					<ion-icon name='heart'></ion-icon>
+					Gostei
 				</button>
-			</ion-col>
-			<ion-col center text-center>
-				<ion-note>11h ago</ion-note>
 			</ion-col>
 		</ion-row>
-	</ion-card>-->
-
-	<!--<ion-card>	
-		<ion-slides pager loop="true">
-			<ion-slide>
-				<img src="assets/img/rex-bg.jpg">
-			</ion-slide>
-			<ion-slide>
-				<img src="assets/img/rex-bg-1.jpg">
-			</ion-slide>
-			<ion-slide>
-				<img src="assets/img/rex-bg-2.jpeg">
-			</ion-slide>
-		</ion-slides>
-		<ion-card-content>
-			<ion-card-title>Rex</ion-card-title>
-			<p>The most popular industrial group ever, and largely responsible for bringing the music to a mass audience.</p>
-		</ion-card-content>
 	</ion-card>
-</ion-content>-->
-
-<!--<ion-footer text-center>
-	<button color="danger" ion-button icon-only clear large>
-		<ion-icon name="close-circle"></ion-icon>
-	</button>
-
-	<button ion-button icon-only clear small
-		(click)="goToInfoPet()">
-		<ion-icon name="information-circle"></ion-icon>
-	</button>
-
-	<button color="secondary" ion-button icon-only clear large>
-		<ion-icon name="checkmark-circle"></ion-icon>
-	</button>
-</ion-footer>-->
+</ion-content>
