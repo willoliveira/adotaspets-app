@@ -24,27 +24,28 @@ $font-path: "../assets/fonts";
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #488aff,
-  secondary:  #32db64,
-  danger:     #f53d3d,
-  light:      #f4f4f4,
-  dark:       #222,
-  face:       #3b5998,
-  greenLight: #C8E6C9  
+  primary:        #488aff,
+  secondary:      #32db64,
+  danger:         #f53d3d,
+  light:          #f4f4f4,
+  dark:           #222,
+  face:           #3b5998,  
+  greenDarkTheme: #4caf50
 );
 
 
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
-
-
-
+//$font-family-ios-base: -apple-system, "Varela Round", "Roboto", sans-serif;
+$tabs-ios-tab-icon-size: 30px;
+$tabs-ios-tab-icon-color: rgba(255, 255, 255, .5);
+$tabs-ios-tab-icon-color-active: #fff;
 
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
-$font-family-md-base: "Varela Round", "Roboto", sans-serif;
+//$font-family-md-base: "Varela Round", "Roboto", sans-serif;
 $tabs-md-tab-icon-size: 2.8rem;
 $tabs-md-tab-icon-color: rgba(255, 255, 255, .5);
 $tabs-md-tab-icon-color-active: #fff;
@@ -62,10 +63,7 @@ $tabs-md-tab-icon-color-active: #fff;
 // then be future customized. This import comes last
 // so that the above variables are used and Ionic's
 // default are overridden.
-$font-family-ios-base: -apple-system, "Varela Round", "Roboto", sans-serif;
-$tabs-ios-tab-icon-size: 30px;
-$tabs-ios-tab-icon-color: rgba(255, 255, 255, .5);
-$tabs-ios-tab-icon-color-active: #fff;
+$img-placeholder-background: transparent;
 
 @import "ionic.theme.default";
 

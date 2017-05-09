@@ -1,14 +1,12 @@
-<ion-content padding>
-	<div class="container-segment">
-		<ion-segment [(ngModel)]="tab">
-			<ion-segment-button value="perfil">
-				Meu perfil
-			</ion-segment-button>
-			<ion-segment-button value="pets">
-				Meus pets
-			</ion-segment-button>
-		</ion-segment>
-	</div>
+<ion-content padding>	
+	<ion-segment [(ngModel)]="tab">
+		<ion-segment-button value="perfil">
+			Meu perfil
+		</ion-segment-button>
+		<ion-segment-button value="pets">
+			Meus pets
+		</ion-segment-button>
+	</ion-segment>	
 
 	<div [ngSwitch]="tab">
 		<div *ngSwitchCase="'perfil'">

@@ -1,20 +1,18 @@
-<ion-content padding>
-	<div class="container-bt-filter">
-		<button ion-button icon-right block outline round color="greenLight" class="bt-filter"> 
-			Filtros <ion-icon name="funnel"></ion-icon>
-		</button>
-	</div>
+<ion-content padding>	
+	<button ion-button icon-right block round color="greenDarkTheme" outline class="bt-filter"> 
+		Filtros <ion-icon name="options"></ion-icon>
+	</button>	
 
-	<!--<ion-card>
+	<ion-card>
 		<ion-item>
 			<ion-avatar item-left>
 				<img src="assets/img/avatar-ts-jessie.png">
 			</ion-avatar>
-			<h2>Jessie</h2>
-			<p>November 5, 1955</p>
+			<h2 class="name-responsible">Jessie</h2>
+			<p>Responsável</p>
 		</ion-item>
 
-		<ion-slides loop="true" paginationType="bullets">
+		<ion-slides pager loop="true">
 			<ion-slide>
 				<img src="assets/img/rex-bg.jpg">
 			</ion-slide>
@@ -27,11 +25,28 @@
 		</ion-slides>
 
 		<ion-card-content>
-			<h1>Rex</h1>
-			<p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
-		</ion-card-content>
+			<h1 class="name-pet">Rex</h1>
+			
+			<div class="container-tipo">
+				<ion-icon name="paw"></ion-icon>
+				<span class="txt">Cachorro, porte grande</span>			
+			</div>
 
-		<ion-row>
+			<div class="container-km">
+				<ion-icon name="pin"></ion-icon>
+				<span class="txt">10 km de distância</span>			
+			</div>
+		</ion-card-content>
+	</ion-card>	
+	
+	<div class="container-bt-actions">
+		<button ion-fab class="nop"><ion-icon name="close"></ion-icon></button>
+		<button ion-fab mini class="info"><ion-icon name="paw"></ion-icon></button>
+		<button ion-fab class="like"><ion-icon name="heart"></ion-icon></button>
+	</div>
+</ion-content>
+
+		<!--<ion-row>
 			<ion-col>
 				<button ion-button icon-left clear small>
 				<ion-icon name="paw"></ion-icon>
@@ -48,10 +63,9 @@
 				<ion-note>11h ago</ion-note>
 			</ion-col>
 		</ion-row>
-
 	</ion-card>-->
 
-	<ion-card>	
+	<!--<ion-card>	
 		<ion-slides pager loop="true">
 			<ion-slide>
 				<img src="assets/img/rex-bg.jpg">
@@ -68,7 +82,7 @@
 			<p>The most popular industrial group ever, and largely responsible for bringing the music to a mass audience.</p>
 		</ion-card-content>
 	</ion-card>
-</ion-content>
+</ion-content>-->
 
 <!--<ion-footer text-center>
 	<button color="danger" ion-button icon-only clear large>
