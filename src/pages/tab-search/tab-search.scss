@@ -1,13 +1,17 @@
-page-tab-search {    
-    ion-card-content {
-        padding-bottom: 0px !important;
-    }
-
+page-tab-search {        
     ion-item {
         ion-icon, p {
             color: #666;
         }        
     }
+
+    ion-fab {
+        opacity: .9;
+
+        &.notlikePet {
+            right: 90px;
+        }
+    }    
 
     .info-pet {
         ion-icon, p {

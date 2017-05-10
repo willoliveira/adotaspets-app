@@ -5,15 +5,15 @@
 		</button>	
 	</div>
 
-	<ion-card>
+	<ion-card>		
 		<ion-item>
 			<ion-avatar item-left>
-				<img src="assets/img/avatar-ts-jessie.png">
-			</ion-avatar>
+				<img src="assets/img/avatar-ts-jessie.png">				
+			</ion-avatar>			
 			<h2>Luís Inacio Lula da Silva</h2>
-			<p>Responsável</p>
-		</ion-item>
-
+			<p>Responsável</p>			
+		</ion-item>		
+		
 		<ion-slides pager loop="true">
 			<ion-slide>
 				<img src="assets/img/rex-bg.jpg">
@@ -29,37 +29,28 @@
 		<ion-card-content>
 			<ion-card-title>
 				Joaquim
-			</ion-card-title>						
+			</ion-card-title>
+
+			<p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine...</p>						
 		</ion-card-content>		
 
 		<ion-item>
-			<ion-icon name="paw" item-left small></ion-icon>
-    		<p item-left>Cachorro</p>    		
-  		</ion-item>
-
+			<ion-icon name="paw" item-left large></ion-icon>
+			<h2>Cachorro</h2>
+			<p>Porte grande</p>
+		</ion-item>		
 		<ion-item>
-			<ion-icon name="pin" item-left small></ion-icon>
-    		<p item-left>7 Km de distância</p>    		
-  		</ion-item>
-
-		<ion-item (click)="goToInfoPet()" class="info-pet">
-			<ion-icon name="information-circle" item-left small></ion-icon>
-    		<p item-left>Ver mais informações</p>    		
-  		</ion-item>
-
-		<ion-row no-padding>
-			<ion-col>
-				<button ion-button clear small color="notlikePet" icon-left>
-					<ion-icon name='close'></ion-icon>
-					Não gostei
-				</button>
-			</ion-col>			
-			<ion-col text-right>
-				<button ion-button clear small color="likePet" icon-left>
-					<ion-icon name='heart'></ion-icon>
-					Gostei
-				</button>
-			</ion-col>
-		</ion-row>
+			<ion-icon name="pin" item-left large></ion-icon>
+			<h2>Distância</h2>
+			<p>7 Km</p>
+		</ion-item>	
 	</ion-card>
+
+	<ion-fab bottom right class="notlikePet">
+    	<button ion-fab color="notlikePet"><ion-icon name="close"></ion-icon></button>    
+  	</ion-fab>			
+
+	<ion-fab bottom right class="likePet">
+    	<button ion-fab color="likePet"><ion-icon name="heart-outline"></ion-icon></button>    
+  	</ion-fab>	
 </ion-content>
