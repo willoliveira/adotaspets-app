@@ -1,15 +1,19 @@
 page-login { 
     ion-content {
         background-image: linear-gradient(180deg, #fff, #F5F5F5);
-    }   
 
-    .logo {
-        display: block;        
-        margin: 0 auto;
-        margin-top: 15px;
-    }
+        .logo {
+            width: 122px;
+            height: 94px;
+            display: block;        
+            margin: 0 auto;
+            margin-top: 15px;
+        }
+    }       
 
     .pet-slide {
+        width: 128px;
+        height: 128px;
         margin-top: 15px;
         margin-bottom: 15px;
     }

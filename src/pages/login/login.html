@@ -24,13 +24,17 @@
         Pular login <ion-icon name="arrow-forward"></ion-icon>
     </button>    
 
-    <ion-card *ngIf="userProfile">
-        <img [src]="userProfile.photoURL"/>
-        <ion-card-content>
-            <ion-card-title>
-                {{ userProfile.displayName }}
-            </ion-card-title>
-            <p>The UID for this new user is {{userProfile.uid}} and the email is {{userProfile.email}}</p>
-        </ion-card-content>
-    </ion-card>
+    <ion-card *ngIf="userProfile">		
+		<ion-item>
+			<ion-avatar item-left>
+				<img [src]="userProfile.photoURL" />				
+			</ion-avatar>			
+			<h2>{{ userProfile.displayName }}</h2>
+			<p>{{userProfile.email}}</p>			
+		</ion-item>		
+				
+		<ion-card-content>			
+			<p>ID gerado no Firebase: {{userProfile.uid}}</p>
+		</ion-card-content>		
+	</ion-card>    
 </ion-content>
