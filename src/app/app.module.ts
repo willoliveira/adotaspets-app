@@ -14,7 +14,7 @@ import { PetModule } from '../pages/pet/pet.module';
 import { ResponsibleModule } from '../pages/responsible/responsible.module';
 
 import { Camera } from '@ionic-native/camera';
-
+import { Facebook, FacebookLoginResponse  } from '@ionic-native/facebook';
 
 @NgModule({
 	declarations: [
@@ -35,9 +35,9 @@ import { Camera } from '@ionic-native/camera';
 	providers: [
 		StatusBar,
 		SplashScreen,
-		{provide: ErrorHandler, useClass: IonicErrorHandler},
-		
-		Camera
+		{provide: ErrorHandler, useClass: IonicErrorHandler},		
+		Camera,
+		Facebook 
 	]
 })
 export class AppModule {}

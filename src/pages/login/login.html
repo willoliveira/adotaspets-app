@@ -18,9 +18,19 @@
         </ion-slide>
     </ion-slides>
 
-    <button ion-button round block (click)="goToHome()" color="face" class="bt-login-face">Fazer login com FaceBook</button>
+    <button ion-button round block (click)="facebookLogin()" color="face" class="bt-login-face">Fazer login com FaceBook</button>
 
     <button ion-button icon-right block clear text-capitalize class="bt-jump-login" (click)="goToHome()">
         Pular login <ion-icon name="arrow-forward"></ion-icon>
-    </button>
+    </button>    
+
+    <ion-card *ngIf="userProfile">
+        <img [src]="userProfile.photoURL"/>
+        <ion-card-content>
+            <ion-card-title>
+                {{ userProfile.displayName }}
+            </ion-card-title>
+            <p>The UID for this new user is {{userProfile.uid}} and the email is {{userProfile.email}}</p>
+        </ion-card-content>
+    </ion-card>
 </ion-content>

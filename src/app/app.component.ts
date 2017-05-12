@@ -14,20 +14,20 @@ export class MyApp {
 	rootPage:any = Login;
 	
 	constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
-		platform.ready().then(() => {
-			// Okay, so the platform is ready and our plugins are available.
-			// Here you can do any higher level native things you might need.
+		const firebaseConfig = {
+			apiKey: "AIzaSyCmtCwSwRTeOSSNPYGNuu9s2ZjiYfS71UE",
+			authDomain: "adotapets-11b45.firebaseapp.com",
+			databaseURL: "https://adotapets-11b45.firebaseio.com",
+			projectId: "adotapets-11b45",
+			storageBucket: "adotapets-11b45.appspot.com",
+			messagingSenderId: "349595714070"
+		};
+
+		firebase.initializeApp(firebaseConfig);
+		
+		platform.ready().then(() => {			
 			statusBar.styleDefault();
-			splashScreen.hide();
-			
-			firebase.initializeApp({
-				apiKey: "AIzaSyAW5kS4jSmXOSzChodCEq9YpgIIBP5thrM",
-				authDomain: "takecareofme-46558.firebaseapp.com",
-				databaseURL: "https://takecareofme-46558.firebaseio.com",
-				projectId: "takecareofme-46558",
-				storageBucket: "takecareofme-46558.appspot.com",
-				messagingSenderId: "941235909858"
-			});
+			splashScreen.hide();					
 		});
 	}
 }
