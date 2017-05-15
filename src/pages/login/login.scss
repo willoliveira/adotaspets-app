@@ -9,7 +9,11 @@ page-login {
             margin: 0 auto;
             margin-top: 15px;
         }
-    }       
+    }  
+    
+    .not-comercial {
+        color: #B0BEC5;
+    }     
 
     .pet-slide {
         width: 128px;
@@ -28,10 +32,9 @@ page-login {
         background-image: linear-gradient(260deg,#337eb9,#384499);
     }
 
-    ion-slides {
-        margin-top: 15px;
+    ion-slides {        
         margin-bottom: 15px;
-        height: 50%;
+        height: 55%;
 
         h3 {
             color: #37474F;

@@ -9,5 +9,76 @@ page-tab-perfil {
         .segment-button {
             color: #4caf50;
         }    
-    }        
+    }      
+
+    .tab-perfil {
+        position: relative;
+
+        .img-user-perfil {
+            background: #000 url(../assets/img/lula.jpg) center center ;
+            width: 130px;
+            height: 130px;            
+            border-radius: 50%;
+            background-size: cover;
+            margin: 0 auto;        
+            margin-top: 50px;
+            box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.14), 0 4px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .name-perfil {
+            color: #37474F;
+            margin-bottom: 25px;
+        }          
+
+        .edit-perfil {
+            position: absolute;
+            top: 85px;
+            left: 55%;
+        }
+
+        .label-sobre {
+            font-size: 14px !important;
+        }
+
+        .limit {
+            color: #B0BEC5;
+            text-align: right;
+            margin-top: 10px;
+        }
+
+        .container-bt-sair {
+            margin: 0 10px;
+            margin-top: 20px;        
+        }
+    }   
+
+    .tab-pets {    
+        ion-fab {
+            position: fixed;
+        }
+
+        .item-state {
+            color: #4CAF50;
+        }   
+
+        .item-likes {
+            color: #F44336;
+
+            ion-icon {
+                color: #F44336;
+            }
+
+            .badge-md {
+                background-color: #F44336;
+            }
+        }        
+
+        .bt-actions {
+            margin: 0px;
+            box-shadow: none;
+            border-top-left-radius: 0px;
+            border-top-right-radius: 0px;
+            background-color: #607D8B;
+        }
+    } 
 }

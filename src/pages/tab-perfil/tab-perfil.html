@@ -1,4 +1,4 @@
-<ion-content padding>	
+<ion-content>	
 	<ion-segment [(ngModel)]="tab">
 		<ion-segment-button value="perfil">
 			Meu perfil
@@ -9,44 +9,106 @@
 	</ion-segment>	
 
 	<div [ngSwitch]="tab">
-		<div *ngSwitchCase="'perfil'">
-			Meu perfil
+		<div *ngSwitchCase="'perfil'" class="tab-perfil">
+			<div class="img-user-perfil"></div>
+			<h3 class="name-perfil" text-center>Luís Inácio Lula da Silva</h3>			
+			<button ion-fab mini class="edit-perfil"><ion-icon name="create"></ion-icon></button>    			
+
+			<ion-card>				
+				<ion-card-content>															
+					<ion-list>
+						<ion-item>
+							<ion-label color="dark" stacked class="label-sobre">Sobre min</ion-label>
+							<ion-input type="text" placeholder="Escreva um pouco sobre você"></ion-input>
+						</ion-item>
+					</ion-list>
+					<p class="limit">300</p>
+				</ion-card-content>
+			</ion-card>
+			<div class="container-bt-sair">
+				<button ion-button block class="bt-sair" color="danger">Sair</button>	
+			</div>
 		</div>
 
-		<div *ngSwitchCase="'pets'">
-			<ion-list>
+		<div *ngSwitchCase="'pets'" class="tab-pets">
+			<ion-card>
 				<ion-item>
 					<ion-avatar item-left>
-						<img src="assets/img/avatar-ts-potatohead.png">
+					<img src="assets/img/avatar-ts-slinky.png">
 					</ion-avatar>
-					<h2>Potatohead</h2>
-					<p>Batata</p>
-				</ion-item>
-				
-				<ion-item>
-					<ion-avatar item-left>
-						<img src="assets/img/avatar-ts-rex.png">
-					</ion-avatar>
-					<h2>Rex</h2>
-					<p>Dinosauro</p>
-				</ion-item>
+					<h2>Dog do lula</h2>
+					<p>Cachorro, porte pequeno</p>
+				</ion-item>				
 
-				<ion-item>
-					<ion-avatar item-left>
-						<img src="assets/img/avatar-ts-slinky.png">
-					</ion-avatar>
-					<h2>Slinky</h2>
-					<p>Cachorro</p>
-				</ion-item>
+				<ion-card-content>
+					<p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine...</p>
+				</ion-card-content>	
+				<ion-item class="item-state">					
+					<ion-icon name="home" item-left></ion-icon>
+					Precisa de um lar					
+				</ion-item>			
+				<ion-item class="item-likes">
+					<ion-icon name="heart" item-left></ion-icon>
+					Likes
+					<ion-badge item-right>20</ion-badge>
+				</ion-item>		
 
+				<button ion-button block class="bt-actions" color="dark" (click)="openMenu()">Ações</button>	
+			</ion-card>
+
+			<ion-card>
 				<ion-item>
 					<ion-avatar item-left>
-						<img src="assets/img/avatar-ts-bullseye.png">
+					<img src="assets/img/avatar-ts-slinky.png">
 					</ion-avatar>
-					<h2>Bulleye</h2>
-					<p>Cavalo</p>
-				</ion-item>
-			</ion-list>
+					<h2>Dog do lula</h2>
+					<p>Cachorro, porte pequeno</p>
+				</ion-item>				
+
+				<ion-card-content>
+					<p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine...</p>
+				</ion-card-content>	
+				<ion-item class="item-state">					
+					<ion-icon name="home" item-left></ion-icon>
+					Precisa de um lar					
+				</ion-item>			
+				<ion-item class="item-likes">
+					<ion-icon name="heart" item-left></ion-icon>
+					Likes
+					<ion-badge item-right>20</ion-badge>
+				</ion-item>		
+
+				<button ion-button block class="bt-actions" color="dark" (click)="openMenu()">Ações</button>	
+			</ion-card>
+
+			<ion-card>
+				<ion-item>
+					<ion-avatar item-left>
+					<img src="assets/img/avatar-ts-slinky.png">
+					</ion-avatar>
+					<h2>Dog do lula</h2>
+					<p>Cachorro, porte pequeno</p>
+				</ion-item>				
+
+				<ion-card-content>
+					<p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine...</p>
+				</ion-card-content>	
+				<ion-item class="item-state">					
+					<ion-icon name="home" item-left></ion-icon>
+					Precisa de um lar					
+				</ion-item>			
+				<ion-item class="item-likes">
+					<ion-icon name="heart" item-left></ion-icon>
+					Likes
+					<ion-badge item-right>20</ion-badge>
+				</ion-item>		
+
+				<button ion-button block class="bt-actions" color="dark" (click)="openMenu()">Ações</button>	
+			</ion-card>
+
+			<ion-fab bottom right>
+				<button ion-fab color="greenDarkTheme"><ion-icon name="add"></ion-icon></button>    
+			</ion-fab>	
 		</div>
 	</div>
 </ion-content>
