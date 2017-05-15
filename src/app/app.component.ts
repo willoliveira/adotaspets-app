@@ -15,13 +15,13 @@ export class MyApp {
 	
 	constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
 		const firebaseConfig = {
-			apiKey: "AIzaSyCmtCwSwRTeOSSNPYGNuu9s2ZjiYfS71UE",
-			authDomain: "adotapets-11b45.firebaseapp.com",
-			databaseURL: "https://adotapets-11b45.firebaseio.com",
-			projectId: "adotapets-11b45",
-			storageBucket: "adotapets-11b45.appspot.com",
-			messagingSenderId: "349595714070"
-		};
+			apiKey: "AIzaSyAZ5V-6_ql43SrlOa-qKlAnXBsqQrHL9h0",
+			authDomain: "adotapets-7c2fa.firebaseapp.com",
+			databaseURL: "https://adotapets-7c2fa.firebaseio.com",
+			projectId: "adotapets-7c2fa",
+			storageBucket: "adotapets-7c2fa.appspot.com",
+			messagingSenderId: "865809069618"
+		};  
 
 		firebase.initializeApp(firebaseConfig);
 		
