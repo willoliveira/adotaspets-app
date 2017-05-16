@@ -12,7 +12,7 @@
 		<div *ngSwitchCase="'perfil'" class="tab-perfil">
 			<div class="img-user-perfil"></div>
 			<h3 class="name-perfil" text-center>Luís Inácio Lula da Silva</h3>			
-			<button ion-fab mini class="edit-perfil"><ion-icon name="create"></ion-icon></button>    			
+			<!--<button ion-fab mini class="edit-perfil"><ion-icon name="create"></ion-icon></button>-->
 
 			<ion-card>				
 				<ion-card-content>															
@@ -25,36 +25,20 @@
 					<p class="limit">300</p>
 				</ion-card-content>
 			</ion-card>
+			<div class="container-bt-editar">
+				<button ion-button block class="bt-sair" round color="greenTheme">Editar</button>	
+			</div>
 			<div class="container-bt-sair">
-				<button ion-button block class="bt-sair" color="danger">Sair</button>	
+				<button ion-button block class="bt-sair" round color="redTheme">Sair</button>	
 			</div>
 		</div>
 
 		<div *ngSwitchCase="'pets'" class="tab-pets">
-			<ion-card>
-				<ion-item>
-					<ion-avatar item-left>
-					<img src="assets/img/avatar-ts-slinky.png">
-					</ion-avatar>
-					<h2>Dog do lula</h2>
-					<p>Cachorro, porte pequeno</p>
-				</ion-item>				
-
-				<ion-card-content>
-					<p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine...</p>
-				</ion-card-content>	
-				<ion-item class="item-state">					
-					<ion-icon name="home" item-left></ion-icon>
-					Precisa de um lar					
-				</ion-item>			
-				<ion-item class="item-likes">
-					<ion-icon name="heart" item-left></ion-icon>
-					Likes
-					<ion-badge item-right>20</ion-badge>
-				</ion-item>		
-
-				<button ion-button block class="bt-actions" color="dark" (click)="openMenu()">Ações</button>	
-			</ion-card>
+			<div class="container-bt-add">
+				<button ion-button icon-right block round color="greenTheme" outline class="bt-add"> 
+					Adicionar pet <ion-icon name="add"></ion-icon>
+				</button>	
+			</div>
 
 			<ion-card>
 				<ion-item>
@@ -63,23 +47,15 @@
 					</ion-avatar>
 					<h2>Dog do lula</h2>
 					<p>Cachorro, porte pequeno</p>
-				</ion-item>				
-
-				<ion-card-content>
-					<p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine...</p>
-				</ion-card-content>	
-				<ion-item class="item-state">					
-					<ion-icon name="home" item-left></ion-icon>
-					Precisa de um lar					
-				</ion-item>			
-				<ion-item class="item-likes">
-					<ion-icon name="heart" item-left></ion-icon>
-					Likes
-					<ion-badge item-right>20</ion-badge>
-				</ion-item>		
-
-				<button ion-button block class="bt-actions" color="dark" (click)="openMenu()">Ações</button>	
-			</ion-card>
+					<p class="item-state"><ion-icon name="home"></ion-icon> Precisa de um lar</p>
+					<p class="item-likes"><ion-icon name="heart"></ion-icon> 10 like(s)</p>
+				</ion-item>												
+				<ion-fab right bottom>
+					<button ion-fab class="fab-map" mini color="dark" (click)="openMenu()">
+						<ion-icon name='create'></ion-icon>
+					</button>
+				</ion-fab>
+			</ion-card>			
 
 			<ion-card>
 				<ion-item>
@@ -88,27 +64,66 @@
 					</ion-avatar>
 					<h2>Dog do lula</h2>
 					<p>Cachorro, porte pequeno</p>
-				</ion-item>				
+					<p class="item-state"><ion-icon name="home"></ion-icon> Precisa de um lar</p>
+					<p class="item-likes"><ion-icon name="heart"></ion-icon> 10 like(s)</p>
+				</ion-item>												
+				<ion-fab right bottom>
+					<button ion-fab class="fab-map" mini color="dark" (click)="openMenu()">
+						<ion-icon name='create'></ion-icon>
+					</button>
+				</ion-fab>
+			</ion-card>			
 
-				<ion-card-content>
-					<p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine...</p>
-				</ion-card-content>	
-				<ion-item class="item-state">					
-					<ion-icon name="home" item-left></ion-icon>
-					Precisa de um lar					
-				</ion-item>			
-				<ion-item class="item-likes">
-					<ion-icon name="heart" item-left></ion-icon>
-					Likes
-					<ion-badge item-right>20</ion-badge>
-				</ion-item>		
+			<ion-card>
+				<ion-item>
+					<ion-avatar item-left>
+					<img src="assets/img/avatar-ts-slinky.png">
+					</ion-avatar>
+					<h2>Dog do lula</h2>
+					<p>Cachorro, porte pequeno</p>
+					<p class="item-state"><ion-icon name="home"></ion-icon> Precisa de um lar</p>
+					<p class="item-likes"><ion-icon name="heart"></ion-icon> 10 like(s)</p>
+				</ion-item>												
+				<ion-fab right bottom>
+					<button ion-fab class="fab-map" mini color="dark" (click)="openMenu()">
+						<ion-icon name='create'></ion-icon>
+					</button>
+				</ion-fab>
+			</ion-card>			
 
-				<button ion-button block class="bt-actions" color="dark" (click)="openMenu()">Ações</button>	
-			</ion-card>
+			<ion-card>
+				<ion-item>
+					<ion-avatar item-left>
+					<img src="assets/img/avatar-ts-slinky.png">
+					</ion-avatar>
+					<h2>Dog do lula</h2>
+					<p>Cachorro, porte pequeno</p>
+					<p class="item-state"><ion-icon name="home"></ion-icon> Precisa de um lar</p>
+					<p class="item-likes"><ion-icon name="heart"></ion-icon> 10 like(s)</p>
+				</ion-item>												
+				<ion-fab right bottom>
+					<button ion-fab class="fab-map" mini color="dark" (click)="openMenu()">
+						<ion-icon name='create'></ion-icon>
+					</button>
+				</ion-fab>
+			</ion-card>			
 
-			<ion-fab bottom right>
-				<button ion-fab color="greenDarkTheme"><ion-icon name="add"></ion-icon></button>    
-			</ion-fab>	
+			<ion-card>
+				<ion-item>
+					<ion-avatar item-left>
+					<img src="assets/img/avatar-ts-slinky.png">
+					</ion-avatar>
+					<h2>Dog do lula</h2>
+					<p>Cachorro, porte pequeno</p>
+					<p class="item-state"><ion-icon name="home"></ion-icon> Precisa de um lar</p>
+					<p class="item-likes"><ion-icon name="heart"></ion-icon> 10 like(s)</p>
+				</ion-item>												
+				<ion-fab right bottom>
+					<button ion-fab class="fab-map" mini color="dark" (click)="openMenu()">
+						<ion-icon name='create'></ion-icon>
+					</button>
+				</ion-fab>
+			</ion-card>						
 		</div>
 	</div>
 </ion-content>

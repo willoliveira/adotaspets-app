@@ -12,7 +12,7 @@ page-tab-perfil {
     }      
 
     .tab-perfil {
-        position: relative;
+        /*position: relative;*/
 
         .img-user-perfil {
             background: #000 url(../assets/img/lula.jpg) center center ;
@@ -21,7 +21,7 @@ page-tab-perfil {
             border-radius: 50%;
             background-size: cover;
             margin: 0 auto;        
-            margin-top: 50px;
+            margin-top: 30px;
             box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.14), 0 4px 5px rgba(0, 0, 0, 0.1);
         }
 
@@ -30,14 +30,14 @@ page-tab-perfil {
             margin-bottom: 25px;
         }          
 
-        .edit-perfil {
+        /*.edit-perfil {
             position: absolute;
             top: 85px;
             left: 55%;
-        }
+        }*/
 
         .label-sobre {
-            font-size: 14px !important;
+            font-size: 16px !important;
         }
 
         .limit {
@@ -46,19 +46,32 @@ page-tab-perfil {
             margin-top: 10px;
         }
 
-        .container-bt-sair {
+        .container-bt-editar, .container-bt-sair {
             margin: 0 10px;
-            margin-top: 20px;        
+            margin-top: 20px; 
+
+            button {
+                height: 40px;
+            }       
+        }
+
+        .container-bt-sair {            
+            margin-bottom: 20px; 
         }
     }   
 
     .tab-pets {    
-        ion-fab {
+        ion-card {
+            position: relative;
+        }        
+
+        .fab-add {
             position: fixed;
         }
 
         .item-state {
-            color: #4CAF50;
+            margin-top: 10px;
+            color: #4caf50;
         }   
 
         .item-likes {
@@ -71,14 +84,10 @@ page-tab-perfil {
             .badge-md {
                 background-color: #F44336;
             }
-        }        
+        }  
 
-        .bt-actions {
-            margin: 0px;
-            box-shadow: none;
-            border-top-left-radius: 0px;
-            border-top-right-radius: 0px;
-            background-color: #607D8B;
-        }
+        .container-bt-add {
+            margin: 10px;        
+        }              
     } 
 }
