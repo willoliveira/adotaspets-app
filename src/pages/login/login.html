@@ -1,42 +1,42 @@
 <ion-content padding>
-    <img class="logo" src="assets/img/logo.png">
+	<img class="logo" src="assets/img/logo.png">
 
-    <ion-slides pager loop="true">
-        <ion-slide>
-            <h3>Coloque seus pets que precisam de um lar para adoção</h3>
-            <img class="pet-slide" src="assets/img/pet_slide_1.png">
-        </ion-slide>
+	<ion-slides pager loop="true">
+		<ion-slide>
+			<h3>Coloque seus pets que precisam de um lar para adoção</h3>
+			<img class="pet-slide" src="assets/img/pet_slide_1.png">
+		</ion-slide>
 
-        <ion-slide>
-            <h3>Procure por pets que você possa adotar</h3>
-            <img class="pet-slide" src="assets/img/pet_slide_2.png">
-        </ion-slide>
+		<ion-slide>
+			<h3>Procure por pets que você possa adotar</h3>
+			<img class="pet-slide" src="assets/img/pet_slide_2.png">
+		</ion-slide>
 
-        <ion-slide>
-            <h3>Converse com as melhores pessoas para garantir a felicidade dos seus    pets</h3>
-            <img class="pet-slide" src="assets/img/pet_slide_3.png">
-        </ion-slide>
-    </ion-slides>
+		<ion-slide>
+			<h3>Converse com as melhores pessoas para garantir a felicidade dos seus    pets</h3>
+			<img class="pet-slide" src="assets/img/pet_slide_3.png">
+		</ion-slide>
+	</ion-slides>
 
-    <button ion-button round block (click)="facebookLogin()" color="face" class="bt-login-face">Fazer login com FaceBook</button>
+	<button ion-button round block (click)="facebookLogin()" color="face" class="bt-login-face">Fazer login com FaceBook</button>
 
-    <button ion-button icon-right block clear text-capitalize class="bt-jump-login" (click)="goToHome()">
-        Pular login <ion-icon name="arrow-forward"></ion-icon>
-    </button>    
+	<button ion-button icon-right block clear text-capitalize class="bt-jump-login" (click)="goToHome()">
+		Pular login <ion-icon name="arrow-forward"></ion-icon>
+	</button>    
 
-    <p text-center class="not-comercial">Não apoiamos a comercialização de animais.</p>
+	<p text-center class="not-comercial">Não apoiamos a comercialização de animais.</p>
 
-    <ion-card *ngIf="userProfile">		
+	<!--<ion-card *ngIf="userProfile">
 		<ion-item>
 			<ion-avatar item-left>
-				<img [src]="userProfile.photoURL" />				
-			</ion-avatar>			
+				<img [src]="userProfile.photoURL" />
+			</ion-avatar>
 			<h2>{{ userProfile.displayName }}</h2>
-			<p>{{userProfile.email}}</p>			
-		</ion-item>		
+			<p>{{userProfile.email}}</p>
+		</ion-item>
 				
-		<ion-card-content>			
+		<ion-card-content>
 			<p>ID gerado no Firebase: {{userProfile.uid}}</p>
-		</ion-card-content>		
-	</ion-card>    
+		</ion-card-content>
+	</ion-card>    -->
 </ion-content>
