@@ -1,19 +1,19 @@
-<ion-content>	
+<ion-content>
 	<div class="container-bt-filter">
-		<button ion-button icon-right block round color="greenTheme" outline> 
+		<button ion-button icon-right block round color="greenTheme" outline (click)="openModal()">
 			Filtros <ion-icon name="options"></ion-icon>
-		</button>	
+		</button>
 	</div>
 
-	<ion-card>		
+	<ion-card>
 		<ion-item>
 			<ion-avatar item-left>
-				<img src="assets/img/avatar-ts-jessie.png">				
-			</ion-avatar>			
+				<img src="assets/img/avatar-ts-jessie.png">
+			</ion-avatar>
 			<h2>Luís Inacio Lula da Silva</h2>
-			<p>Responsável</p>			
-		</ion-item>		
-		
+			<p>Responsável</p>
+		</ion-item>
+
 		<ion-slides pager loop="true">
 			<ion-slide>
 				<img src="assets/img/rex-bg.jpg">
@@ -31,26 +31,26 @@
 				Joaquim
 			</ion-card-title>
 
-			<p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine...</p>						
-		</ion-card-content>		
+			<p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine...</p>
+		</ion-card-content>
 
 		<ion-item>
 			<ion-icon name="paw" item-left large></ion-icon>
 			<h2>Cachorro</h2>
 			<p>Porte grande</p>
-		</ion-item>		
+		</ion-item>
 		<ion-item>
 			<ion-icon name="pin" item-left large></ion-icon>
 			<h2>Distância</h2>
 			<p>7 Km</p>
-		</ion-item>	
+		</ion-item>
 	</ion-card>
 
 	<ion-fab bottom right class="notlikePet">
-    	<button ion-fab color="redTheme"><ion-icon name="close"></ion-icon></button>    
-  	</ion-fab>			
+    	<button ion-fab color="redTheme"><ion-icon name="close"></ion-icon></button>
+  	</ion-fab>
 
 	<ion-fab bottom right class="likePet">
-    	<button ion-fab color="greenTheme"><ion-icon name="heart-outline"></ion-icon></button>    
-  	</ion-fab>	
+    	<button ion-fab color="greenTheme"><ion-icon name="heart-outline"></ion-icon></button>
+  	</ion-fab>
 </ion-content>

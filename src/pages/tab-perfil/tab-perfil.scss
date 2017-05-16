@@ -1,26 +1,26 @@
-page-tab-perfil {    
+page-tab-perfil {
     .segment-md {
         margin-bottom: 20px;
 
         .segment-button.activated, .segment-button.segment-activated {
             border-color: #4caf50;
-        }        
+        }
 
         .segment-button {
             color: #4caf50;
-        }    
-    }      
+        }
+    }
 
     .tab-perfil {
         /*position: relative;*/
 
         .img-user-perfil {
-            background: #000 url(../assets/img/lula.jpg) center center ;
+            background: #37474F url(../assets/img/lula.jpg) center center ;
             width: 130px;
-            height: 130px;            
+            height: 130px;
             border-radius: 50%;
             background-size: cover;
-            margin: 0 auto;        
+            margin: 0 auto;
             margin-top: 30px;
             box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.14), 0 4px 5px rgba(0, 0, 0, 0.1);
         }
@@ -28,7 +28,7 @@ page-tab-perfil {
         .name-perfil {
             color: #37474F;
             margin-bottom: 25px;
-        }          
+        }
 
         /*.edit-perfil {
             position: absolute;
@@ -48,46 +48,41 @@ page-tab-perfil {
 
         .container-bt-editar, .container-bt-sair {
             margin: 0 10px;
-            margin-top: 20px; 
+            margin-top: 20px;
 
             button {
                 height: 40px;
-            }       
+            }
         }
 
-        .container-bt-sair {            
-            margin-bottom: 20px; 
+        .container-bt-sair {
+            margin-bottom: 20px;
         }
-    }   
+    }
 
-    .tab-pets {    
+    .tab-pets {
         ion-card {
             position: relative;
-        }        
-
-        .fab-add {
-            position: fixed;
         }
 
         .item-state {
             margin-top: 10px;
-            color: #4caf50;
-        }   
+
+            &.pet-pending {
+                color: #FF9800;
+            }
+
+            &.pet-donated {
+                color: #4caf50;
+            }
+        }
 
         .item-likes {
-            color: #F44336;
-
-            ion-icon {
-                color: #F44336;
-            }
-
-            .badge-md {
-                background-color: #F44336;
-            }
-        }  
+            margin-top: 5px;
+        }
 
         .container-bt-add {
-            margin: 10px;        
-        }              
-    } 
+            margin: 10px;
+        }
+    }
 }
