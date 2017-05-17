@@ -1,16 +1,19 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController, Platform, ModalController } from 'ionic-angular';
+
+import { ModalAddPet } from '../modals/modal-add-pet/modal-add-pet';
 
 @Component({
 	selector: 'page-tab-perfil',
 	templateUrl: 'tab-perfil.html',
 })
-export class TabPerfil {	
+
+export class TabPerfil {
 	public tab = "perfil";
-	
-	constructor(public navCtrl: NavController, public navParams: NavParams, public actionsheetCtrl: ActionSheetController, public platform: Platform) {
+
+	constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, public actionsheetCtrl: ActionSheetController, public platform: Platform) {
 	}
-	
+
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad TabPerfil');
 	}
@@ -35,7 +38,7 @@ export class TabPerfil {
 				handler: () => {
 					console.log('Share clicked');
 				}
-				},								
+				},
 				{
 				text: 'Excluir',
 				role: 'excluir', // will always sort to be on the bottom
@@ -54,7 +57,12 @@ export class TabPerfil {
 				}
 			]
 		});
-	
+
 		actionSheet.present();
-	}	
+	}
+
+    openModal() {
+        let modal = this.modalCtrl.create(ModalAddPet);
+        modal.present();
+    }
 }
