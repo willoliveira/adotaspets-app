@@ -13,9 +13,9 @@ import { MessagesModule } from '../pages/messages/messages.module';
 import { PerfilModule } from '../pages/perfil/perfil.module';
 import { PetModule } from '../pages/pet/pet.module';
 import { ResponsibleModule } from '../pages/responsible/responsible.module';
+import { AddPet } from '../pages/add-pet/add-pet';
 
 import { ModalFilter } from '../pages/modals/modal-filter/modal-filter';
-import { ModalAddPet } from '../pages/modals/modal-add-pet/modal-add-pet';
 
 import { Camera } from '@ionic-native/camera';
 import { Facebook, FacebookLoginResponse  } from '@ionic-native/facebook';
@@ -25,7 +25,8 @@ import { Facebook, FacebookLoginResponse  } from '@ionic-native/facebook';
 		MyApp,
 
         ModalFilter,
-        ModalAddPet
+
+        AddPet
 	],
 	imports: [
 		BrowserModule,
@@ -41,7 +42,8 @@ import { Facebook, FacebookLoginResponse  } from '@ionic-native/facebook';
 		MyApp,
 
         ModalFilter,
-        ModalAddPet
+
+        AddPet
 	],
 	providers: [
 		StatusBar,
