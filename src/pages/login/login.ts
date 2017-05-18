@@ -7,7 +7,8 @@ import firebase from 'firebase';
 
 import { Storage } from '@ionic/storage';
 
-import { User } from '../../models/user.model';
+import { AuthenticateProvider } from '../../providers/authenticate/authenticate.service';
+import { UserProvider } from '../../providers/user/user.service';
 
 @IonicPage()
 @Component({
@@ -22,15 +23,9 @@ export class Login {
 		public navCtrl: NavController, 
 		public navParams: NavParams, 
 		private fb: Facebook,
-		private storage: Storage) {
-	}
-
-	ionViewDidLoad() {
-		console.log('ionViewDidLoad Login');
-
-		var user: User;
-		console.log(user);
-	}
+		private storage: Storage,
+		private authProvider: AuthenticateProvider,
+		private userProvider: UserProvider) { }
 
 	public facebookLogin(){
 		this.fb.login(['email']).then( (response) => {
@@ -43,7 +38,7 @@ export class Login {
 				});
 		})
 		.catch((error) => {
-			console.log(error)
+			console.log(error);
 		});
 	}
 
@@ -55,29 +50,22 @@ export class Login {
 			photoURL: response.photoURL
 		}
 
-		localStorage.setItem('uid', response.uid);
-		localStorage.setItem('userInfo', JSON.stringify(userInfo));
-		this.storage.set('uid', response.uid);
-		this.storage.set('userInfo', userInfo);
+		this.userProvider
+			.postUser(response.uid, userInfo)
+			.then(this.onSuccessPostUser.bind(this));
+	}
 
-		firebase.database().ref('users/' + response.uid).set(userInfo);
+	private onSuccessPostUser() {
+		console.log(arguments);
+		// this.storage.set('uid', response.uid);
+		// this.storage.set('userInfo', userInfo);
+
+		// firebase.database().ref('users/' + response.uid).set(userInfo);
 
 		this.goToHome();
 	}
+
 	public goToHome() {
 		this.navCtrl.push(Home);
 	}
-
-	//public facebookLogin() {
-		//this.navCtrl.push(Home);
-		
-		//this.fb.login(['public_profile', 'user_friends', 'email']).then((res: FacebookLoginResponse) => {
-			//console.log('Logged into Facebook!', res);
-			//this.userProfile = JSON.stringify(res);
-		//}).catch(e => {
-			//console.log('Error logging into Facebook', e);
-		//});
-
-		//this.fb.logEvent(this.fb.EVENTS.EVENT_NAME_ADDED_TO_CART);
-	//}
 }

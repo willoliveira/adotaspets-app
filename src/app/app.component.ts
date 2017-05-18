@@ -34,17 +34,14 @@ export class MyApp {
 			// this.initApp();
 			// this.rootPage = Login;
 			this.storage.get("uid")
-				.then(() => { 
-					this.rootPage = Home;
-					this.initApp();
-				}).catch(() => {
-					this.rootPage = Login;
-					this.initApp()
-				});
+				.then(this.initApp.bind(this, Home))
+				.catch(this.initApp.bind(this, Login));
 		});
 	}
 
-	private initApp() {
+	private initApp(page) {
+		this.rootPage = page
+
 		this.statusBar.styleDefault();
 		this.splashScreen.hide();
 	}
