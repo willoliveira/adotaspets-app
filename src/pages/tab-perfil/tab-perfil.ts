@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController, Platform, ModalController } from 'ionic-angular';
+import { App, IonicPage, NavController, NavParams, ActionSheetController, Platform } from 'ionic-angular';
 
-import { ModalAddPet } from '../modals/modal-add-pet/modal-add-pet';
+import { AddPet } from '../add-pet/add-pet';
 
 @Component({
 	selector: 'page-tab-perfil',
@@ -11,7 +11,7 @@ import { ModalAddPet } from '../modals/modal-add-pet/modal-add-pet';
 export class TabPerfil {
 	public tab = "perfil";
 
-	constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, public actionsheetCtrl: ActionSheetController, public platform: Platform) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, public actionsheetCtrl: ActionSheetController, public platform: Platform, public app: App) {
 	}
 
 	ionViewDidLoad() {
@@ -61,8 +61,7 @@ export class TabPerfil {
 		actionSheet.present();
 	}
 
-    openModal() {
-        let modal = this.modalCtrl.create(ModalAddPet);
-        modal.present();
+    openAddPetPage() {
+        this.app.getRootNav().push(AddPet);
     }
 }

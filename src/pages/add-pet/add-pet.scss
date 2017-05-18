@@ -1,0 +1,49 @@
+add-pet {
+    ion-header {
+        .toolbar-background-md {
+            background-image: linear-gradient(260deg, #8bc34a, #4caf50);
+        }
+
+        .toolbar-title-md {
+            color: #fff;
+        }
+
+        ion-icon {
+            color: #fff;
+        }
+    }
+
+    .container-add-photos {
+        margin: 10px;
+
+        .txt-add-photo {
+            font-size: 16px !important;
+        }
+
+        .swiper-pagination-bullet {
+            background: #fff;
+            opacity: .9;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #4caf50;
+            opacity: 1;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+        }
+    }
+
+    .label-nome, .label-sobre {
+        font-size: 16px !important;
+    }
+
+    .limit {
+        color: #B0BEC5;
+        text-align: right;
+        margin-top: 10px;
+    }
+
+    .container-bt-add {
+        margin: 10px;
+    }
+}
