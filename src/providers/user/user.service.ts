@@ -12,4 +12,8 @@ export class UserProvider {
 	postUser(uid, data) {
 		return firebase.database().ref('users/' + uid).set(data);
 	}
+
+	getUserOnce(uid) {
+		return firebase.database().ref('users/' + uid).once('value');
+	}
 }

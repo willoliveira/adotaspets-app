@@ -31,17 +31,19 @@ export class MyApp {
 		firebase.initializeApp(firebaseConfig);
 		
 		platform.ready().then(() => {
-			// this.initApp();
-			// this.rootPage = Login;
-			this.storage.get("uid")
-				.then(this.initApp.bind(this, Home))
-				.catch(this.initApp.bind(this, Login));
+			this.storage.get("userInfo")
+				.then(this.initApp.bind(this))
+				.catch(this.initApp.bind(this));
 		});
 	}
 
-	private initApp(page) {
-		this.rootPage = page
-
+	private initApp(uid) {
+		if (uid) {
+			this.rootPage = Home;
+		}
+		else {
+			this.rootPage = Login;
+		}
 		this.statusBar.styleDefault();
 		this.splashScreen.hide();
 	}

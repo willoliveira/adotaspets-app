@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
-import { App, IonicPage, NavController, NavParams, ActionSheetController, Platform } from 'ionic-angular';
+import { App, IonicPage, NavController, NavParams, ActionSheetController, Platform, ToastController, LoadingController } from 'ionic-angular';
+
+import { Storage } from '@ionic/storage';
+import { UserProvider } from '../../providers/user/user.service';
 
 import { AddPet } from '../add-pet/add-pet';
+import { Login } from '../login/login';
 
 @Component({
 	selector: 'page-tab-perfil',
@@ -10,15 +14,33 @@ import { AddPet } from '../add-pet/add-pet';
 
 export class TabPerfil {
 	public tab = "perfil";
+	public locked: Boolean = true;
+	public waitRequest: Boolean = true;
+	public userInfo = {
+		description: "",
+		name: "",
+		pets: { }
+	};
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, public actionsheetCtrl: ActionSheetController, public platform: Platform, public app: App) {
-	}
+	private loader;
+	private toaster;
 
-	ionViewDidLoad() {
-		console.log('ionViewDidLoad TabPerfil');
-	}
+	constructor(
+		public actionsheetCtrl: ActionSheetController, 
+		public platform: Platform, 
+		public app: App,
+		private storage: Storage,
+		private userProvider: UserProvider,
+		public loadingCtrl: LoadingController,
+		public toastCtrl: ToastController) {
+			this.initPage();
+		}
 
-	openMenu() {
+	//------------------------
+	//-------- PUBLIC---------
+	//------------------------
+
+	public openMenu() {
 		let actionSheet = this.actionsheetCtrl.create({
 			title: 'Ações',
 			cssClass: 'action-sheets-basic-page',
@@ -57,11 +79,65 @@ export class TabPerfil {
 				}
 			]
 		});
-
 		actionSheet.present();
 	}
 
-    openAddPetPage() {
-        this.app.getRootNav().push(AddPet);
-    }
+	public goToLogin() {
+		this.app.getRootNav().push(Login);
+	}
+	
+	public openAddPetPage() {
+		this.app.getRootNav().push(AddPet);
+	}
+
+	
+	//------------------------
+	// ------- PRIVATE -------
+	//------------------------
+
+	initPage() {
+		this.showLoading();
+		this.storage.get('userInfo')
+			.then(this.onSuccessGetInfoStorage.bind(this))
+			.catch(this.onError.bind(this, "Error get in storage"));
+	}
+
+	private showLoading() {
+		this.loader = this.loadingCtrl.create({ content: "Loading" });
+		this.loader.present();
+	}	
+
+	private presentToast(msg) {
+		let toast = this.toastCtrl.create({
+			message: msg,
+			duration: 3000
+		});
+		toast.present();
+	}
+
+
+	//----------------------
+	//------- EVENTS -------
+	//----------------------
+	
+	onSuccessGetInfoStorage(userInfo) {
+		this.loader.dismiss();
+		this.waitRequest = false;
+		if (userInfo) {
+			this.userInfo = userInfo;
+			this.locked = false;
+		} else {
+			// tava mandando pro Login, deixar lockado o perfil
+			// this.app.getRootNav().push(Login);
+			this.locked = true;
+		}
+	}
+
+	onError(msgError) {
+		this.waitRequest = false;
+		this.loader.dismiss();
+
+		this.presentToast(msgError);
+	}
+
 }

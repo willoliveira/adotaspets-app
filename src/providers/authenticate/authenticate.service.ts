@@ -2,17 +2,20 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-/*
-  Generated class for the AuthenticateProvider provider.
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import firebase from 'firebase';
 
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 @Injectable()
 export class AuthenticateProvider {
 
-  constructor(public http: Http) {
-    console.log('Hello AuthenticateProvider Provider');
-  }
+	constructor(private fb: Facebook) { }
 
+	loginFace(params) {
+		return this.fb.login(params);
+	}
+
+	authFace(accessToken) {
+		var facebookCredential = firebase.auth.FacebookAuthProvider.credential(accessToken);
+		return firebase.auth().signInWithCredential(facebookCredential);
+	}
 }
