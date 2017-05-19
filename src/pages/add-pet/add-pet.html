@@ -9,17 +9,28 @@
     <div class="container-add-photos">
         <p class="txt-add-photo">Adicione fotos do pet</p>
 
-        <ion-slides pager loop="true">
-			<ion-slide>
-				<img src="assets/img/rex-bg.jpg">
-			</ion-slide>
-			<ion-slide>
-				<img src="assets/img/rex-bg-1.jpg">
-			</ion-slide>
-			<ion-slide>
-				<img src="assets/img/rex-bg-2.jpeg">
-			</ion-slide>
-		</ion-slides>
+        <div class="container-slider">
+            <ion-slides pager loop="true">
+                <ion-slide>
+                    <img src="assets/img/img-default-pet.jpg">                
+                </ion-slide>
+                <ion-slide>
+                    <img src="assets/img/img-default-pet.jpg">                
+                </ion-slide>
+                <ion-slide>
+                    <img src="assets/img/img-default-pet.jpg">
+                </ion-slide>
+            </ion-slides>
+
+            <ion-chip>
+                <ion-label>Foto 1</ion-label>
+            </ion-chip>
+            <ion-fab right top>
+                <button ion-fab class="add-pet-photo" mini color="darkTheme">
+                    <ion-icon name='add'></ion-icon>
+                </button>
+            </ion-fab>
+        </div>
     </div>
 
     <ion-card>
