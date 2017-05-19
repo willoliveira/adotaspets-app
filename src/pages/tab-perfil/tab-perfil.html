@@ -15,7 +15,7 @@
 		</ion-segment>
 		<div [ngSwitch]="tab">
 			<div *ngSwitchCase="'perfil'" class="tab-perfil">
-				<div class="img-user-perfil" [style.background-image]="safeUrl(userInfo.picture)"></div>
+				<div class="img-user-perfil" [style.background-image]="userPicture"></div>
 				<h3 class="name-perfil" text-center>{{userInfo.name}}</h3>
 				<!--<button ion-fab mini class="edit-perfil"><ion-icon name="create"></ion-icon></button>-->
 

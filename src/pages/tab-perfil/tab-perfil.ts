@@ -23,6 +23,7 @@ export class TabPerfil {
 		name: "",
 		pets: { }
 	};
+	public userPicture;
 
 	private loader;
 	private toaster;
@@ -94,8 +95,9 @@ export class TabPerfil {
 		this.app.getRootNav().push(AddPet);
 	}
 
-	public safeUrl(url) {
-		return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+	private safeStyleUrl(url) {
+		console.log('url(' + url  + ')');
+		return this.sanitizer.bypassSecurityTrustStyle('url(' + url  + ')');
 	}
 	
 	//------------------------
@@ -132,6 +134,7 @@ export class TabPerfil {
 		this.waitRequest = false;
 		if (userInfo) {
 			this.userInfo = userInfo;
+			this.userPicture = this.safeStyleUrl(userInfo.picture);
 			this.locked = false;
 		} else {
 			// tava mandando pro Login, deixar lockado o perfil
