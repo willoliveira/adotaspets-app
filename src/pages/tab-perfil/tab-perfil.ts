@@ -4,6 +4,8 @@ import { App, IonicPage, NavController, NavParams, ActionSheetController, Platfo
 import { Storage } from '@ionic/storage';
 import { UserProvider } from '../../providers/user/user.service';
 
+import { DomSanitizer } from '@angular/platform-browser';
+
 import { AddPet } from '../add-pet/add-pet';
 import { Login } from '../login/login';
 
@@ -29,10 +31,12 @@ export class TabPerfil {
 		public actionsheetCtrl: ActionSheetController, 
 		public platform: Platform, 
 		public app: App,
-		private storage: Storage,
+		private loadingCtrl: LoadingController,
+		private toastCtrl: ToastController,
 		private userProvider: UserProvider,
-		public loadingCtrl: LoadingController,
-		public toastCtrl: ToastController) {
+		private storage: Storage,
+		private sanitizer: DomSanitizer
+		) {
 			this.initPage();
 		}
 
@@ -90,6 +94,9 @@ export class TabPerfil {
 		this.app.getRootNav().push(AddPet);
 	}
 
+	public safeUrl(url) {
+		return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+	}
 	
 	//------------------------
 	// ------- PRIVATE -------
