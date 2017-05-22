@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { App, ModalController, NavController, NavParams } from 'ionic-angular';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { App, ModalController, NavController, NavParams, ToastController } from 'ionic-angular';
 
 import { Pet } from '../pet/pet';
 import { ModalFilter } from '../modals/modal-filter/modal-filter';
@@ -10,11 +10,14 @@ import { ModalFilter } from '../modals/modal-filter/modal-filter';
 })
 
 export class TabSearch {
+    @ViewChild('myElement') myElement: ElementRef;
+
 
 	constructor(
 		public modalCtrl: ModalController,
 		public navCtrl: NavController,
 		public navParams: NavParams,
+        public toastCtrl: ToastController,
 		public app: App) {
 	}
 
@@ -31,4 +34,18 @@ export class TabSearch {
 		this.app.getRootNav().push(Pet);
 	}
 
+    likePet () {
+        document.getElementById("current-card-pet").classList.add("anima-likePet");
+
+        let toast = this.toastCtrl.create({
+            message: 'Uma nova conversa com o responsável foi criada na aba de mensagens.',
+            duration: 10000,
+        });
+
+        toast.present();
+    }
+
+    notlikePet () {
+        document.getElementById("current-card-pet").classList.add("anima-notlikePet");
+    }
 }

@@ -29,8 +29,8 @@ export class TabPerfil {
 	private toaster;
 
 	constructor(
-		public actionsheetCtrl: ActionSheetController, 
-		public platform: Platform, 
+		public actionsheetCtrl: ActionSheetController,
+		public platform: Platform,
 		public app: App,
 		private loadingCtrl: LoadingController,
 		private toastCtrl: ToastController,
@@ -90,7 +90,7 @@ export class TabPerfil {
 	public goToLogin() {
 		this.app.getRootNav().push(Login);
 	}
-	
+
 	public openAddPetPage() {
 		this.app.getRootNav().push(AddPet);
 	}
@@ -99,7 +99,7 @@ export class TabPerfil {
 		console.log('url(' + url  + ')');
 		return this.sanitizer.bypassSecurityTrustStyle('url(' + url  + ')');
 	}
-	
+
 	//------------------------
 	// ------- PRIVATE -------
 	//------------------------
@@ -114,7 +114,7 @@ export class TabPerfil {
 	private showLoading() {
 		this.loader = this.loadingCtrl.create({ content: "Loading" });
 		this.loader.present();
-	}	
+	}
 
 	private presentToast(msg) {
 		let toast = this.toastCtrl.create({
@@ -128,7 +128,7 @@ export class TabPerfil {
 	//----------------------
 	//------- EVENTS -------
 	//----------------------
-	
+
 	onSuccessGetInfoStorage(userInfo) {
 		this.loader.dismiss();
 		this.waitRequest = false;
