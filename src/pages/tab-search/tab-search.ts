@@ -12,16 +12,16 @@ import { ModalFilter } from '../modals/modal-filter/modal-filter';
 export class TabSearch {
 
 	constructor(
-        public modalCtrl: ModalController,
+		public modalCtrl: ModalController,
 		public navCtrl: NavController,
 		public navParams: NavParams,
 		public app: App) {
 	}
 
-    openModal() {
-        let modal = this.modalCtrl.create(ModalFilter);
-        modal.present();
-    }
+	openModal() {
+		let modal = this.modalCtrl.create(ModalFilter);
+		modal.present();
+	}
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad TabSearch');

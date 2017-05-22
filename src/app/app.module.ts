@@ -24,9 +24,8 @@ import { Facebook, FacebookLoginResponse  } from '@ionic-native/facebook';
 	declarations: [
 		MyApp,
 
-        ModalFilter,
-
-        AddPet
+		ModalFilter,
+		AddPet
 	],
 	imports: [
 		BrowserModule,
@@ -41,9 +40,8 @@ import { Facebook, FacebookLoginResponse  } from '@ionic-native/facebook';
 	entryComponents: [
 		MyApp,
 
-        ModalFilter,
-
-        AddPet
+		ModalFilter,
+		AddPet
 	],
 	providers: [
 		StatusBar,

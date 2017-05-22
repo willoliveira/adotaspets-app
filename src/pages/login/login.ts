@@ -3,11 +3,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Home } from '../home/home';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 
-import firebase from 'firebase';
-
 import { Storage } from '@ionic/storage';
 
-import { User } from '../../models/user.model';
+import { AuthenticateProvider } from '../../providers/authenticate/authenticate.service';
+import { UserProvider } from '../../providers/user/user.service';
 
 @IonicPage()
 @Component({
@@ -21,63 +20,55 @@ export class Login {
 	constructor(
 		public navCtrl: NavController, 
 		public navParams: NavParams, 
-		private fb: Facebook,
-		private storage: Storage) {
-	}
+		private storage: Storage,
+		private authProvider: AuthenticateProvider,
+		private userProvider: UserProvider) { }
 
-	ionViewDidLoad() {
-		console.log('ionViewDidLoad Login');
+	public facebookLogin() {
 
-		var user: User;
-		console.log(user);
-	}
-
-	public facebookLogin(){
-		this.fb.login(['email']).then( (response) => {
-			const facebookCredential = firebase.auth.FacebookAuthProvider.credential(response.authResponse.accessToken);
-
-			firebase.auth().signInWithCredential(facebookCredential)
-				.then(this.authSuccess.bind(this))
+		this.authProvider.loginFace(['email']).then((response) => {
+			this.authProvider.authFace(response.authResponse.accessToken)
+				.then(this.authFaceSuccess.bind(this))
 				.catch((error) => {
 					console.log("Firebase failure: " + JSON.stringify(error));
 				});
 		})
 		.catch((error) => {
-			console.log(error)
+			console.log(error);
 		});
 	}
 
-	private authSuccess(response) {
-		var userInfo = {
-			id: response.uid,
-			email: response.email, 
-			displayName: response.displayName,
-			photoURL: response.photoURL
-		}
+	private authFaceSuccess(response) {
+		//Verifica se já existe usuário na base, se não cadastra
+		this.userProvider
+			.getUserOnce(response.uid)
+			.then((responseGetUserOnce) => {
+				var val = responseGetUserOnce.val();
+				if (val) {
+					this.storage.set("userInfo", val);
+					this.goToHome();
+				} else {
+					let userInfo = {
+						id: response.uid,
+						email: response.email, 
+						description: "", 
+						name: response.displayName,
+						picture: response.photoURL,
+						pets: { }
+					};
+					this.userProvider
+						.postUser(response.uid, userInfo)
+						.then(this.onSuccessPostUser.bind(this, userInfo));
+				}
+			});
+	}
 
-		localStorage.setItem('uid', response.uid);
-		localStorage.setItem('userInfo', JSON.stringify(userInfo));
-		this.storage.set('uid', response.uid);
+	private onSuccessPostUser(userInfo) {
 		this.storage.set('userInfo', userInfo);
-
-		firebase.database().ref('users/' + response.uid).set(userInfo);
-
 		this.goToHome();
 	}
+
 	public goToHome() {
-		this.navCtrl.push(Home);
+		this.navCtrl.setRoot(Home);
 	}
-
-	//public facebookLogin() {
-		//this.navCtrl.push(Home);
-		
-		//this.fb.login(['public_profile', 'user_friends', 'email']).then((res: FacebookLoginResponse) => {
-			//console.log('Logged into Facebook!', res);
-			//this.userProfile = JSON.stringify(res);
-		//}).catch(e => {
-			//console.log('Error logging into Facebook', e);
-		//});
-
-		//this.fb.logEvent(this.fb.EVENTS.EVENT_NAME_ADDED_TO_CART);
-	//}
 }
