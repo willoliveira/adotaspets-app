@@ -11,6 +11,25 @@ page-tab-perfil {
         }
     }
 
+    .not-authenticate {
+        .txt-login {
+            color: #616161;
+            margin-top: 15px;
+        }
+
+        .bt-login-face {
+            height: 50px;
+            background-image: linear-gradient(260deg, #337eb9, #384499);
+            margin-top: 20px;
+        }
+
+        .bt-login-google {
+            height: 50px;
+            background-image: linear-gradient(260deg, #E57373, #F44336);
+            margin-top: 20px;
+        }
+    }
+
     .tab-perfil {
         /*position: relative;*/
 

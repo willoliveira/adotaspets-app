@@ -87,9 +87,9 @@ export class TabPerfil {
 		actionSheet.present();
 	}
 
-	public goToLogin() {
+	/*public goToLogin() {
 		this.app.getRootNav().push(Login);
-	}
+	}*/
 
 	public openAddPetPage() {
 		this.app.getRootNav().push(AddPet);
