@@ -5,7 +5,7 @@
 		</button>
 	</div>
 
-	<ion-card>
+	<ion-card id="current-card-pet" class="card-pet">
 		<ion-item>
 			<ion-avatar item-left>
 				<img src="assets/img/avatar-ts-jessie.png">
@@ -46,11 +46,11 @@
 		</ion-item>
 	</ion-card>
 
-	<ion-fab bottom right class="notlikePet">
+	<ion-fab bottom right class="notlikePet" (click)="notlikePet()">
     	<button ion-fab color="redTheme"><ion-icon name="close"></ion-icon></button>
   	</ion-fab>
 
-	<ion-fab bottom right class="likePet">
+	<ion-fab bottom right class="likePet" (click)="likePet()">
     	<button ion-fab color="greenTheme"><ion-icon name="heart-outline"></ion-icon></button>
   	</ion-fab>
 </ion-content>

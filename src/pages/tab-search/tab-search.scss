@@ -1,8 +1,8 @@
-page-tab-search {        
+page-tab-search {
     ion-item {
         ion-icon, p {
             color: #666;
-        }        
+        }
     }
 
     ion-fab {
@@ -11,7 +11,7 @@ page-tab-search {
         &.notlikePet {
             right: 90px;
         }
-    }    
+    }
 
     .info-pet {
         ion-icon, p {
@@ -20,18 +20,50 @@ page-tab-search {
     }
 
     .container-bt-filter {
-        margin: 10px;        
-    }               
+        margin: 10px;
+    }
 
     .swiper-pagination-bullet {
         background: #fff;
         opacity: .9;
         box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
     }
-    
+
     .swiper-pagination-bullet-active {
         background: #4caf50;
         opacity: 1;
         box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-    }    
+    }
+
+    /*animations
+        exemplos: animation-timing-function: linear|ease|ease-in|ease-out|ease-in-out|step-start|step-end|steps(int,start|end)|cubic-bezier(n,n,n,n)|initial|inherit;
+    */
+
+    @-webkit-keyframes animaNotlikePet {
+        0%   { -webkit-transform: translate3d(0,0,0); }
+        100% { -webkit-transform: translate3d(-110%,0,0); }
+    }
+
+    .anima-notlikePet {
+        -webkit-animation: animaNotlikePet linear 1;
+        animation: animaNotlikePet linear 1;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+        -webkit-animation-duration: 300ms;
+        animation-duration: 300ms;
+    }
+
+    @-webkit-keyframes animaLikePet {
+        0%   { -webkit-transform: translate3d(0,0,0); }
+        100% { -webkit-transform: translate3d(110%,0,0); }
+    }
+
+    .anima-likePet {
+        -webkit-animation: animaLikePet linear 1;
+        animation: animaLikePet linear 1;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+        -webkit-animation-duration: 300ms;
+        animation-duration: 300ms;
+    }
 }

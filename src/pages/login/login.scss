@@ -29,7 +29,13 @@ page-login {
 
     .bt-login-face {
         height: 50px;
-        background-image: linear-gradient(260deg,#337eb9,#384499);
+        background-image: linear-gradient(260deg, #337eb9, #384499);
+    }
+
+    .bt-login-google {
+        height: 50px;
+        background-image: linear-gradient(260deg, #E57373, #F44336);
+        margin-top: 20px;
     }
 
     ion-slides {        

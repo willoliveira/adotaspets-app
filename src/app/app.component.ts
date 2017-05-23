@@ -44,8 +44,12 @@ export class MyApp {
 		else {
 			this.rootPage = Login;
 		}
+
 		this.statusBar.styleDefault();
-		this.splashScreen.hide();
+
+		setTimeout(() => {
+			this.splashScreen.hide();
+		}, 100);		
 	}
 }
 

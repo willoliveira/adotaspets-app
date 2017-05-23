@@ -1,7 +1,10 @@
 <ion-content>
 
-	<div *ngIf="!waitRequest && locked" class="not-authenticate">
-		<button ion-button (click)="goToLogin()">Login</button>
+
+	<div *ngIf="!waitRequest && locked" class="not-authenticate" padding>
+		<p text-center class="txt-login">Para ter acesso ao seu perfil e ao cadastro de pets, é necessário fazer o login.</p>
+		<button ion-button round block (click)="facebookLogin()" class="bt-login-face">Fazer login com FaceBook</button>
+		<button ion-button round block (click)="googleLogin()" class="bt-login-google">Fazer login com Google</button>
 	</div>
 
 	<div *ngIf="!locked" class="content-perfil">
@@ -62,7 +65,7 @@
 						<ion-badge class="item-likes" color="redTheme"><ion-icon name="heart-outline"></ion-icon> 5 likes</ion-badge>
 					</ion-item>
 					<ion-fab right bottom>
-						<button ion-fab class="fab-map" mini color="darkTheme" (click)="openMenu()">
+						<button ion-fab class="fab-map" mini color="greyTheme" (click)="openMenu()">
 							<ion-icon name='create'></ion-icon>
 						</button>
 					</ion-fab>
@@ -81,7 +84,7 @@
 						<ion-badge class="item-likes" color="redTheme"><ion-icon name="heart-outline"></ion-icon> 10 likes</ion-badge>
 					</ion-item>
 					<ion-fab right bottom>
-						<button ion-fab class="fab-map" mini color="darkTheme" (click)="openMenu()">
+						<button ion-fab class="fab-map" mini color="greyTheme" (click)="openMenu()">
 							<ion-icon name='create'></ion-icon>
 						</button>
 					</ion-fab>
@@ -100,7 +103,7 @@
 						<ion-badge class="item-likes" color="redTheme"><ion-icon name="heart-outline"></ion-icon> Nenhum like :(</ion-badge>
 					</ion-item>
 					<ion-fab right bottom>
-						<button ion-fab class="fab-map" mini color="darkTheme" (click)="openMenu()">
+						<button ion-fab class="fab-map" mini color="greyTheme" (click)="openMenu()">
 							<ion-icon name='create'></ion-icon>
 						</button>
 					</ion-fab>
@@ -119,7 +122,7 @@
 						<ion-badge class="item-likes" color="redTheme"><ion-icon name="heart-outline"></ion-icon> 1 like</ion-badge>
 					</ion-item>
 					<ion-fab right bottom>
-						<button ion-fab class="fab-map" mini color="darkTheme" (click)="openMenu()">
+						<button ion-fab class="fab-map" mini color="greyTheme" (click)="openMenu()">
 							<ion-icon name='create'></ion-icon>
 						</button>
 					</ion-fab>
@@ -138,7 +141,7 @@
 						<ion-badge class="item-likes" color="redTheme"><ion-icon name="heart-outline"></ion-icon> 10 likes</ion-badge>
 					</ion-item>
 					<ion-fab right bottom>
-						<button ion-fab class="fab-map" mini color="darkTheme" (click)="openMenu()">
+						<button ion-fab class="fab-map" mini color="greyTheme" (click)="openMenu()">
 							<ion-icon name='create'></ion-icon>
 						</button>
 					</ion-fab>
