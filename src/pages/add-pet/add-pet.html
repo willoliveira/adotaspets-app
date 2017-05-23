@@ -56,25 +56,34 @@
 		</ion-card-content>
 	</ion-card>
 
+    <ion-card>
+		<ion-card-content>
+			<ion-list>
+				<ion-item>
+					<ion-label color="dark" stacked class="label-breed">Raça do pet</ion-label>
+					<ion-input [(ngModel)]="pet.breed" type="text" placeholder="Escreva a raça do pet"></ion-input>
+				</ion-item>
+			</ion-list>
+		</ion-card-content>
+	</ion-card>
+
 	<ion-item>
 		<ion-label>Categoria do pet</ion-label>
-		<ion-select [(ngModel)]="pet.kind" >
+		<ion-select [(ngModel)]="pet.kind">
 			<ion-option value="dog">Cachorro</ion-option>
 			<ion-option value="cat">Gato</ion-option>
 			<ion-option value="others">Outros</ion-option>
 		</ion-select>
 	</ion-item>
 
-	 <ion-card>
-		<ion-card-content>
-			<ion-list>
-				<ion-item>
-					<ion-label color="dark" stacked class="label-nome">Raça do pet</ion-label>
-					<ion-input [(ngModel)]="pet.breed" type="text" placeholder="Escreva a raça do pet"></ion-input>
-				</ion-item>
-			</ion-list>
-		</ion-card-content>
-	</ion-card>
+    <ion-item>
+		<ion-label>Porte do pet</ion-label>
+		<ion-select [(ngModel)]="pet.size">
+			<ion-option value="small">Pequeno</ion-option>
+			<ion-option value="medium">Médio</ion-option>
+			<ion-option value="large">Grande</ion-option>
+		</ion-select>
+	</ion-item>
 
 	<div class="container-bt-add">
 		<button (click)="postPets()" ion-button icon-right block round outline color="greenTheme">

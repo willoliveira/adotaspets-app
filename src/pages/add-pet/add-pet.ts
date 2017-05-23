@@ -19,6 +19,7 @@ export class AddPet {
         about: "",
         breed: "",
         kind: "",
+        size: "",
         pictures: {}
     };
 

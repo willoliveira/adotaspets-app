@@ -1,11 +1,15 @@
 <ion-content>
-	<div class="container-bt-filter">
+	<div class="container-bt-filter" *ngIf="!waitRequest">
 		<button ion-button icon-right block round color="greenTheme" outline (click)="openModal()">
 			Filtros <ion-icon name="options"></ion-icon>
 		</button>
 	</div>
 
-	<ion-card id="current-card-pet" class="card-pet">
+    <div class="container-searching" *ngIf="waitRequest">
+        <h2>Buscando pets para adoção...</h2>
+    </div>
+
+	<ion-card id="current-card-pet" class="card-pet" *ngIf="!waitRequest">
 		<ion-item>
 			<ion-avatar item-left>
 				<img src="assets/img/avatar-ts-jessie.png">
@@ -46,11 +50,11 @@
 		</ion-item>
 	</ion-card>
 
-	<ion-fab bottom right class="notlikePet" (click)="notlikePet()">
+	<ion-fab bottom right class="notlikePet" (click)="notlikePet()" *ngIf="!waitRequest">
     	<button ion-fab color="redTheme"><ion-icon name="close"></ion-icon></button>
   	</ion-fab>
 
-	<ion-fab bottom right class="likePet" (click)="likePet()">
+	<ion-fab bottom right class="likePet" (click)="likePet()" *ngIf="!waitRequest">
     	<button ion-fab color="greenTheme"><ion-icon name="heart-outline"></ion-icon></button>
   	</ion-fab>
 </ion-content>
