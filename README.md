@@ -3,4 +3,4 @@ AdotaPets - Ionic 2
 
 ## Sobre
 
-App para adoção de pets
+Aplicativo para adoção de pets
