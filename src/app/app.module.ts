@@ -20,6 +20,8 @@ import { ModalFilter } from '../pages/modals/modal-filter/modal-filter';
 import { Camera } from '@ionic-native/camera';
 import { Facebook, FacebookLoginResponse  } from '@ionic-native/facebook';
 
+import { PetsProvider } from '../providers/pets/pets.service';
+
 @NgModule({
 	declarations: [
 		MyApp,
@@ -48,7 +50,8 @@ import { Facebook, FacebookLoginResponse  } from '@ionic-native/facebook';
 		SplashScreen,
 		{provide: ErrorHandler, useClass: IonicErrorHandler},
 
-		Camera, Facebook
+		Camera, Facebook,
+		PetsProvider
 	]
 })
 export class AppModule {}

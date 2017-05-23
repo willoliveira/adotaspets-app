@@ -92,7 +92,9 @@ export class TabPerfil {
 	}*/
 
 	public openAddPetPage() {
-		this.app.getRootNav().push(AddPet);
+		this.app.getRootNav().push(AddPet, {
+            userInfo: this.userInfo
+        });
 	}
 
 	private safeStyleUrl(url) {

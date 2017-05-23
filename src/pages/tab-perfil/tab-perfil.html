@@ -47,7 +47,7 @@
 
 			<div *ngSwitchCase="'pets'" class="tab-pets">
 				<div class="container-bt-add">
-					<button ion-button icon-right block round outline color="greenTheme" (click)="openAddPetPage()">
+					<button (click)="openAddPetPage()" ion-button icon-right block round outline color="greenTheme">
 						Adicionar pet <ion-icon name="add"></ion-icon>
 					</button>
 				</div>
@@ -71,7 +71,7 @@
 					</ion-fab>
 				</ion-card>
 
-				<ion-card>
+				<!--<ion-card>
 					<ion-item>
 						<ion-avatar item-left>
 							<img src="assets/img/avatar-ts-slinky.png">
@@ -145,7 +145,7 @@
 							<ion-icon name='create'></ion-icon>
 						</button>
 					</ion-fab>
-				</ion-card>
+				</ion-card>-->
 			</div>
 		</div>
 	</div>

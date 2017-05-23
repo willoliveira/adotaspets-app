@@ -1,73 +1,84 @@
 <ion-header>
-    <ion-navbar>
-        <ion-title>
-            Adicionar pet
-        </ion-title>
-    </ion-navbar>
+	<ion-navbar>
+		<ion-title>
+			Adicionar pet
+		</ion-title>
+	</ion-navbar>
 </ion-header>
 <ion-content>
-    <div class="container-add-photos">
-        <p class="txt-add-photo">Adicione fotos do pet</p>
+	<div class="container-add-photos">
+		<p class="txt-add-photo">Adicione fotos do pet</p>
 
-        <div class="container-slider">
-            <ion-slides pager loop="true">
-                <ion-slide>
-                    <img src="assets/img/img-default-pet.jpg">                
-                </ion-slide>
-                <ion-slide>
-                    <img src="assets/img/img-default-pet.jpg">                
-                </ion-slide>
-                <ion-slide>
-                    <img src="assets/img/img-default-pet.jpg">
-                </ion-slide>
-            </ion-slides>
+		<div class="container-slider">
+			<ion-slides pager loop="true">
+				<ion-slide>
+					<img src="assets/img/img-default-pet.jpg">
+				</ion-slide>
+				<ion-slide>
+					<img src="assets/img/img-default-pet.jpg">
+				</ion-slide>
+				<ion-slide>
+					<img src="assets/img/img-default-pet.jpg">
+				</ion-slide>
+			</ion-slides>
 
-            <ion-chip>
-                <ion-label>Foto 1</ion-label>
-            </ion-chip>
-            <ion-fab right top>
-                <button ion-fab class="add-pet-photo" mini color="darkTheme">
-                    <ion-icon name='add'></ion-icon>
-                </button>
-            </ion-fab>
-        </div>
-    </div>
+			<ion-chip>
+				<ion-label>Foto 1</ion-label>
+			</ion-chip>
+			<ion-fab right top>
+				<button ion-fab class="add-pet-photo" mini color="darkTheme">
+					<ion-icon name='add'></ion-icon>
+				</button>
+			</ion-fab>
+		</div>
+	</div>
 
-    <ion-card>
-        <ion-card-content>
-            <ion-list>
-                <ion-item>
-                    <ion-label color="dark" stacked class="label-nome">Nome do pet</ion-label>
-                    <ion-input type="text" placeholder="Escreva o nome do pet"></ion-input>
-                </ion-item>
-            </ion-list>
-        </ion-card-content>
-    </ion-card>
+	<ion-card>
+		<ion-card-content>
+			<ion-list>
+				<ion-item>
+					<ion-label color="dark" stacked class="label-nome">Nome do pet</ion-label>
+					<ion-input [(ngModel)]="pet.name" type="text" placeholder="Escreva o nome do pet"></ion-input>
+				</ion-item>
+			</ion-list>
+		</ion-card-content>
+	</ion-card>
 
-    <ion-card>
-        <ion-card-content>
-            <ion-list>
-                <ion-item>
-                    <ion-label color="dark" stacked class="label-sobre">Sobre o pet</ion-label>
-                    <ion-input type="text" placeholder="Escreva um pouco sobre o pet"></ion-input>
-                </ion-item>
-            </ion-list>
-            <p class="limit">300</p>
-        </ion-card-content>
-    </ion-card>
+	<ion-card>
+		<ion-card-content>
+			<ion-list>
+				<ion-item>
+					<ion-label color="dark" stacked class="label-sobre">Sobre o pet</ion-label>
+					<ion-input [(ngModel)]="pet.about" type="text" placeholder="Escreva um pouco sobre o pet"></ion-input>
+				</ion-item>
+			</ion-list>
+			<p class="limit">300</p>
+		</ion-card-content>
+	</ion-card>
 
-    <ion-item>
-        <ion-label>Categoria do pet</ion-label>
-        <ion-select [(ngModel)]="category">
-            <ion-option value="dog">Cachorro</ion-option>
-            <ion-option value="cat">Gato</ion-option>
-            <ion-option value="others">Outros</ion-option>
-        </ion-select>
-    </ion-item>
+	<ion-item>
+		<ion-label>Categoria do pet</ion-label>
+		<ion-select [(ngModel)]="pet.kind" >
+			<ion-option value="dog">Cachorro</ion-option>
+			<ion-option value="cat">Gato</ion-option>
+			<ion-option value="others">Outros</ion-option>
+		</ion-select>
+	</ion-item>
 
-    <div class="container-bt-add">
-        <button ion-button icon-right block round outline color="greenTheme">
-            Adicionar pet <ion-icon name="add"></ion-icon>
-        </button>
-    </div>
+	 <ion-card>
+		<ion-card-content>
+			<ion-list>
+				<ion-item>
+					<ion-label color="dark" stacked class="label-nome">Raça do pet</ion-label>
+					<ion-input [(ngModel)]="pet.breed" type="text" placeholder="Escreva a raça do pet"></ion-input>
+				</ion-item>
+			</ion-list>
+		</ion-card-content>
+	</ion-card>
+
+	<div class="container-bt-add">
+		<button (click)="postPets()" ion-button icon-right block round outline color="greenTheme">
+			Adicionar pet <ion-icon name="add"></ion-icon>
+		</button>
+	</div>
 </ion-content>
