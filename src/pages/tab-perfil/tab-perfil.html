@@ -1,6 +1,6 @@
 <ion-content>
 
-	<div *ngIf="locked" class="not-authenticate">
+	<div *ngIf="!waitRequest && locked" class="not-authenticate">
 		<button ion-button (click)="goToLogin()">Login</button>
 	</div>
 
