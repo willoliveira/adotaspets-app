@@ -23,6 +23,23 @@ page-tab-search {
         margin: 10px;
     }
 
+    .container-searching {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+
+        img {
+            display: block;            
+            margin: 0 auto;
+        }
+
+        p {
+            text-align: center;
+            font-size: 18px;
+            color: #616161;
+        }
+    }
+
     .swiper-pagination-bullet {
         background: #fff;
         opacity: .9;

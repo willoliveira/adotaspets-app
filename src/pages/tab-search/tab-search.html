@@ -6,7 +6,8 @@
 	</div>
 
     <div class="container-searching" *ngIf="waitRequest">
-        <h2>Buscando pets para adoção...</h2>
+		<img src="assets/img/searching.gif">
+        <p>Procurando pets perto de você...</p>
     </div>
 
 	<ion-card id="current-card-pet" class="card-pet" *ngIf="!waitRequest">
