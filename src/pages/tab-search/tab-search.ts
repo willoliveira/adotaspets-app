@@ -12,6 +12,7 @@ import { ModalFilter } from '../modals/modal-filter/modal-filter';
 export class TabSearch {
     public currentPet: Object[] = [];
     public waitRequest: Boolean = true;
+    public zIndex1: Boolean = true;
 
 	constructor(
 		public modalCtrl: ModalController,
@@ -26,6 +27,7 @@ export class TabSearch {
     getCurrentPet () {
         /*simula uma requisicao para mostrar tela de searching*/
         setTimeout(function () {
+            this.zIndex1 = false;
             this.waitRequest = false;
         }.bind(this), 3000);
     }
@@ -62,6 +64,7 @@ export class TabSearch {
 
     afterAnimation (durationAnimation = 300) {
         setTimeout(function () {
+            this.zIndex1 = true;
             this.waitRequest = true;
         }.bind(this), durationAnimation);
     }
