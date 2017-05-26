@@ -14,7 +14,7 @@
         </div>
     </div>
 
-	<ion-card id="current-card-pet" class="card-pet" *ngIf="!waitRequest" #currentCardPet>
+	<ion-card id="current-card-pet" class="card-pet" *ngIf="!waitRequest" [ngClass]="{'anima-likePet': animaLikePet, 'anima-notlikePet': animaNotlikePet }" #currentCardPet>
 		<ion-item>
 			<ion-avatar item-left>
 				<img src="assets/img/avatar-ts-jessie.png">

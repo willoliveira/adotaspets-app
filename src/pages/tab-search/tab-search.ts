@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { App, ModalController, NavController, NavParams, ToastController } from 'ionic-angular';
 
 import { Pet } from '../pet/pet';
@@ -13,6 +13,10 @@ export class TabSearch {
     public currentPet: Object[] = [];
     public waitRequest: Boolean = true;
     public zIndex1: Boolean = true;
+    public animaLikePet: Boolean = false;
+    public animaNotlikePet: Boolean = false;
+
+    @ViewChild('currentCardPet') currentCardPet:ElementRef;
 
 	constructor(
 		public modalCtrl: ModalController,
@@ -20,11 +24,14 @@ export class TabSearch {
 		public navParams: NavParams,
         public toastCtrl: ToastController,
 		public app: App) {
-
+            
             this.getCurrentPet();
 	}
 
     getCurrentPet () {
+        this.waitRequest = true;
+        this.zIndex1 = true;
+
         /*simula uma requisicao para mostrar tela de searching*/
         setTimeout(function () {
             this.zIndex1 = false;
@@ -45,27 +52,27 @@ export class TabSearch {
 		this.app.getRootNav().push(Pet);
 	}
 
-    likePet () {
-        document.getElementById("current-card-pet").classList.add("anima-likePet");
+    likePet () {                
+        this.animaLikePet = true;
+        let elemCard = this.currentCardPet.nativeElement;
+        elemCard.addEventListener("animationend", this.animationendCard.bind(this), false);        
 
         let toast = this.toastCtrl.create({
             message: 'Uma nova conversa com o responsável foi criada na aba de mensagens.',
             duration: 7000,
         });
-        toast.present();
 
-        this.afterAnimation();
-    }
+        toast.present();        
+    }    
 
-    notlikePet () {
-        document.getElementById("current-card-pet").classList.add("anima-notlikePet");
-        this.afterAnimation();
-    }
+    notlikePet () {        
+        this.animaNotlikePet = true;
+        let elemCard = this.currentCardPet.nativeElement;
+        elemCard.addEventListener("animationend", this.animationendCard.bind(this), false);                
+    }    
 
-    afterAnimation (durationAnimation = 300) {
-        setTimeout(function () {
-            this.zIndex1 = true;
-            this.waitRequest = true;
-        }.bind(this), durationAnimation);
+    animationendCard () {   
+        console.log("aa");               
+        this.getCurrentPet();
     }
 }
