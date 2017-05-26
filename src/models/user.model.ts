@@ -1,7 +1,10 @@
+import { Pet } from './pet.model';
+
 export interface User {
-  name: string;
-  email: string;
-  about: string;
-  pictures: Object;
-  pets: Object;
+    id: string;
+    email: string;
+    description: string;
+    name: string;
+    pictures: Object;
+    pets: Pet;
 }

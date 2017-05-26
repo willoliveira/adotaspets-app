@@ -9,6 +9,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { AddPet } from '../add-pet/add-pet';
 import { Login } from '../login/login';
 
+import { User } from '../../models/user.model';
+
 @Component({
 	selector: 'page-tab-perfil',
 	templateUrl: 'tab-perfil.html',
@@ -18,12 +20,10 @@ export class TabPerfil {
 	public tab = "perfil";
 	public locked: Boolean = true;
 	public waitRequest: Boolean = true;
-	public userInfo = {
-		description: "",
-		name: "",
-		pets: { }
-	};
 	public userPicture;
+	public userInfo = {
+        name: "", description: ""
+    };
 
 	private loader;
 	private toaster;
@@ -87,10 +87,6 @@ export class TabPerfil {
 		actionSheet.present();
 	}
 
-	/*public goToLogin() {
-		this.app.getRootNav().push(Login);
-	}*/
-
 	public openAddPetPage() {
 		this.app.getRootNav().push(AddPet, {
             userInfo: this.userInfo
@@ -98,8 +94,7 @@ export class TabPerfil {
 	}
 
 	private safeStyleUrl(url) {
-		console.log('url(' + url  + ')');
-		return this.sanitizer.bypassSecurityTrustStyle('url(' + url  + ')');
+		return this.sanitizer.bypassSecurityTrustStyle(`url(${url})`);
 	}
 
 	//------------------------
@@ -131,13 +126,31 @@ export class TabPerfil {
 	//------- EVENTS -------
 	//----------------------
 
-	onSuccessGetInfoStorage(userInfo) {
+	onSuccessGetInfoStorage(userInfo: User) {
 		this.loader.dismiss();
 		this.waitRequest = false;
 		if (userInfo) {
 			this.userInfo = userInfo;
-			this.userPicture = this.safeStyleUrl(userInfo.picture);
+			this.userPicture = this.safeStyleUrl(userInfo.pictures);
 			this.locked = false;
+
+            //DEU CERTO! Depois fazer direito
+            this.userProvider.getPetToUserOnce(userInfo.id)
+                .then(function(data) {
+                    console.log("getPetToUserOncem", data.val());
+                });
+
+            this.userProvider.getPetToUser(userInfo.id).on("child_changed", function(data) {
+                console.log("child_changed", data.key, data.val());
+            });
+
+            this.userProvider.getPetToUser(userInfo.id).on("child_added", function(data) {
+                console.log("child_added", data.key, data.val());
+            });
+
+            this.userProvider.getPetToUser(userInfo.id).on("child_removed", function(data) {
+                console.log("child_removed", data.key, data.val());
+            });
 		} else {
 			// tava mandando pro Login, deixar lockado o perfil
 			// this.app.getRootNav().push(Login);

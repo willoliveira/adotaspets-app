@@ -18,8 +18,8 @@ export class Login {
 	userProfile: any = null;
 
 	constructor(
-		public navCtrl: NavController, 
-		public navParams: NavParams, 
+		public navCtrl: NavController,
+		public navParams: NavParams,
 		private storage: Storage,
 		private authProvider: AuthenticateProvider,
 		private userProvider: UserProvider) { }
@@ -50,11 +50,11 @@ export class Login {
 				} else {
 					let userInfo = {
 						id: response.uid,
-						email: response.email, 
-						description: "", 
+						email: response.email,
+						description: "",
 						name: response.displayName,
 						picture: response.photoURL,
-						pets: { }
+						pets: ""
 					};
 					this.userProvider
 						.postUser(response.uid, userInfo)

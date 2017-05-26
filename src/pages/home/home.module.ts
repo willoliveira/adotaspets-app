@@ -6,22 +6,27 @@ import { TabMessages } from '../tab-messages/tab-messages';
 import { TabPerfil } from '../tab-perfil/tab-perfil';
 import { TabSearch } from '../tab-search/tab-search';
 
+import { Camera } from '@ionic-native/camera';
+
 @NgModule({
 	declarations: [
 		Home,
 
 		TabMessages,
 		TabPerfil,
-		TabSearch 
+		TabSearch
 	],
 	entryComponents: [
 		TabMessages,
 		TabPerfil,
-		TabSearch 
+		TabSearch
 	],
 	imports: [
 		IonicPageModule.forChild(Home),
 	],
+    providers: [
+        Camera
+    ],
 	exports: [
 		Home
 	]
