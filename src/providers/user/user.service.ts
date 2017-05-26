@@ -4,14 +4,23 @@ import firebase from 'firebase';
 
 @Injectable()
 export class UserProvider {
-	
+
 	constructor() { }
-	
-	postUser(uid, data) {
-		return firebase.database().ref('users/' + uid).set(data);
+
+	postUser(userId, data) {
+		return firebase.database().ref('users/' + userId).set(data);
 	}
 
-	getUserOnce(uid) {
-		return firebase.database().ref('users/' + uid).once('value');
+	getUserOnce(userId) {
+		return firebase.database().ref('users/' + userId).once('value');
+	}
+
+
+    getPetToUser(userId) {
+		return firebase.database().ref(`pets/`).orderByChild("userId").equalTo(userId);
+	}
+
+    getPetToUserOnce(userId) {
+		return this.getPetToUser(userId).once("value");
 	}
 }
