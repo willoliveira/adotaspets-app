@@ -5,6 +5,6 @@ export interface User {
     email: string;
     description: string;
     name: string;
-    pictures: Object;
+    picture: string;
     pets: Pet;
 }

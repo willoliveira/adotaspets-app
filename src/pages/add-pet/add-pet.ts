@@ -13,7 +13,7 @@ import { PetsProvider } from '../../providers/pets/pets.service';
 
 export class AddPet {
 
-	public pet: Pet = {
+	public pet: Pet = <Pet> {
 		userId: "",
 		name: "",
 		about: "",
@@ -47,8 +47,10 @@ export class AddPet {
 		this.pet.userId = this.userInfo.id;
 		var newPetKey = firebase.database().ref().child('pets').push().key;
 
+		this.pet.id = newPetKey;
+
         this.petsProvider
-            .postNewPet(newPetKey, this.pet)
+            .postNewPet(this.pet)
             .then(this.onSuccessPostPet.bind(this))
             .catch(this.onError.bind(this, "Erro ao cadastro um pet!"));
 	}

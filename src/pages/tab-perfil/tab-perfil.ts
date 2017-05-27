@@ -10,6 +10,7 @@ import { AddPet } from '../add-pet/add-pet';
 import { Login } from '../login/login';
 
 import { User } from '../../models/user.model';
+import { Pet } from '../../models/pet.model';
 
 @Component({
 	selector: 'page-tab-perfil',
@@ -21,9 +22,11 @@ export class TabPerfil {
 	public locked: Boolean = true;
 	public waitRequest: Boolean = true;
 	public userPicture;
-	public userInfo = {
+	public userInfo:User = <User> {
         name: "", description: ""
     };
+
+	public pets: Array<Pet> = <Array<Pet>> [];
 
 	private loader;
 	private toaster;
@@ -92,16 +95,12 @@ export class TabPerfil {
             userInfo: this.userInfo
         });
 	}
-
-	private safeStyleUrl(url) {
-		return this.sanitizer.bypassSecurityTrustStyle(`url(${url})`);
-	}
-
+	
 	//------------------------
 	// ------- PRIVATE -------
 	//------------------------
 
-	initPage() {
+	private initPage() {
 		this.showLoading();
 		this.storage.get('userInfo')
 			.then(this.onSuccessGetInfoStorage.bind(this))
@@ -120,7 +119,31 @@ export class TabPerfil {
 		});
 		toast.present();
 	}
-
+	
+	private safeStyleUrl(url) {
+		return this.sanitizer.bypassSecurityTrustStyle(`url(${url})`);
+	}
+	
+	private managePetsObject(event: string, data: firebase.database.DataSnapshot) {		
+		var index = this.pets.findIndex((element) => element.id === data.key);
+		switch (event) {
+			case "added":
+				if (index === -1) {
+					this.pets.push(data.val());
+				}
+				break;
+			case "removed": 
+				if (index > -1) {
+					this.pets.splice(index, 1);
+				}
+				break;
+			case "changed": 
+				if (index > -1) {
+					this.pets[index] = Object.assign(this.pets[index], data.val());
+				}
+				break;
+		}
+	}
 
 	//----------------------
 	//------- EVENTS -------
@@ -131,26 +154,28 @@ export class TabPerfil {
 		this.waitRequest = false;
 		if (userInfo) {
 			this.userInfo = userInfo;
-			this.userPicture = this.safeStyleUrl(userInfo.pictures);
+			this.userPicture = this.safeStyleUrl(userInfo.picture);
 			this.locked = false;
 
-            //DEU CERTO! Depois fazer direito
-            this.userProvider.getPetToUserOnce(userInfo.id)
-                .then(function(data) {
-                    console.log("getPetToUserOncem", data.val());
-                });
+            //Inicializa os eventos referente aos pet do usuario
+			//TODO: Testar esse depois
+			// this.userProvider
+			// 	.getPetToUserAllEvents.call(this, this.userInfo.id)
+			// 	.then(this.managePetsObject.bind(this, "added"));
 
-            this.userProvider.getPetToUser(userInfo.id).on("child_changed", function(data) {
-                console.log("child_changed", data.key, data.val());
-            });
+			//TODO: Talvez fazer um esquema que dentro do provider ele assine todos os eventos de uma vez só
+            this.userProvider
+				.getPetToUserAdded(this.userInfo.id)
+				.then(this.managePetsObject.bind(this, "added"));
 
-            this.userProvider.getPetToUser(userInfo.id).on("child_added", function(data) {
-                console.log("child_added", data.key, data.val());
-            });
+            this.userProvider
+				.getPetToUserRemoved(this.userInfo.id)
+				.then(this.managePetsObject.bind(this, "removed"));
 
-            this.userProvider.getPetToUser(userInfo.id).on("child_removed", function(data) {
-                console.log("child_removed", data.key, data.val());
-            });
+            this.userProvider
+				.getPetToUserChanged(this.userInfo.id)
+				.then(this.managePetsObject.bind(this, "changed"));
+
 		} else {
 			// tava mandando pro Login, deixar lockado o perfil
 			// this.app.getRootNav().push(Login);

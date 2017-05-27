@@ -8,12 +8,13 @@ export class PetsProvider {
 
 	constructor() { }
 
-	postNewPet(petId: string, pet: Pet) {
+	postNewPet(pet: Pet) {
         var saveInfos = { };
         //salvando o pet
-        saveInfos[`/pets/${petId}`] = pet;
-        //salvando a referencia do pet no objeto do user
-        saveInfos[`/users/${pet.userId}/pets/${petId}`] = { id: petId, name: pet.name };
+        saveInfos[`/pets/${pet.id}`] = pet;
+        //salvando a referencia do pet no objeto do user 
+        //TODO: Melhorar essas definições talvez, do que salvar no objeto do user
+        saveInfos[`/users/${pet.userId}/pets/${pet.id}`] = { id: pet.id, name: pet.name };
 		return firebase.database().ref().update(saveInfos);
 	}
 

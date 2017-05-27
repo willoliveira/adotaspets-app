@@ -1,4 +1,5 @@
 export interface Pet {
+    id: string;
     userId: string;
     name: string;
     kind: string;
