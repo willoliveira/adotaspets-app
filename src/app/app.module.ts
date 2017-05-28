@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule, Storage } from '@ionic/storage';
 
-import { MyApp } from './app.component';
+import { AdotaPets } from './app.component';
 
 import { HomeModule } from '../pages/home/home.module';
 import { LoginModule } from '../pages/login/login.module';
@@ -24,7 +24,7 @@ import { PetsProvider } from '../providers/pets/pets.service';
 
 @NgModule({
 	declarations: [
-		MyApp,
+		AdotaPets,
 
 		ModalFilter,
 		AddPet
@@ -35,12 +35,12 @@ import { PetsProvider } from '../providers/pets/pets.service';
 		HomeModule, LoginModule, MessagesModule,
 		PerfilModule, PetModule, ResponsibleModule,
 
-		IonicModule.forRoot(MyApp),
+		IonicModule.forRoot(AdotaPets),
 		IonicStorageModule.forRoot()
 	],
 	bootstrap: [IonicApp],
 	entryComponents: [
-		MyApp,
+		AdotaPets,
 
 		ModalFilter,
 		AddPet

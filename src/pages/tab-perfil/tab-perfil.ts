@@ -159,23 +159,12 @@ export class TabPerfil {
 
             //Inicializa os eventos referente aos pet do usuario
 			//TODO: Testar esse depois
-			// this.userProvider
-			// 	.getPetToUserAllEvents.call(this, this.userInfo.id)
-			// 	.then(this.managePetsObject.bind(this, "added"));
+			// this.userProvider.getPetToUserAllEvents.call(this, this.userInfo.id, this.managePetsObject);
 
 			//TODO: Talvez fazer um esquema que dentro do provider ele assine todos os eventos de uma vez só
-            this.userProvider
-				.getPetToUserAdded(this.userInfo.id)
-				.then(this.managePetsObject.bind(this, "added"));
-
-            this.userProvider
-				.getPetToUserRemoved(this.userInfo.id)
-				.then(this.managePetsObject.bind(this, "removed"));
-
-            this.userProvider
-				.getPetToUserChanged(this.userInfo.id)
-				.then(this.managePetsObject.bind(this, "changed"));
-
+            this.userProvider.getPetToUserAdded(this.userInfo.id, this.managePetsObject.bind(this, "added"));
+            this.userProvider.getPetToUserRemoved(this.userInfo.id, this.managePetsObject.bind(this, "removed"));
+            this.userProvider.getPetToUserChanged(this.userInfo.id, this.managePetsObject.bind(this, "changed"));
 		} else {
 			// tava mandando pro Login, deixar lockado o perfil
 			// this.app.getRootNav().push(Login);

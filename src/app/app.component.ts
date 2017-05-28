@@ -12,7 +12,7 @@ import { Home } from '../pages/home/home';
 @Component({
 	templateUrl: 'app.html'
 })
-export class MyApp {
+export class AdotaPets {
 	rootPage:any;
 	
 	constructor(

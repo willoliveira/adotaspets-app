@@ -23,47 +23,39 @@ export class UserProvider {
 	}
 
 	//TODO: Pensar se mando esses metodos para service de pet
-
+	
 	/**
 	 * Inicializa todos os eventos
 	 * @param userId 
 	 */
-	getPetToUserAllEvents(userId) {
-		return new Promise((resolve, reject) => {
-			getPetToUser(userId).on('child_added', resolve.bind(this, "added"));
-			getPetToUser(userId).on('child_removed', resolve.bind(this, "removed"));
-			getPetToUser(userId).on('child_changed', resolve.bind(this, "changed"));
-		});
+	getPetToUserAllEvents(userId, callback) {
+		getPetToUser(userId).on('child_added', callback.bind(this, "added"));
+		getPetToUser(userId).on('child_removed', callback.bind(this, "removed"));
+		getPetToUser(userId).on('child_changed', callback.bind(this, "changed"));
 	}
 
 	/**
 	 * Quando adiciona um pet
 	 * @param userId 
 	 */
-	getPetToUserAdded(userId) {
-		return new Promise((resolve, reject) => {
-			getPetToUser(userId).on('child_added', resolve);
-		});
+	getPetToUserAdded(userId, callback) {
+		getPetToUser(userId).on('child_added', callback);
 	}
 
 	/**
 	 * Quando remove um pet
 	 * @param userId 
 	 */
-	getPetToUserRemoved(userId) {
-		return new Promise((resolve, reject) => {
-			getPetToUser(userId).on('child_removed', resolve);
-		});
+	getPetToUserRemoved(userId, callback) {
+		getPetToUser(userId).on('child_removed', callback);
 	}
 
 	/**
 	 * Quando altera alguma informação de algum nó dos pets
 	 * @param userId
 	 */
-	getPetToUserChanged(userId) {
-		return new Promise((resolve, reject) => {
-			getPetToUser(userId).on('child_changed', resolve);
-		});
+	getPetToUserChanged(userId, callback) {
+		getPetToUser(userId).on('child_changed', callback);
 	}
 
 	/**
