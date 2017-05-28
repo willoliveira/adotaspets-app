@@ -68,7 +68,7 @@ export class AddPet {
 		//se não tiver, soltar um erro talvez
 		if (userInfo) {
 			this.userInfo = userInfo;
-			if (this.pet) {
+			if (pet) {
 				this.pet = pet;
 				this.editMode = true;
 			}
