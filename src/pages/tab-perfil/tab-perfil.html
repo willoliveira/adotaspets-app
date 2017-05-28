@@ -54,7 +54,7 @@
 				<ion-card *ngFor="let pet of pets; let i = index; trackBy: id">
 					<ion-item>
 						<ion-avatar item-left>
-							<img src="assets/img/avatar-ts-slinky.png">
+							<img [src]="pet.pictures ? pet.pictures[pet.id + '__0'].picture : assets/img/avatar-ts-slinky.png">
 						</ion-avatar>
 
 						<h2>{{pet.name}}</h2>

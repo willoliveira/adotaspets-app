@@ -10,25 +10,31 @@
 		<p class="txt-add-photo">Adicione fotos do pet</p>
 
 		<div class="container-slider">
-			<ion-slides pager loop="true">
+			<ion-slides #slidePicturesPet pager loop="true">
 				<ion-slide>
-					<img src="assets/img/img-default-pet.jpg">
+					<img [src]="picturesPet.length > 0 ? picturesPet[0].picture : imageDefault">
 				</ion-slide>
 				<ion-slide>
-					<img src="assets/img/img-default-pet.jpg">
+					<img [src]="picturesPet.length > 1 ? picturesPet[1].picture : imageDefault">
 				</ion-slide>
 				<ion-slide>
-					<img src="assets/img/img-default-pet.jpg">
+					<img [src]="picturesPet.length > 2 ? picturesPet[2].picture : imageDefault">
 				</ion-slide>
 			</ion-slides>
 
 			<ion-chip>
-				<ion-label>Foto 1</ion-label>
+				<ion-label>Foto {{slidePicturesPet.realIndex + 1}}</ion-label>
 			</ion-chip>
 			<ion-fab right top>
 				<button ion-fab class="add-pet-photo" mini color="darkTheme">
 					<ion-icon name='add'></ion-icon>
 				</button>
+				<ion-fab-list side="left">
+					<button (click)="getPictureCamera()" ion-fab color="primary"><ion-icon name="camera"></ion-icon></button>
+				</ion-fab-list>
+				<ion-fab-list side="bottom">
+					<button (click)="getPictureLibrary()" ion-fab color="primary"><ion-icon name="image"></ion-icon></button>
+				</ion-fab-list>
 			</ion-fab>
 		</div>
 	</div>
@@ -56,7 +62,7 @@
 		</ion-card-content>
 	</ion-card>
 
-    <ion-card>
+	<ion-card>
 		<ion-card-content>
 			<ion-list>
 				<ion-item>
@@ -76,7 +82,7 @@
 		</ion-select>
 	</ion-item>
 
-    <ion-item>
+	<ion-item>
 		<ion-label>Porte do pet</ion-label>
 		<ion-select [(ngModel)]="pet.size">
 			<ion-option value="small">Pequeno</ion-option>
@@ -87,7 +93,7 @@
 
 	<div class="container-bt-add">
 		<button (click)="postPets()" ion-button icon-right block round outline color="greenTheme">
-			{{ editMode ? 'Atualizar' : 'Adicionar'}} pet 
+			{{ editMode ? 'Atualizar' : 'Adicionar'}} pet
 			<ion-icon *ngIf="editMode" name="add"></ion-icon>
 		</button>
 	</div>
