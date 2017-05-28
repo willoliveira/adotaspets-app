@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { App, IonicPage, NavController, NavParams, ActionSheetController, Platform, ToastController, LoadingController } from 'ionic-angular';
+import { App, IonicPage, NavController, NavParams, ActionSheetController, AlertController, Platform, ToastController, LoadingController } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 import { UserProvider } from '../../providers/user/user.service';
+import { PetsProvider } from '../../providers/pets/pets.service';
 
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -37,7 +38,9 @@ export class TabPerfil {
 		public app: App,
 		private loadingCtrl: LoadingController,
 		private toastCtrl: ToastController,
+		private alertCtrl: AlertController,
 		private userProvider: UserProvider,
+		private petsProvider: PetsProvider,
 		private storage: Storage,
 		private sanitizer: DomSanitizer
 		) {
@@ -48,51 +51,44 @@ export class TabPerfil {
 	//-------- PUBLIC---------
 	//------------------------
 
-	public openMenu() {
+	public openMenu(pet: Pet) {
 		let actionSheet = this.actionsheetCtrl.create({
 			title: 'Ações',
 			cssClass: 'action-sheets-basic-page',
 			buttons: [
 				{
-				text: 'Editar',
-				role: 'editar',
-				icon: !this.platform.is('ios') ? 'create' : null,
-				handler: () => {
-					console.log('Delete clicked');
-				}
+					text: 'Editar',
+					role: 'editar',
+					icon: !this.platform.is('ios') ? 'create' : null,
+					handler: this.openAddPetPage.bind(this, pet)
 				},
 				{
-				text: 'Alterar status',
-				role: 'status',
-				icon: !this.platform.is('ios') ? 'home' : null,
-				handler: () => {
-					console.log('Share clicked');
-				}
+					text: 'Alterar status',
+					role: 'status',
+					icon: !this.platform.is('ios') ? 'home' : null,
+					handler: () => { console.log('Share clicked'); }
 				},
 				{
-				text: 'Excluir',
-				role: 'excluir', // will always sort to be on the bottom
-				icon: !this.platform.is('ios') ? 'trash' : null,
-				handler: () => {
-					console.log('Cancel clicked');
-				}
+					text: 'Excluir',
+					role: 'excluir',
+					icon: !this.platform.is('ios') ? 'trash' : null,
+					handler: this.showConfirmDeletePet.bind(this, pet)
 				},
 				{
-				text: 'Cancelar',
-				role: 'cancelar', // will always sort to be on the bottom
-				icon: !this.platform.is('ios') ? 'close' : null,
-				handler: () => {
-					console.log('Cancel clicked');
-				}
+					text: 'Cancelar',
+					role: 'cancelar',
+					icon: !this.platform.is('ios') ? 'close' : null,
+					handler: () => { actionSheet.dismiss() }
 				}
 			]
 		});
 		actionSheet.present();
 	}
 
-	public openAddPetPage() {
+	public openAddPetPage(pet: Pet) {
 		this.app.getRootNav().push(AddPet, {
-            userInfo: this.userInfo
+            userInfo: this.userInfo,
+			pet: pet
         });
 	}
 	
@@ -124,7 +120,7 @@ export class TabPerfil {
 		return this.sanitizer.bypassSecurityTrustStyle(`url(${url})`);
 	}
 	
-	private managePetsObject(event: string, data: firebase.database.DataSnapshot) {		
+	private managePetsObject(event: string, data: firebase.database.DataSnapshot) {
 		var index = this.pets.findIndex((element) => element.id === data.key);
 		switch (event) {
 			case "added":
@@ -143,6 +139,22 @@ export class TabPerfil {
 				}
 				break;
 		}
+	}
+
+	private showConfirmDeletePet(pet) {
+		let confirm = this.alertCtrl.create({
+			title: 'Tem certeza?',
+			message: 'Seu pet será excluido permanentemente, tem certeza?',
+			buttons: [
+				{ text: 'Cancelar', handler: () => { confirm.dismiss() } },
+				{ text: 'Deletar!', handler: this.onDeletePet.bind(this, pet) }
+			]
+		});
+		confirm.present();
+	}
+
+	private onDeletePet(pet) {
+		this.petsProvider.deletePet(this.userInfo.id, pet.id)
 	}
 
 	//----------------------

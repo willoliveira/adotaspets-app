@@ -87,7 +87,8 @@
 
 	<div class="container-bt-add">
 		<button (click)="postPets()" ion-button icon-right block round outline color="greenTheme">
-			Adicionar pet <ion-icon name="add"></ion-icon>
+			{{ editMode ? 'Atualizar' : 'Adicionar'}} pet 
+			<ion-icon *ngIf="editMode" name="add"></ion-icon>
 		</button>
 	</div>
 </ion-content>

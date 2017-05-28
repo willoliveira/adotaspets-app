@@ -14,7 +14,6 @@ import { PetsProvider } from '../../providers/pets/pets.service';
 export class AddPet {
 
 	public pet: Pet = <Pet> {
-		userId: "",
 		name: "",
 		about: "",
 		breed: "",
@@ -22,7 +21,7 @@ export class AddPet {
 		size: "",
 		pictures: {}
 	};
-
+	private editMode: Boolean = false;
 	private userInfo;
 	private loader;
 
@@ -34,7 +33,7 @@ export class AddPet {
 		private toastCtrl: ToastController,
 		private petsProvider: PetsProvider) {
 
-		this.initPage(this.navParams.get("userInfo"));
+		this.initPage(this.navParams.get("userInfo"), this.navParams.get("pet"));
 	}
 
 	//------------------------
@@ -43,25 +42,36 @@ export class AddPet {
 
 	public postPets() {
         this.showLoading();
+		if (this.pet.id) {
+			this.petsProvider
+				.updatePet(this.pet)
+				.then(this.onSuccessPostPet.bind(this, "Pet atualizado com sucesso!"))
+				.catch(this.onError.bind(this, "Erro ao cadastro um pet!"));
+		} else {
+			this.pet.userId = this.userInfo.id;
+			var newPetKey = firebase.database().ref().child('pets').push().key;
 
-		this.pet.userId = this.userInfo.id;
-		var newPetKey = firebase.database().ref().child('pets').push().key;
+			this.pet.id = newPetKey;
 
-		this.pet.id = newPetKey;
-
-        this.petsProvider
-            .postNewPet(this.pet)
-            .then(this.onSuccessPostPet.bind(this))
-            .catch(this.onError.bind(this, "Erro ao cadastro um pet!"));
+			this.petsProvider
+				.postNewPet(this.pet)
+				.then(this.onSuccessPostPet.bind(this, "Pet cadastrado com sucesso!"))
+				.catch(this.onError.bind(this, "Erro ao cadastro um pet!"));
+		}
 	}
 
 	//------------------------
 	// ------- PRIVATE -------
 	//------------------------
 
-	private initPage(userInfo) {
+	private initPage(userInfo, pet) {
+		//se não tiver, soltar um erro talvez
 		if (userInfo) {
 			this.userInfo = userInfo;
+			if (this.pet) {
+				this.pet = pet;
+				this.editMode = true;
+			}
 		}
 	}
 
@@ -87,9 +97,9 @@ export class AddPet {
 	//------- EVENTS -------
 	//----------------------
 
-    private onSuccessPostPet() {
+    private onSuccessPostPet(msgSuccess) {
         this.loader.dismiss();
-        this.presentToast("Pet cadastrado com sucesso!");
+        this.presentToast(msgSuccess);
 
         this.navCtrl.pop();
     }
