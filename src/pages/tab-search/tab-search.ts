@@ -9,74 +9,73 @@ import { ModalFilter } from '../modals/modal-filter/modal-filter';
 	templateUrl: 'tab-search.html',
 })
 
-export class TabSearch {    
-    public waitRequest: Boolean = true;    
+export class TabSearch {
+    public zIndexFabs: Number = 1;
+    public waitRequest: Boolean = true;
 
-    public anima = {                
+    public anima = {
         likePet: false,
         notlikePet: false,
         containerSearching: true
     };
 
-    @ViewChild('currentCardPet') currentCardPet:ElementRef;    
+    @ViewChild('currentCardPet') currentCardPet:ElementRef;
 
-	constructor(public modalCtrl: ModalController, public toastCtrl: ToastController, public app: App) {}    
+	constructor(public modalCtrl: ModalController, public toastCtrl: ToastController, public app: App) {}
 
-    ngOnInit () {        
+    ngOnInit () {
         this.getCurrentPet();
     }
 
     getCurrentPet () {
-        this.waitRequest = true;        
-        this.anima.likePet = false;
-        this.anima.notlikePet = false;              
+        this.zIndexFabs = 1;
+        this.waitRequest = true;
+        this.anima.likePet = this.anima.notlikePet = false;
 
-        /*simula uma requisicao para mostrar tela de searching*/
-        setTimeout(function () {                        
-            this.waitRequest = false;            
-            this.anima.containerSearching = false;         
+        setTimeout(function () {
+            this.zIndexFabs = 999;
+            this.waitRequest = this.anima.containerSearching = false;
         }.bind(this), 3000);
     }
 
 	openModal() {
 		let modal = this.modalCtrl.create(ModalFilter);
 		modal.present();
-	}	
+	}
 
 	public goToInfoPet() {
 		this.app.getRootNav().push(Pet);
 	}
 
-    likePet () {         
-        if (this.anima.containerSearching) 
+    likePet () {
+        if (this.anima.containerSearching)
             return null;
 
-        this.anima.containerSearching  = true;
-        this.anima.likePet = true;
+        this.anima.containerSearching = this.anima.likePet = true;
 
         let elemCardPet = this.currentCardPet.nativeElement;
-        elemCardPet.addEventListener("animationend", this.animationendCard.bind(this), false);                
+        elemCardPet.addEventListener("animationend", this.animationendCard.bind(this));
 
         let toast = this.toastCtrl.create({
             message: 'Uma nova conversa com o responsável foi criada na aba de mensagens.',
             duration: 5000,
         });
 
-        toast.present();        
-    }    
+        toast.present();
+    }
 
-    notlikePet () {                 
-        if (this.anima.containerSearching) 
-            return null;        
+    notlikePet () {
+        if (this.anima.containerSearching)
+            return null;
 
-        this.anima.containerSearching  = true;
-        this.anima.notlikePet = true;        
-        
+        this.anima.containerSearching = this.anima.notlikePet = true;
+
         let elemCardPet = this.currentCardPet.nativeElement;
-        elemCardPet.addEventListener("animationend", this.animationendCard.bind(this), false);                
-    }    
+        elemCardPet.addEventListener("animationend", this.animationendCard.bind(this));
+    }
 
-    animationendCard () {        
+    animationendCard (event) {
+        event.target.removeEventListener("animationend", this.animationendCard.bind(this));
         this.getCurrentPet();
     }
 }

@@ -55,11 +55,11 @@
 		</ion-item>
 	</ion-card>
 
-	<ion-fab bottom right class="notlikePet" (click)="notlikePet()" [ngClass]="{'zIndex1': waitRequest }">
+	<ion-fab bottom right class="notlikePet" (click)="notlikePet()" [ngStyle]="{'z-index': zIndexFabs}">
     	<button ion-fab color="redTheme"><ion-icon name="close"></ion-icon></button>
   	</ion-fab>
 
-	<ion-fab bottom right class="likePet" (click)="likePet()" [ngClass]="{'zIndex1': waitRequest }">
+	<ion-fab bottom right class="likePet" (click)="likePet()" [ngStyle]="{'z-index': zIndexFabs}">
     	<button ion-fab color="greenTheme"><ion-icon name="heart-outline"></ion-icon></button>
   	</ion-fab>
 </ion-content>
