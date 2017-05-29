@@ -5,7 +5,7 @@
 		</button>
 	</div>
 
-    <div class="container-searching" *ngIf="anima.waitRequest" [ngClass]="{'anima-container-searching': anima.containerSearching }">
+    <div class="container-searching" *ngIf="anima.containerSearching" [ngClass]="{'anima-container-searching': anima.containerSearching }">
         <div class="overlay-block"></div>
 
         <div class="searching-info">
@@ -14,7 +14,7 @@
         </div>
     </div>
 
-	<ion-card id="current-card-pet" class="card-pet" *ngIf="!anima.waitRequest" [ngClass]="{'anima-likePet': anima.likePet, 'anima-notlikePet': anima.notlikePet }" #currentCardPet>
+	<ion-card id="current-card-pet" class="card-pet" *ngIf="!waitRequest" [ngClass]="{'anima-likePet': anima.likePet, 'anima-notlikePet': anima.notlikePet }" #currentCardPet>
 		<ion-item>
 			<ion-avatar item-left>
 				<img src="assets/img/avatar-ts-jessie.png">
@@ -55,11 +55,11 @@
 		</ion-item>
 	</ion-card>
 
-	<ion-fab bottom right class="notlikePet" (click)="notlikePet()" [ngClass]="{'zIndex1': anima.zIndex1 }">
+	<ion-fab bottom right class="notlikePet" (click)="notlikePet()" [ngClass]="{'zIndex1': waitRequest }">
     	<button ion-fab color="redTheme"><ion-icon name="close"></ion-icon></button>
   	</ion-fab>
 
-	<ion-fab bottom right class="likePet" (click)="likePet()" [ngClass]="{'zIndex1': anima.zIndex1 }">
+	<ion-fab bottom right class="likePet" (click)="likePet()" [ngClass]="{'zIndex1': waitRequest }">
     	<button ion-fab color="greenTheme"><ion-icon name="heart-outline"></ion-icon></button>
   	</ion-fab>
 </ion-content>

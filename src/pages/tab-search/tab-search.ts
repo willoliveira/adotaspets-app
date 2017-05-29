@@ -10,53 +10,46 @@ import { ModalFilter } from '../modals/modal-filter/modal-filter';
 })
 
 export class TabSearch {    
-    public desabled: Boolean = true;    
+    public waitRequest: Boolean = true;    
 
-    public anima = {
-        waitRequest: true,
-        zIndex1: true,
+    public anima = {                
         likePet: false,
         notlikePet: false,
-        containerSearching: false
+        containerSearching: true
     };
 
     @ViewChild('currentCardPet') currentCardPet:ElementRef;    
 
-	constructor(public modalCtrl: ModalController, public toastCtrl: ToastController, public app: App) {   
-        this.anima.containerSearching = true;         
+	constructor(public modalCtrl: ModalController, public toastCtrl: ToastController, public app: App) {}    
+
+    ngOnInit () {        
         this.getCurrentPet();
-	}
+    }
 
     getCurrentPet () {
-        this.anima.waitRequest = true;
-        this.anima.zIndex1 = true;
+        this.waitRequest = true;        
         this.anima.likePet = false;
         this.anima.notlikePet = false;              
 
         /*simula uma requisicao para mostrar tela de searching*/
-        setTimeout(function () {
-            this.desabled = false;
-            this.anima.zIndex1 = false;
-            this.anima.waitRequest = false;            
+        setTimeout(function () {                        
+            this.waitRequest = false;            
+            this.anima.containerSearching = false;         
         }.bind(this), 3000);
     }
 
 	openModal() {
 		let modal = this.modalCtrl.create(ModalFilter);
 		modal.present();
-	}
-
-	ionViewDidLoad() {
-		console.log('ionViewDidLoad TabSearch');
-	}
+	}	
 
 	public goToInfoPet() {
 		this.app.getRootNav().push(Pet);
 	}
 
-    likePet () {  
-        if (this.desabled)
-            return null;        
+    likePet () {         
+        if (this.anima.containerSearching) 
+            return null;
 
         this.anima.containerSearching  = true;
         this.anima.likePet = true;
@@ -72,11 +65,9 @@ export class TabSearch {
         toast.present();        
     }    
 
-    notlikePet () {        
-        if (this.desabled)
-            return null;
-
-        console.log("asa");
+    notlikePet () {                 
+        if (this.anima.containerSearching) 
+            return null;        
 
         this.anima.containerSearching  = true;
         this.anima.notlikePet = true;        
