@@ -18,8 +18,7 @@
 		<div [ngSwitch]="tab">
 			<div *ngSwitchCase="'perfil'" class="tab-perfil">
 				<div class="img-user-perfil" [style.background-image]="userPicture"></div>
-				<h3 class="name-perfil" text-center>{{userInfo.name}}</h3>
-				<!--<button ion-fab mini class="edit-perfil"><ion-icon name="create"></ion-icon></button>-->
+				<h3 class="name-perfil" text-center>{{userInfo.name}}</h3>				
 
 				<ion-card>
 					<ion-card-content>
@@ -53,10 +52,7 @@
 
 				<ion-card *ngFor="let pet of pets; let i = index; trackBy: id">
 					<ion-item>
-						<ion-avatar item-left>
-							<img [src]="pet.pictures ? pet.pictures[pet.id + '__0'].picture : assets/img/avatar-ts-slinky.png">
-						</ion-avatar>
-
+						<ion-avatar item-left [ngStyle]="{'background-image': 'url(' + pet.pictures ? pet.pictures[pet.id + '__0'].picture : assets/img/avatar-ts-slinky.png + ')'}"></ion-avatar>
 						<h2>{{pet.name}}</h2>
 						<p>{{pet.kind}}, porte {{pet.size}}</p>
 
@@ -68,83 +64,7 @@
 							<ion-icon name='create'></ion-icon>
 						</button>
 					</ion-fab>
-				</ion-card>
-
-				<!--<ion-card>
-					<ion-item>
-						<ion-avatar item-left>
-							<img src="assets/img/avatar-ts-slinky.png">
-						</ion-avatar>
-
-						<h2>Dog do lula</h2>
-						<p>Cachorro, porte pequeno</p>
-
-						<p class="item-state pet-donated"><ion-icon name="happy"></ion-icon> Doado</p>
-						<ion-badge class="item-likes" color="redTheme"><ion-icon name="heart-outline"></ion-icon> 10 likes</ion-badge>
-					</ion-item>
-					<ion-fab right bottom>
-						<button ion-fab class="fab-map" mini color="greyTheme" (click)="openMenu()">
-							<ion-icon name='create'></ion-icon>
-						</button>
-					</ion-fab>
-				</ion-card>
-
-				<ion-card>
-					<ion-item>
-						<ion-avatar item-left>
-							<img src="assets/img/avatar-ts-slinky.png">
-						</ion-avatar>
-
-						<h2>Dog do lula</h2>
-						<p>Cachorro, porte pequeno</p>
-
-						<p class="item-state pet-pending"><ion-icon name="home"></ion-icon> Precisa de um lar</p>
-						<ion-badge class="item-likes" color="redTheme"><ion-icon name="heart-outline"></ion-icon> Nenhum like :(</ion-badge>
-					</ion-item>
-					<ion-fab right bottom>
-						<button ion-fab class="fab-map" mini color="greyTheme" (click)="openMenu()">
-							<ion-icon name='create'></ion-icon>
-						</button>
-					</ion-fab>
-				</ion-card>
-
-				<ion-card>
-					<ion-item>
-						<ion-avatar item-left>
-							<img src="assets/img/avatar-ts-slinky.png">
-						</ion-avatar>
-
-						<h2>Dog do lula</h2>
-						<p>Cachorro, porte pequeno</p>
-
-						<p class="item-state pet-donated"><ion-icon name="happy"></ion-icon> Doado</p>
-						<ion-badge class="item-likes" color="redTheme"><ion-icon name="heart-outline"></ion-icon> 1 like</ion-badge>
-					</ion-item>
-					<ion-fab right bottom>
-						<button ion-fab class="fab-map" mini color="greyTheme" (click)="openMenu()">
-							<ion-icon name='create'></ion-icon>
-						</button>
-					</ion-fab>
-				</ion-card>
-
-				<ion-card>
-					<ion-item>
-						<ion-avatar item-left>
-							<img src="assets/img/avatar-ts-slinky.png">
-						</ion-avatar>
-
-						<h2>Dog do lula</h2>
-						<p>Cachorro, porte pequeno</p>
-
-						<p class="item-state pet-pending"><ion-icon name="home"></ion-icon> Precisa de um lar</p>
-						<ion-badge class="item-likes" color="redTheme"><ion-icon name="heart-outline"></ion-icon> 10 likes</ion-badge>
-					</ion-item>
-					<ion-fab right bottom>
-						<button ion-fab class="fab-map" mini color="greyTheme" (click)="openMenu()">
-							<ion-icon name='create'></ion-icon>
-						</button>
-					</ion-fab>
-				</ion-card>-->
+				</ion-card>				
 			</div>
 		</div>
 	</div>

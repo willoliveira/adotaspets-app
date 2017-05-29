@@ -30,9 +30,7 @@ page-tab-perfil {
         }
     }
 
-    .tab-perfil {
-        /*position: relative;*/
-
+    .tab-perfil {        
         .img-user-perfil {
             background-color: #37474F center center;
             background-position: center center;
@@ -49,13 +47,7 @@ page-tab-perfil {
             color: #37474F;
             margin-bottom: 25px;
         }
-
-        /*.edit-perfil {
-            position: absolute;
-            top: 85px;
-            left: 55%;
-        }*/
-
+        
         .label-sobre {
             font-size: 16px !important;
         }
@@ -83,6 +75,11 @@ page-tab-perfil {
     .tab-pets {
         ion-card {
             position: relative;
+
+            ion-avatar {
+                border-radius: 50%;
+                background-size: cover;
+            }
         }
 
         .item-state {

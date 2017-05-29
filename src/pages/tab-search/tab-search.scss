@@ -1,4 +1,9 @@
 page-tab-search {
+    ion-avatar {
+        border-radius: 50%;
+        background-size: cover;
+    }
+
     ion-item {
         ion-icon, p {
             color: #666;

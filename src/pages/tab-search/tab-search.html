@@ -16,9 +16,7 @@
 
 	<ion-card id="current-card-pet" class="card-pet" *ngIf="!waitRequest" [ngClass]="{'anima-card-pet': anima.cardPet, 'anima-likePet': anima.likePet, 'anima-notlikePet': anima.notlikePet }" #currentCardPet>
 		<ion-item>
-			<ion-avatar item-left>
-				<img src="assets/img/avatar-ts-jessie.png">
-			</ion-avatar>
+			<ion-avatar item-left [ngStyle]="{'background-image': 'url(' + bgAvatarResp + ')'}"></ion-avatar>
 			<h2>Luís Inacio Lula da Silva</h2>
 			<p>Responsável</p>
 		</ion-item>

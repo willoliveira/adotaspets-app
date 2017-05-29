@@ -10,6 +10,7 @@ import { ModalFilter } from '../modals/modal-filter/modal-filter';
 })
 
 export class TabSearch {
+    public bgAvatarResp: String = "assets/img/lula.jpg";    
     public zIndexFabs: Number = 1;
     public waitRequest: Boolean = true;
 
