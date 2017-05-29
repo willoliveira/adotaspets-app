@@ -91,7 +91,7 @@ export class TabPerfil {
 			pet: pet
         });
 	}
-	
+
 	//------------------------
 	// ------- PRIVATE -------
 	//------------------------
@@ -115,11 +115,11 @@ export class TabPerfil {
 		});
 		toast.present();
 	}
-	
+
 	private safeStyleUrl(url) {
 		return this.sanitizer.bypassSecurityTrustStyle(`url(${url})`);
 	}
-	
+
 	private managePetsObject(event: string, data: firebase.database.DataSnapshot) {
 		var index = this.pets.findIndex((element) => element.id === data.key);
 		switch (event) {
@@ -128,12 +128,12 @@ export class TabPerfil {
 					this.pets.push(data.val());
 				}
 				break;
-			case "removed": 
+			case "removed":
 				if (index > -1) {
 					this.pets.splice(index, 1);
 				}
 				break;
-			case "changed": 
+			case "changed":
 				if (index > -1) {
 					this.pets[index] = Object.assign(this.pets[index], data.val());
 				}
@@ -173,10 +173,16 @@ export class TabPerfil {
 			//TODO: Testar esse depois
 			// this.userProvider.getPetToUserAllEvents.call(this, this.userInfo.id, this.managePetsObject);
 
+            // TODO: FAZER ASSIM DEPOIS
+            // this.petsProvider.getPetToUserOnce(this.userInfo.id)
+            //     .then(data => {
+            //         this.pets = data.val()
+            //     })
+
 			//TODO: Talvez fazer um esquema que dentro do provider ele assine todos os eventos de uma vez só
-            this.userProvider.getPetToUserAdded(this.userInfo.id, this.managePetsObject.bind(this, "added"));
-            this.userProvider.getPetToUserRemoved(this.userInfo.id, this.managePetsObject.bind(this, "removed"));
-            this.userProvider.getPetToUserChanged(this.userInfo.id, this.managePetsObject.bind(this, "changed"));
+            this.petsProvider.getPetToUserAdded(this.userInfo.id, this.managePetsObject.bind(this, "added"));
+            this.petsProvider.getPetToUserRemoved(this.userInfo.id, this.managePetsObject.bind(this, "removed"));
+            this.petsProvider.getPetToUserChanged(this.userInfo.id, this.managePetsObject.bind(this, "changed"));
 		} else {
 			// tava mandando pro Login, deixar lockado o perfil
 			// this.app.getRootNav().push(Login);

@@ -34,6 +34,9 @@ add-pet {
             ion-slide {
                 img {
                     display: block;
+                    max-height: 340px;
+                    max-width: 340px;
+                    margin: 0 auto;
                 }
             }
 
