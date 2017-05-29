@@ -15,6 +15,7 @@ export class TabSearch {
 
     public anima = {
         likePet: false,
+        cardPet: false,
         notlikePet: false,
         containerSearching: true
     };
@@ -30,11 +31,12 @@ export class TabSearch {
     getCurrentPet () {
         this.zIndexFabs = 1;
         this.waitRequest = true;
-        this.anima.likePet = this.anima.notlikePet = false;
+        this.anima.likePet = this.anima.notlikePet = this.anima.cardPet = false;
 
         setTimeout(function () {
             this.zIndexFabs = 999;
             this.waitRequest = this.anima.containerSearching = false;
+            this.anima.cardPet = true;
         }.bind(this), 3000);
     }
 

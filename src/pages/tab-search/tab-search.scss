@@ -73,6 +73,20 @@ page-tab-search {
     /*animations
         exemplos: animation-timing-function: linear|ease|ease-in|ease-out|ease-in-out|step-start|step-end|steps(int,start|end)|cubic-bezier(n,n,n,n)|initial|inherit;
     */
+    
+    @-webkit-keyframes animaCardPet {
+        0%   { opacity: 0.0 }
+        100% { opacity: 1.0 }
+    }
+
+    .anima-card-pet {
+        -webkit-animation: animaCardPet linear 1;
+        animation: animaCardPet linear 1;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+        -webkit-animation-duration: 500ms;
+        animation-duration: 500ms;
+    }
 
     @-webkit-keyframes animaNotlikePet {
         0%   { -webkit-transform: translate3d(0,0,0); }
@@ -112,7 +126,7 @@ page-tab-search {
         animation: animaContainerSearching linear 1;
         -webkit-animation-fill-mode: forwards;
         animation-fill-mode: forwards;
-        -webkit-animation-duration: 700ms;
-        animation-duration: 700ms;
+        -webkit-animation-duration: 500ms;
+        animation-duration: 500ms;
     }
 }
