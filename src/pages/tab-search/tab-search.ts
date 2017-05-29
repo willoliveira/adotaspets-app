@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { App, ModalController, NavController, NavParams, ToastController } from 'ionic-angular';
+import { App, ModalController, ToastController } from 'ionic-angular';
 
 import { Pet } from '../pet/pet';
 import { ModalFilter } from '../modals/modal-filter/modal-filter';
@@ -9,33 +9,35 @@ import { ModalFilter } from '../modals/modal-filter/modal-filter';
 	templateUrl: 'tab-search.html',
 })
 
-export class TabSearch {
-    public currentPet: Object[] = [];
-    public waitRequest: Boolean = true;
-    public zIndex1: Boolean = true;
-    public animaLikePet: Boolean = false;
-    public animaNotlikePet: Boolean = false;
+export class TabSearch {    
+    public desabled: Boolean = true;    
 
-    @ViewChild('currentCardPet') currentCardPet:ElementRef;
+    public anima = {
+        waitRequest: true,
+        zIndex1: true,
+        likePet: false,
+        notlikePet: false,
+        containerSearching: false
+    };
 
-	constructor(
-		public modalCtrl: ModalController,
-		public navCtrl: NavController,
-		public navParams: NavParams,
-        public toastCtrl: ToastController,
-		public app: App) {
-            
-            this.getCurrentPet();
+    @ViewChild('currentCardPet') currentCardPet:ElementRef;    
+
+	constructor(public modalCtrl: ModalController, public toastCtrl: ToastController, public app: App) {   
+        this.anima.containerSearching = true;         
+        this.getCurrentPet();
 	}
 
     getCurrentPet () {
-        this.waitRequest = true;
-        this.zIndex1 = true;
+        this.anima.waitRequest = true;
+        this.anima.zIndex1 = true;
+        this.anima.likePet = false;
+        this.anima.notlikePet = false;              
 
         /*simula uma requisicao para mostrar tela de searching*/
         setTimeout(function () {
-            this.zIndex1 = false;
-            this.waitRequest = false;
+            this.desabled = false;
+            this.anima.zIndex1 = false;
+            this.anima.waitRequest = false;            
         }.bind(this), 3000);
     }
 
@@ -52,27 +54,38 @@ export class TabSearch {
 		this.app.getRootNav().push(Pet);
 	}
 
-    likePet () {                
-        this.animaLikePet = true;
-        let elemCard = this.currentCardPet.nativeElement;
-        elemCard.addEventListener("animationend", this.animationendCard.bind(this), false);        
+    likePet () {  
+        if (this.desabled)
+            return null;        
+
+        this.anima.containerSearching  = true;
+        this.anima.likePet = true;
+
+        let elemCardPet = this.currentCardPet.nativeElement;
+        elemCardPet.addEventListener("animationend", this.animationendCard.bind(this), false);                
 
         let toast = this.toastCtrl.create({
             message: 'Uma nova conversa com o responsável foi criada na aba de mensagens.',
-            duration: 7000,
+            duration: 5000,
         });
 
         toast.present();        
     }    
 
     notlikePet () {        
-        this.animaNotlikePet = true;
-        let elemCard = this.currentCardPet.nativeElement;
-        elemCard.addEventListener("animationend", this.animationendCard.bind(this), false);                
+        if (this.desabled)
+            return null;
+
+        console.log("asa");
+
+        this.anima.containerSearching  = true;
+        this.anima.notlikePet = true;        
+        
+        let elemCardPet = this.currentCardPet.nativeElement;
+        elemCardPet.addEventListener("animationend", this.animationendCard.bind(this), false);                
     }    
 
-    animationendCard () {   
-        console.log("aa");               
+    animationendCard () {        
         this.getCurrentPet();
     }
 }
