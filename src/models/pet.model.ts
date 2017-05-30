@@ -6,5 +6,8 @@ export interface Pet {
     breed: string;
     about: string;
     size: string;
+    genre: string,
+    ageYears: number,
+    ageMonths: number,
     pictures: Object;
 }

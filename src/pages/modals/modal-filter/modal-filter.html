@@ -37,10 +37,11 @@
     <ion-list>
         <ion-list-header>
             Área de busca
+            <ion-badge color="greenTheme" item-right>{{areaGeo.lower}} Km - {{areaGeo.upper}} Km</ion-badge>
         </ion-list-header>
 
         <ion-item>
-            <ion-range min="0" max="100" dualKnobs="true" pin="true" [(ngModel)]="structure" color="greyTheme">
+            <ion-range min="0" max="100" dualKnobs="true" pin="true" [(ngModel)]="areaGeo" color="greyTheme">
                 <ion-icon range-left small name="pin" color="greyTheme"></ion-icon>
                 <ion-icon range-right name="pin" color="greyTheme"></ion-icon>
             </ion-range>

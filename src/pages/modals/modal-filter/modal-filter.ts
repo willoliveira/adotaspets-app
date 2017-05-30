@@ -7,7 +7,7 @@ import { NavController, NavParams, ViewController  } from 'ionic-angular';
 })
 
 export class ModalFilter {
-    structure: any = { lower: 20, upper: 80 };
+    areaGeo: any = { lower: 20, upper: 80 };
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
 	}

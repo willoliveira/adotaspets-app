@@ -91,6 +91,43 @@
 		</ion-select>
 	</ion-item>
 
+    <ion-list radio-group [(ngModel)]="pet.genre">
+        <ion-list-header>
+            Sexo
+        </ion-list-header>
+        <ion-item>
+            <ion-label>Macho</ion-label>
+            <ion-radio value="male" color="greenTheme"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Fêmea</ion-label>
+            <ion-radio value="female" color="greenTheme"></ion-radio>
+        </ion-item>
+    </ion-list>
+
+    <ion-list>
+        <ion-list-header>
+            Idade
+            <ion-badge color="greenTheme" item-right *ngIf="pet.ageYears > 0 || pet.ageMonths > 0">
+                {{ pet.ageYears > 0 ? (pet.ageYears == 1 ? pet.ageYears + ' ano' : pet.ageYears + ' anos') : '' }}
+                {{ pet.ageYears > 0 && pet.ageMonths > 0 ? ' e ' : '' }}
+                {{ pet.ageMonths > 0 ? (pet.ageMonths == 1 ? pet.ageMonths + ' mês' : pet.ageMonths + ' meses') : '' }}
+            </ion-badge>
+        </ion-list-header>
+        <ion-item>
+            <ion-range min="0" max="30" pin="true" [(ngModel)]="pet.ageYears" color="greenTheme">
+                <ion-label range-left class="small-text">Anos</ion-label>
+                <ion-label range-right>Anos</ion-label>
+            </ion-range>
+        </ion-item>
+        <ion-item>
+            <ion-range min="0" max="11" pin="true" [(ngModel)]="pet.ageMonths" color="greenTheme">
+                <ion-label range-left class="small-text">Meses</ion-label>
+                <ion-label range-right>Meses</ion-label>
+            </ion-range>
+        </ion-item>
+    </ion-list>
+
 	<div class="container-bt-add">
 		<button (click)="postPets()" ion-button icon-right block round outline color="greenTheme">
 			{{ editMode ? 'Atualizar' : 'Adicionar'}} pet

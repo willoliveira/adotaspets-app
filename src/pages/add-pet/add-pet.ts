@@ -21,6 +21,9 @@ export class AddPet {
 		breed: "",
 		kind: "",
 		size: "",
+        genre: "",
+        ageYears: 0,
+        ageMonths: 0,
 		pictures: {}
 	};
 	public picturesPet: Array<any> = [];
