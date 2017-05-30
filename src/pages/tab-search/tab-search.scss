@@ -63,6 +63,21 @@ page-tab-search {
         }
     }
 
+    .swiper-slide {
+        background: #424242;
+    }
+
+    .slide-zoom {
+        height: 200px;
+    }
+
+    .swiper-slide img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
     .swiper-pagination-bullet {
         background: #fff;
         opacity: .9;
