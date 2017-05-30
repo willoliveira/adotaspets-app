@@ -6,7 +6,7 @@
 		<button ion-button round block (click)="googleLogin()" class="bt-login-google">Fazer login com Google</button>
 	</div>
 
-	<div *ngIf="!locked" class="content-perfil">
+	<div *ngIf="locked" class="content-perfil">
 		<ion-segment [(ngModel)]="tab">
 			<ion-segment-button value="perfil">
 				Meu perfil

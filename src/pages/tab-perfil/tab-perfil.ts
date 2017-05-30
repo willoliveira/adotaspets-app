@@ -144,10 +144,10 @@ export class TabPerfil {
 	private showConfirmDeletePet(pet) {
 		let confirm = this.alertCtrl.create({
 			title: 'Tem certeza?',
-			message: 'Seu pet será excluido permanentemente, tem certeza?',
+			message: 'Seu pet será excluido permanentemente.',
 			buttons: [
 				{ text: 'Cancelar', handler: () => { confirm.dismiss() } },
-				{ text: 'Deletar!', handler: this.onDeletePet.bind(this, pet) }
+				{ text: 'Excluir', handler: this.onDeletePet.bind(this, pet) }
 			]
 		});
 		confirm.present();

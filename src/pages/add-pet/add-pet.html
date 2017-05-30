@@ -75,7 +75,7 @@
 
 	<ion-item>
 		<ion-label>Categoria do pet</ion-label>
-		<ion-select [(ngModel)]="pet.kind">
+		<ion-select [(ngModel)]="pet.kind" cancelText="Cancelar" okText="Ok">
 			<ion-option value="dog">Cachorro</ion-option>
 			<ion-option value="cat">Gato</ion-option>
 			<ion-option value="others">Outros</ion-option>
@@ -84,7 +84,7 @@
 
 	<ion-item>
 		<ion-label>Porte do pet</ion-label>
-		<ion-select [(ngModel)]="pet.size">
+		<ion-select [(ngModel)]="pet.size" cancelText="Cancelar" okText="Ok">
 			<ion-option value="small">Pequeno</ion-option>
 			<ion-option value="medium">Médio</ion-option>
 			<ion-option value="large">Grande</ion-option>
@@ -94,7 +94,8 @@
 	<div class="container-bt-add">
 		<button (click)="postPets()" ion-button icon-right block round outline color="greenTheme">
 			{{ editMode ? 'Atualizar' : 'Adicionar'}} pet
-			<ion-icon *ngIf="editMode" name="add"></ion-icon>
+			<ion-icon *ngIf="!editMode" name="add"></ion-icon>
+			<ion-icon *ngIf="editMode" name="edit"></ion-icon>
 		</button>
 	</div>
 </ion-content>
