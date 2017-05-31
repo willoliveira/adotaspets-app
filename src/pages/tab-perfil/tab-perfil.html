@@ -1,5 +1,4 @@
 <ion-content>
-
 	<div *ngIf="!waitRequest && locked" class="not-authenticate" padding>
 		<p text-center class="txt-login">Para ter acesso ao seu perfil e ao cadastro de pets, é necessário fazer o login.</p>
 		<button ion-button round block (click)="facebookLogin()" class="bt-login-face">Fazer login com FaceBook</button>
@@ -9,16 +8,20 @@
 	<div *ngIf="!locked" class="content-perfil">
 		<ion-segment [(ngModel)]="tab">
 			<ion-segment-button value="perfil">
-				Meu perfil
+				Perfil
 			</ion-segment-button>
 			<ion-segment-button value="pets">
-				Meus pets
+				Pets
+			</ion-segment-button>
+            <ion-segment-button value="filters">
+				Filtros
 			</ion-segment-button>
 		</ion-segment>
 		<div [ngSwitch]="tab">
+            <!--PERFIL-->
 			<div *ngSwitchCase="'perfil'" class="tab-perfil">
 				<div class="img-user-perfil" [style.background-image]="userPicture"></div>
-				<h3 class="name-perfil" text-center>{{userInfo.name}}</h3>				
+				<h3 class="name-perfil" text-center>{{userInfo.name}}</h3>
 
 				<ion-card>
 					<ion-card-content>
@@ -43,6 +46,7 @@
 				</div>
 			</div>
 
+            <!--PETS-->
 			<div *ngSwitchCase="'pets'" class="tab-pets">
 				<div class="container-bt-add">
 					<button (click)="openAddPetPage()" ion-button icon-right block round outline color="greenTheme">
@@ -51,7 +55,7 @@
 				</div>
 
 				<ion-card *ngFor="let pet of pets; let i = index; trackBy: id">
-					<ion-item>						
+					<ion-item>
 						<ion-avatar item-left [ngStyle]="{'background-image': 'url(' + (pet.pictures ? pet.pictures[pet.id + '__0'].picture : 'assets/img/avatar-ts-slinky.png') + ')'}"></ion-avatar>
 						<h2>{{pet.name}}</h2>
 						<p>{{pet.kind}}, porte {{pet.size}}</p>
@@ -64,7 +68,51 @@
 							<ion-icon name='create'></ion-icon>
 						</button>
 					</ion-fab>
-				</ion-card>				
+				</ion-card>
+			</div>
+
+            <!--FILTROS-->
+            <div *ngSwitchCase="'filters'" class="tab-filters">
+				<ion-list>
+                    <ion-list-header class="list-header-no-border">
+                        Mostrar-me
+                    </ion-list-header>
+
+                    <ion-item>
+                        <ion-label>Cachorros</ion-label>
+                        <ion-toggle value="dogs" checked="true" color="greyTheme"></ion-toggle>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label>Gatos</ion-label>
+                        <ion-toggle value="cats" checked="true" color="greyTheme"></ion-toggle>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label>Outros pets</ion-label>
+                        <ion-toggle value="others" checked="true" color="greyTheme"></ion-toggle>
+                    </ion-item>
+                </ion-list>
+
+                <ion-list>
+                    <ion-list-header>
+                        Área de busca
+                        <ion-badge color="greenTheme" item-right>{{areaGeo.lower}} Km - {{areaGeo.upper}} Km</ion-badge>
+                    </ion-list-header>
+
+                    <ion-item>
+                        <ion-range min="0" max="100" dualKnobs="true" pin="true" [(ngModel)]="areaGeo" color="greyTheme">
+                            <ion-icon range-left small name="pin" color="greyTheme"></ion-icon>
+                            <ion-icon range-right name="pin" color="greyTheme"></ion-icon>
+                        </ion-range>
+                    </ion-item>
+                </ion-list>
+
+                <div class="container-bt-filter">
+                    <button ion-button icon-right block class="bt-filter" round outline color="greenTheme">
+                        Filtrar <ion-icon name="options"></ion-icon>
+                    </button>
+                </div>
 			</div>
 		</div>
 	</div>

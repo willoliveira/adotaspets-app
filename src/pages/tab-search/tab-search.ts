@@ -2,7 +2,6 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { App, ModalController, ToastController } from 'ionic-angular';
 
 import { Pet } from '../pet/pet';
-import { ModalFilter } from '../modals/modal-filter/modal-filter';
 
 @Component({
 	selector: 'page-tab-search',
@@ -10,7 +9,7 @@ import { ModalFilter } from '../modals/modal-filter/modal-filter';
 })
 
 export class TabSearch {
-    public bgAvatarResp: String = "assets/img/lula.jpg";    
+    public bgAvatarResp: String = "assets/img/lula.jpg";
     public zIndexFabs: Number = 1;
     public waitRequest: Boolean = true;
 
@@ -23,7 +22,7 @@ export class TabSearch {
 
     @ViewChild('currentCardPet') currentCardPet:ElementRef;
 
-	constructor(public modalCtrl: ModalController, public toastCtrl: ToastController, public app: App) {}
+	constructor(public toastCtrl: ToastController, public app: App) {}
 
     ngOnInit () {
         this.getCurrentPet();
@@ -40,11 +39,6 @@ export class TabSearch {
             this.anima.cardPet = true;
         }.bind(this), 3000);
     }
-
-	openModal() {
-		let modal = this.modalCtrl.create(ModalFilter);
-		modal.present();
-	}
 
 	public goToInfoPet() {
 		this.app.getRootNav().push(Pet);

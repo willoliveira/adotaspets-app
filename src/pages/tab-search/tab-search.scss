@@ -1,12 +1,25 @@
 page-tab-search {
-    ion-avatar {
-        border-radius: 50%;
-        background-size: cover;
-    }
+    .card-pet {
+        margin: 0;
+        width: 100%;
+        border-radius: 0;
+        box-shadow: none;
 
-    ion-item {
-        ion-icon, p {
-            color: #666;
+        ion-avatar {
+            border-radius: 50%;
+            background-size: cover;
+        }
+
+        ion-item {
+            ion-icon, p {
+                color: #666;
+            }
+        }
+
+        .info-pet {
+            ion-icon, p {
+                color: #2196F3;
+            }
         }
     }
 
@@ -16,16 +29,6 @@ page-tab-search {
         &.notlikePet {
             right: 90px;
         }
-    }
-
-    .info-pet {
-        ion-icon, p {
-            color: #2196F3;
-        }
-    }
-
-    .container-bt-filter {
-        margin: 10px;
     }
 
     .container-searching {
@@ -63,37 +66,30 @@ page-tab-search {
         }
     }
 
-    .swiper-slide {
-        background: #424242;
-    }
+    .container-slide {
+        height: 300px;
 
-    .slide-zoom {
-        height: 200px;
-    }
+        .swiper-slide {
+            background: #424242;
+        }
 
-    .swiper-slide img {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
+        .swiper-pagination-bullet {
+            background: #fff;
+            opacity: .9;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+        }
 
-    .swiper-pagination-bullet {
-        background: #fff;
-        opacity: .9;
-        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-    }
-
-    .swiper-pagination-bullet-active {
-        background: #4caf50;
-        opacity: 1;
-        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+        .swiper-pagination-bullet-active {
+            background: #4caf50;
+            opacity: 1;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+        }
     }
 
     /*animations
         exemplos: animation-timing-function: linear|ease|ease-in|ease-out|ease-in-out|step-start|step-end|steps(int,start|end)|cubic-bezier(n,n,n,n)|initial|inherit;
     */
-    
+
     @-webkit-keyframes animaCardPet {
         0%   { opacity: 0.0 }
         100% { opacity: 1.0 }

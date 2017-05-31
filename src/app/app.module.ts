@@ -15,8 +15,6 @@ import { PetModule } from '../pages/pet/pet.module';
 import { ResponsibleModule } from '../pages/responsible/responsible.module';
 import { AddPet } from '../pages/add-pet/add-pet';
 
-import { ModalFilter } from '../pages/modals/modal-filter/modal-filter';
-
 import { Camera } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Facebook, FacebookLoginResponse  } from '@ionic-native/facebook';
@@ -27,7 +25,6 @@ import { PetsProvider } from '../providers/pets/pets.service';
 	declarations: [
 		AdotaPets,
 
-		ModalFilter,
 		AddPet
 	],
 	imports: [
@@ -43,7 +40,6 @@ import { PetsProvider } from '../providers/pets/pets.service';
 	entryComponents: [
 		AdotaPets,
 
-		ModalFilter,
 		AddPet
 	],
 	providers: [

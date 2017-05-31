@@ -8,6 +8,8 @@ page-tab-perfil {
 
         .segment-button {
             color: #4caf50;
+            height: 50px;
+            line-height: 50px;
         }
     }
 
@@ -30,7 +32,7 @@ page-tab-perfil {
         }
     }
 
-    .tab-perfil {        
+    .tab-perfil {
         .img-user-perfil {
             background-color: #37474F center center;
             background-position: center center;
@@ -47,7 +49,7 @@ page-tab-perfil {
             color: #37474F;
             margin-bottom: 25px;
         }
-        
+
         .label-sobre {
             font-size: 16px !important;
         }
@@ -99,6 +101,21 @@ page-tab-perfil {
         }
 
         .container-bt-add {
+            margin: 10px;
+        }
+    }
+
+    .tab-filters {
+        .list-header-no-border {
+            border-top: none;
+        }
+
+        .list-header-md {
+            font-size: 1.8rem;
+            color: #4fb050;
+        }
+
+        .container-bt-filter {
             margin: 10px;
         }
     }

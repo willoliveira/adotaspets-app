@@ -1,10 +1,4 @@
 <ion-content>
-	<div class="container-bt-filter">
-		<button ion-button icon-right block round color="greenTheme" outline (click)="openModal()">
-			Filtros <ion-icon name="options"></ion-icon>
-		</button>
-	</div>
-
     <div class="container-searching" *ngIf="anima.containerSearching" [ngClass]="{'anima-container-searching': anima.containerSearching }">
         <div class="overlay-block"></div>
 
@@ -14,24 +8,20 @@
         </div>
     </div>
 
-	<ion-card id="current-card-pet" class="card-pet" *ngIf="!waitRequest" [ngClass]="{'anima-card-pet': anima.cardPet, 'anima-likePet': anima.likePet, 'anima-notlikePet': anima.notlikePet }" #currentCardPet>
-		<ion-item>
-			<ion-avatar item-left [ngStyle]="{'background-image': 'url(' + bgAvatarResp + ')'}"></ion-avatar>
-			<h2>Luís Inacio Lula da Silva</h2>
-			<p>Responsável</p>
-		</ion-item>
-
-		<ion-slides pager loop="true">
-			<ion-slide>
-				<img src="assets/img/rex-bg.jpg">
-			</ion-slide>
-			<ion-slide>
-				<img src="assets/img/teste_vertical.jpg">
-			</ion-slide>
-			<ion-slide>
-				<img src="assets/img/rex-bg-2.jpeg">
-			</ion-slide>
-		</ion-slides>
+	<ion-card class="card-pet" *ngIf="!waitRequest" [ngClass]="{'anima-card-pet': anima.cardPet, 'anima-likePet': anima.likePet, 'anima-notlikePet': anima.notlikePet }" #currentCardPet>
+        <div class="container-slide">
+            <ion-slides pager zoom loop="true">
+                <ion-slide>
+                    <img src="assets/img/pets1.jpg">
+                </ion-slide>
+                <ion-slide>
+                    <img src="assets/img/pets2.jpg">
+                </ion-slide>
+                <ion-slide>
+                    <img src="assets/img/pets3.jpg">
+                </ion-slide>
+            </ion-slides>
+        </div>
 
 		<ion-card-content>
 			<ion-card-title>
@@ -41,11 +31,18 @@
 			<p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine...</p>
 		</ion-card-content>
 
+        <ion-item>
+			<ion-avatar item-left [ngStyle]="{'background-image': 'url(' + bgAvatarResp + ')'}"></ion-avatar>
+			<h2>Luís Inacio Lula da Silva</h2>
+			<p>Responsável</p>
+		</ion-item>
+
 		<ion-item>
 			<ion-icon name="paw" item-left large></ion-icon>
 			<h2>Cachorro</h2>
 			<p>Porte grande</p>
 		</ion-item>
+
 		<ion-item>
 			<ion-icon name="pin" item-left large></ion-icon>
 			<h2>Distância</h2>

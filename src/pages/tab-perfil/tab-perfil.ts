@@ -32,6 +32,8 @@ export class TabPerfil {
 	private loader;
 	private toaster;
 
+    areaGeo: any = { lower: 20, upper: 80 };
+
 	constructor(
 		public actionsheetCtrl: ActionSheetController,
 		public platform: Platform,
