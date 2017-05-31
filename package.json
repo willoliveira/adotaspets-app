@@ -31,6 +31,7 @@
         "cordova-plugin-console": "^1.0.7",
         "cordova-plugin-device": "^1.1.6",
         "cordova-plugin-facebook4": "^1.7.4",
+        "cordova-plugin-image-picker": "^1.1.3",
         "cordova-plugin-splashscreen": "^4.0.3",
         "cordova-plugin-statusbar": "^2.2.3",
         "cordova-plugin-whitelist": "^1.3.2",
@@ -72,7 +73,8 @@
                 "APP_ID": "294997080955756",
                 "APP_NAME": "AdotaPets"
             },
-            "cordova-sqlite-storage": {}
+            "cordova-sqlite-storage": {},
+            "cordova-plugin-image-picker": {}
         },
         "platforms": [
             "android"

@@ -61,6 +61,7 @@
         <variable name="APP_ID" value="294997080955756" />
         <variable name="APP_NAME" value="AdotaPets" />
     </plugin>
+    <plugin name="cordova-plugin-image-picker" spec="^1.1.3" />
     <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
     <plugin name="cordova-plugin-statusbar" spec="^2.2.3" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.2" />

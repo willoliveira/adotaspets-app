@@ -1,9 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, ViewController, ToastController, LoadingController, Slides } from 'ionic-angular';
+import { NavController, NavParams, ViewController, AlertController, ToastController, LoadingController, Slides } from 'ionic-angular';
 
 import firebase from 'firebase';
 
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
 
 import { Pet } from '../../models/pet.model';
 import { PetsProvider } from '../../providers/pets/pets.service';
@@ -21,10 +22,10 @@ export class AddPet {
 		breed: "",
 		kind: "",
 		size: "",
-        genre: "",
-        ageYears: 0,
-        ageMonths: 0,
-		pictures: {}
+		genre: "",
+		ageYears: 0,
+		ageMonths: 0,
+		pictures: { }
 	};
 	public picturesPet: Array<any> = [];
 	public imageDefault = "assets/img/img-default-pet.jpg";
@@ -40,9 +41,11 @@ export class AddPet {
 		public navParams: NavParams,
 		public viewCtrl: ViewController,
 		private loadingCtrl: LoadingController,
+        private alertCtrl: AlertController,
 		private toastCtrl: ToastController,
 		private petsProvider: PetsProvider,
-		private camera: Camera) {
+		private camera: Camera,
+		private imagePicker: ImagePicker) {
 
 		this.initPage(this.navParams.get("userInfo"), this.navParams.get("pet"));
 	}
@@ -52,13 +55,25 @@ export class AddPet {
 	//------------------------
 
 	public postPets() {
-        if (!this.loader) { this.showLoading(); }
+		if (!this.loader) { this.showLoading(); }
 
 		if (this.pet.id) {
 			this.updatePet.call(this);
 		} else {
 			this.postPet.call(this);
 		}
+	}
+
+    public showConfirmDeletePet(pet) {
+		let confirm = this.alertCtrl.create({
+			title: 'Tem certeza?',
+			message: 'A foto do seu sera deletada para sempre.',
+			buttons: [
+				{ text: 'Cancelar', handler: () => { confirm.dismiss() } },
+				{ text: 'Excluir', handler: this.deleteImage.bind(this, pet) }
+			]
+		});
+		confirm.present();
 	}
 
 	/**
@@ -74,64 +89,23 @@ export class AddPet {
 		};
 
 		this.camera.getPicture(options)
-			.then((imageData) => {
-				let base64Image = 'data:image/jpeg;base64,' + imageData;
-				//depois explico isso aqui
-				var objImage = {
-					id: `__${this.slidePicturesPet.realIndex}`,
-					position: this.slidePicturesPet.realIndex,
-					picture: base64Image
-				};
-
-				if (this.editMode) {
-					this.showLoading();
-					objImage.id = `${this.pet.id}${objImage.id}`;
-
-					this.petsProvider
-						.postImagePet(this.pet.id, objImage.id, objImage.picture)
-						.then((snapshot: firebase.storage.UploadTaskSnapshot) => {
-
-							let petCache: Pet = Object.assign({}, this.pet);
-							if (!petCache.pictures) petCache.pictures = {};
-
-							//atualiza a foto com a que subiu no firebase
-							objImage.picture = snapshot.downloadURL;
-
-							petCache.pictures[objImage.id] = objImage;
-
-							this.petsProvider
-								.updatePet(petCache)
-								.then(() => {
-									this.pet = petCache;
-
-									if (objImage.position + 1 <= this.picturesPet.length) {
-										this.picturesPet[objImage.position] = objImage;
-									} else {
-										objImage.position = this.picturesPet.length - 1;
-										this.picturesPet.push(objImage);
-									}
-									this.loader.dismiss();
-								})
-								.catch(() => {
-									this.presentToast("Erro a capturar imagem");
-									this.loader.dismiss();
-								});
-						});
-				} else {
-					objImage["local"] = true;
-					this.picturesPet.push(objImage);
-				}
-				// this.petsProvider.postImagePet(base64Image)
-			}, (err) => {
-				this.presentToast("Erro a capturar imagem");
-				this.loader.dismiss();
-			}
-		);
+			.then(this.onSuccessGetImage.bind(this) )
+            .catch(this.onError.bind(this, "Erro ao capturar imagem"))
 	}
 
-    //TODO: Fazer ainda...
+	//TODO: Fazer ainda...
 	public getPictureLibrary() {
+		var options: ImagePickerOptions = {
+			maximumImagesCount: 1,
+			quality: 50
+		};
 
+		this.imagePicker.getPictures(options)
+			.then(this.onSuccessGetImage.bind(this))
+            .catch((err) => {
+				this.presentToast("Erro a capturar imagem");
+				this.loader.dismiss();
+			});
 	}
 
 	//------------------------
@@ -153,6 +127,72 @@ export class AddPet {
 		}
 	}
 
+    private onSuccessGetImage(data) {
+        var imageData;
+        if (typeof data === 'object') {
+            imageData = data[0];
+        } else {
+            imageData = 'data:image/jpeg;base64,' + data;
+        }
+        //depois explico isso aqui
+        let position = this.slidePicturesPet.realIndex > this.picturesPet.length ? this.slidePicturesPet.realIndex : this.picturesPet.length;
+
+        var objImage = {
+            id: `__${position}`,
+            position: position,
+            picture: imageData
+        };
+
+        this.slidePicturesPet.slideTo(position + 1);
+        if (objImage.position < this.picturesPet.length) {
+            this.picturesPet[objImage.position] = objImage;
+        } else {
+            this.picturesPet.push(objImage);
+        }
+
+        if (this.editMode) {
+            this.showLoading();
+            objImage.id = `${this.pet.id}${objImage.id}`;
+
+            this.petsProvider
+                .postImagePet(this.pet.id, objImage.id, objImage.picture)
+                .then((snapshot: firebase.storage.UploadTaskSnapshot) => {
+
+                    let petCache: Pet = Object.assign({}, this.pet);
+                    if (!petCache.pictures) petCache.pictures = {};
+
+                    //atualiza a foto com a que subiu no firebase
+                    this.picturesPet[position].picture = snapshot.downloadURL;
+
+                    petCache.pictures[objImage.id] = objImage;
+
+                    this.petsProvider
+                        .updatePet(petCache)
+                        .then(() => { this.loader.dismiss(); })
+                        .catch(() => {
+                            //se da erro deleta
+                            this.picturesPet.splice(position, 1);
+                            delete petCache.pictures[objImage.id];
+
+                            this.onError("Erro ao capturar imagem");
+                        });
+                });
+        } else {
+            this.picturesPet[position]["local"] = true;
+        }
+    }
+
+    private deleteImage(index) {
+        if (this.picturesPet[index].local) {
+            this.picturesPet.splice(index, 1);
+        } else {
+            this.petsProvider
+                .deleteImagePet(this.pet.id, this.picturesPet[index].id)
+                .then(() => { this.picturesPet.splice(index, 1); })
+                .catch(this.onError.bind(this, "Erro ao deletar imagem"));
+        }
+    }
+
 	private showLoading() {
 		this.loader = this.loadingCtrl.create({ content: "Loading" });
 		this.loader.present();
@@ -166,7 +206,7 @@ export class AddPet {
 		toast.present();
 	}
 
-    private savePicturesRecursive(msgSuccess) {
+	private savePicturesRecursive(msgSuccess) {
 		var images: Array<any> = this.picturesPet.filter(picture => picture.local);
 		if (images.length) {
 			var image = images.pop();
@@ -182,8 +222,8 @@ export class AddPet {
 					this.loader.dismiss();
 				});
 		} else {
-            this.postPets();
-            // TODO: Talvez usar esse por cuasa do toast de mensage, ouuu, setar a mensagem em uma variavel..
+			this.postPets();
+			// TODO: Talvez usar esse por cuasa do toast de mensage, ouuu, setar a mensagem em uma variavel..
 			// this.petsProvider
 			// 	.updatePet(this.pet)
 			// 	.then(this.onSuccessPostPet.bind(this, msgSuccess));
@@ -226,7 +266,7 @@ export class AddPet {
 		}
 	}
 
-    private onError(msgError) {
+	private onError(msgError) {
 		this.loader.dismiss();
 		this.presentToast(msgError);
 	}

@@ -29,10 +29,11 @@
 				<button ion-fab class="add-pet-photo" mini color="darkTheme">
 					<ion-icon name='add'></ion-icon>
 				</button>
-				<ion-fab-list side="left">
-					<button (click)="getPictureCamera()" ion-fab color="primary"><ion-icon name="camera"></ion-icon></button>
+				<ion-fab-list side="left" *ngIf="picturesPet[slidePicturesPet.realIndex]">
+                    <button (click)="deleteImage(slidePicturesPet.realIndex)" ion-fab color="primary"><ion-icon name="trash"></ion-icon></button>
 				</ion-fab-list>
-				<ion-fab-list side="bottom">
+				<ion-fab-list side="bottom" *ngIf="!picturesPet[slidePicturesPet.realIndex]">
+					<button (click)="getPictureCamera()" ion-fab color="primary"><ion-icon name="camera"></ion-icon></button>
 					<button (click)="getPictureLibrary()" ion-fab color="primary"><ion-icon name="image"></ion-icon></button>
 				</ion-fab-list>
 			</ion-fab>

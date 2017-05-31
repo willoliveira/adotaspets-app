@@ -22,6 +22,7 @@ export class PetsProvider {
 		return firebase.database().ref(`/pets/${pet.id}`).update(pet);
 	}
 
+    //DELETAR TAMBEM AS IMAGENS
 	deletePet(userId, petId) {
 		var saveInfos = { };
 		// deletando o pet
@@ -36,6 +37,13 @@ export class PetsProvider {
             .child(`images/pets/${petId}/${imgId}.jpg`)
             .putString(data, firebase.storage.StringFormat.DATA_URL);
 	}
+
+    deleteImagePet(petId, imgId) {
+		return firebase.storage().ref()
+            .child(`images/pets/${petId}/${imgId}.jpg`)
+            .delete();
+	}
+
 
 	/**
 	 * Inicializa todos os eventos relacionado a pets do usuario
