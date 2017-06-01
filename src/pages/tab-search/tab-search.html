@@ -1,4 +1,8 @@
 <ion-content>
+    <ion-fab top right class="bt-filters" (click)="openModalFilters()" [ngStyle]="{'z-index': zIndexFabs}">
+    	<button ion-fab color="darkTheme" mini><ion-icon name="options"></ion-icon></button>
+  	</ion-fab>
+
     <div class="container-searching" *ngIf="anima.containerSearching" [ngClass]="{'anima-container-searching': anima.containerSearching }">
         <div class="overlay-block"></div>
 
@@ -10,7 +14,7 @@
 
 	<ion-card class="card-pet" *ngIf="!waitRequest" [ngClass]="{'anima-card-pet': anima.cardPet, 'anima-likePet': anima.likePet, 'anima-notlikePet': anima.notlikePet }" #currentCardPet>
         <div class="container-slide">
-            <ion-slides pager zoom loop="true">
+            <ion-slides pager loop="true">
                 <ion-slide>
                     <img src="assets/img/pets1.jpg">
                 </ion-slide>

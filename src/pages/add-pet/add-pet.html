@@ -9,8 +9,18 @@
 	<div class="container-add-photos">
 		<p class="txt-add-photo">Adicione fotos do pet</p>
 
-		<div class="container-slider">
-			<ion-slides #slidePicturesPet pager loop="true">
+        <div class="box-photo b1">
+            <div class="photo"></div>
+        </div>
+        <div class="box-photo b2">
+            <div class="photo"></div>
+        </div>
+        <div class="box-photo b3">
+            <div class="photo"></div>
+        </div>
+
+		<!--<div class="container-slider">-->
+			<!--<ion-slides #slidePicturesPet pager loop="true">
 				<ion-slide>
 					<img [src]="picturesPet.length > 0 ? picturesPet[0].picture : imageDefault">
 				</ion-slide>
@@ -36,8 +46,8 @@
 					<button (click)="getPictureCamera()" ion-fab color="primary"><ion-icon name="camera"></ion-icon></button>
 					<button (click)="getPictureLibrary()" ion-fab color="primary"><ion-icon name="image"></ion-icon></button>
 				</ion-fab-list>
-			</ion-fab>
-		</div>
+			</ion-fab>-->
+		<!--</div>-->
 	</div>
 
 	<ion-card>

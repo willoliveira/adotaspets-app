@@ -3,6 +3,8 @@ import { App, ModalController, ToastController } from 'ionic-angular';
 
 import { Pet } from '../pet/pet';
 
+import { ModalFilter } from '../modals/modal-filter/modal-filter';
+
 @Component({
 	selector: 'page-tab-search',
 	templateUrl: 'tab-search.html',
@@ -22,7 +24,7 @@ export class TabSearch {
 
     @ViewChild('currentCardPet') currentCardPet:ElementRef;
 
-	constructor(public toastCtrl: ToastController, public app: App) {}
+	constructor(public modalCtrl: ModalController, public toastCtrl: ToastController, public app: App) {}
 
     ngOnInit () {
         this.getCurrentPet();
@@ -39,6 +41,11 @@ export class TabSearch {
             this.anima.cardPet = true;
         }.bind(this), 3000);
     }
+
+    openModalFilters() {
+	    let modal = this.modalCtrl.create(ModalFilter);
+	    modal.present();
+	}
 
 	public goToInfoPet() {
 		this.app.getRootNav().push(Pet);

@@ -8,13 +8,10 @@
 	<div *ngIf="!locked" class="content-perfil">
 		<ion-segment [(ngModel)]="tab">
 			<ion-segment-button value="perfil">
-				Perfil
+				Meu Perfil
 			</ion-segment-button>
 			<ion-segment-button value="pets">
-				Pets
-			</ion-segment-button>
-            <ion-segment-button value="filters">
-				Filtros
+				Meus Pets
 			</ion-segment-button>
 		</ion-segment>
 		<div [ngSwitch]="tab">
@@ -69,50 +66,6 @@
 						</button>
 					</ion-fab>
 				</ion-card>
-			</div>
-
-            <!--FILTROS-->
-            <div *ngSwitchCase="'filters'" class="tab-filters">
-				<ion-list>
-                    <ion-list-header class="list-header-no-border">
-                        Mostrar-me
-                    </ion-list-header>
-
-                    <ion-item>
-                        <ion-label>Cachorros</ion-label>
-                        <ion-toggle value="dogs" checked="true" color="greyTheme"></ion-toggle>
-                    </ion-item>
-
-                    <ion-item>
-                        <ion-label>Gatos</ion-label>
-                        <ion-toggle value="cats" checked="true" color="greyTheme"></ion-toggle>
-                    </ion-item>
-
-                    <ion-item>
-                        <ion-label>Outros pets</ion-label>
-                        <ion-toggle value="others" checked="true" color="greyTheme"></ion-toggle>
-                    </ion-item>
-                </ion-list>
-
-                <ion-list>
-                    <ion-list-header>
-                        Área de busca
-                        <ion-badge color="greenTheme" item-right>{{areaGeo.lower}} Km - {{areaGeo.upper}} Km</ion-badge>
-                    </ion-list-header>
-
-                    <ion-item>
-                        <ion-range min="0" max="100" dualKnobs="true" pin="true" [(ngModel)]="areaGeo" color="greyTheme">
-                            <ion-icon range-left small name="pin" color="greyTheme"></ion-icon>
-                            <ion-icon range-right name="pin" color="greyTheme"></ion-icon>
-                        </ion-range>
-                    </ion-item>
-                </ion-list>
-
-                <div class="container-bt-filter">
-                    <button ion-button icon-right block class="bt-filter" round outline color="greenTheme">
-                        Filtrar <ion-icon name="options"></ion-icon>
-                    </button>
-                </div>
 			</div>
 		</div>
 	</div>
