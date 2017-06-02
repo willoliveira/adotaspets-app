@@ -10,82 +10,70 @@
 		<p class="txt-add-photo">Adicione fotos do pet</p>
 
         <div class="box-photo b1">
+			<ion-fab right top>
+				<button ion-fab class="add-pet-photo p1" custom-mini color="darkTheme"><ion-icon name='add'></ion-icon></button>
+				<!--<ion-fab-list side="left">
+                    <button (click)="deleteImage()" ion-fab color="primary"><ion-icon name="trash"></ion-icon></button>
+				</ion-fab-list>-->
+				<ion-fab-list side="left">					
+					<button (click)="getPictureCamera()" ion-fab custom-mini color="primary"><ion-icon name="camera"></ion-icon></button>
+				</ion-fab-list>
+				<ion-fab-list side="bottom">					
+					<button (click)="getPictureLibrary()" ion-fab custom-mini color="primary"><ion-icon name="image"></ion-icon></button>
+				</ion-fab-list>
+			</ion-fab>
             <div class="photo"></div>
         </div>
         <div class="box-photo b2">
+			<ion-fab right top>
+				<button ion-fab class="add-pet-photo p1" custom-mini color="darkTheme"><ion-icon name='add'></ion-icon></button>
+				<!--<ion-fab-list side="left">
+                    <button (click)="deleteImage()" ion-fab color="primary"><ion-icon name="trash"></ion-icon></button>
+				</ion-fab-list>-->
+				<ion-fab-list side="left">					
+					<button (click)="getPictureCamera()" ion-fab custom-mini color="primary"><ion-icon name="camera"></ion-icon></button>
+				</ion-fab-list>
+				<ion-fab-list side="bottom">					
+					<button (click)="getPictureLibrary()" ion-fab custom-mini color="primary"><ion-icon name="image"></ion-icon></button>
+				</ion-fab-list>
+			</ion-fab>
             <div class="photo"></div>
         </div>
         <div class="box-photo b3">
-            <div class="photo"></div>
-        </div>
-
-		<!--<div class="container-slider">-->
-			<!--<ion-slides #slidePicturesPet pager loop="true">
-				<ion-slide>
-					<img [src]="picturesPet.length > 0 ? picturesPet[0].picture : imageDefault">
-				</ion-slide>
-				<ion-slide>
-					<img [src]="picturesPet.length > 1 ? picturesPet[1].picture : imageDefault">
-				</ion-slide>
-				<ion-slide>
-					<img [src]="picturesPet.length > 2 ? picturesPet[2].picture : imageDefault">
-				</ion-slide>
-			</ion-slides>
-
-			<ion-chip>
-				<ion-label>Foto {{slidePicturesPet.realIndex + 1}}</ion-label>
-			</ion-chip>
 			<ion-fab right top>
-				<button ion-fab class="add-pet-photo" mini color="darkTheme">
-					<ion-icon name='add'></ion-icon>
-				</button>
-				<ion-fab-list side="left" *ngIf="picturesPet[slidePicturesPet.realIndex]">
-                    <button (click)="deleteImage(slidePicturesPet.realIndex)" ion-fab color="primary"><ion-icon name="trash"></ion-icon></button>
+				<button ion-fab class="add-pet-photo p1" custom-mini color="darkTheme"><ion-icon name='add'></ion-icon></button>
+				<!--<ion-fab-list side="left">
+                    <button (click)="deleteImage()" ion-fab color="primary"><ion-icon name="trash"></ion-icon></button>
+				</ion-fab-list>-->
+				<ion-fab-list side="left">					
+					<button (click)="getPictureCamera()" ion-fab custom-mini color="primary"><ion-icon name="camera"></ion-icon></button>
 				</ion-fab-list>
-				<ion-fab-list side="bottom" *ngIf="!picturesPet[slidePicturesPet.realIndex]">
-					<button (click)="getPictureCamera()" ion-fab color="primary"><ion-icon name="camera"></ion-icon></button>
-					<button (click)="getPictureLibrary()" ion-fab color="primary"><ion-icon name="image"></ion-icon></button>
+				<ion-fab-list side="bottom">					
+					<button (click)="getPictureLibrary()" ion-fab custom-mini color="primary"><ion-icon name="image"></ion-icon></button>
 				</ion-fab-list>
-			</ion-fab>-->
-		<!--</div>-->
-	</div>
+			</ion-fab>
+            <div class="photo"></div>
+        </div>		
+	</div>	
 
-	<ion-card>
-		<ion-card-content>
-			<ion-list>
-				<ion-item>
-					<ion-label color="dark" stacked class="label-nome">Nome do pet</ion-label>
-					<ion-input [(ngModel)]="pet.name" type="text" placeholder="Escreva o nome do pet"></ion-input>
-				</ion-item>
-			</ion-list>
-		</ion-card-content>
-	</ion-card>
-
-	<ion-card>
-		<ion-card-content>
-			<ion-list>
-				<ion-item>
-					<ion-label color="dark" stacked class="label-sobre">Sobre o pet</ion-label>
-					<ion-input [(ngModel)]="pet.about" type="text" placeholder="Escreva um pouco sobre o pet"></ion-input>
-				</ion-item>
-			</ion-list>
-			<p class="limit">300</p>
-		</ion-card-content>
-	</ion-card>
-
-	<ion-card>
-		<ion-card-content>
-			<ion-list>
-				<ion-item>
-					<ion-label color="dark" stacked class="label-breed">Raça do pet</ion-label>
-					<ion-input [(ngModel)]="pet.breed" type="text" placeholder="Escreva a raça do pet"></ion-input>
-				</ion-item>
-			</ion-list>
-		</ion-card-content>
-	</ion-card>
+	<ion-list>
+		<ion-item>
+			<ion-label color="dark" stacked class="label-nome">Nome do pet</ion-label>
+			<ion-input [(ngModel)]="pet.name" type="text" placeholder="Escreva o nome do pet"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label color="dark" stacked class="label-sobre">Sobre o pet</ion-label>
+			<ion-input [(ngModel)]="pet.about" type="text" placeholder="Escreva um pouco sobre o pet"></ion-input>			
+		</ion-item>
+		<p class="limit">300</p>
+		<ion-item>
+			<ion-label color="dark" stacked class="label-breed">Raça do pet</ion-label>
+			<ion-input [(ngModel)]="pet.breed" type="text" placeholder="Escreva a raça do pet"></ion-input>
+		</ion-item>
+	</ion-list>
 
 	<ion-item>
-		<ion-label>Categoria do pet</ion-label>
+		<ion-label class="label-kind">Categoria do pet</ion-label>
 		<ion-select [(ngModel)]="pet.kind" cancelText="Cancelar" okText="Ok">
 			<ion-option value="dog">Cachorro</ion-option>
 			<ion-option value="cat">Gato</ion-option>
@@ -94,7 +82,7 @@
 	</ion-item>
 
 	<ion-item>
-		<ion-label>Porte do pet</ion-label>
+		<ion-label class="label-size">Porte do pet</ion-label>
 		<ion-select [(ngModel)]="pet.size" cancelText="Cancelar" okText="Ok">
 			<ion-option value="small">Pequeno</ion-option>
 			<ion-option value="medium">Médio</ion-option>
@@ -108,11 +96,11 @@
         </ion-list-header>
         <ion-item>
             <ion-label>Macho</ion-label>
-            <ion-radio value="male" color="greenTheme"></ion-radio>
+            <ion-radio value="male" color="dark"></ion-radio>
         </ion-item>
         <ion-item>
             <ion-label>Fêmea</ion-label>
-            <ion-radio value="female" color="greenTheme"></ion-radio>
+            <ion-radio value="female" color="dark"></ion-radio>
         </ion-item>
     </ion-list>
 

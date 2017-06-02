@@ -32,9 +32,7 @@ export class AddPet {
 
 	private editMode: Boolean = false;
 	private userInfo;
-	private loader;
-
-	@ViewChild(Slides) slidePicturesPet: Slides;
+	private loader;	
 
 	constructor(
 		public navCtrl: NavController,
@@ -135,15 +133,14 @@ export class AddPet {
             imageData = 'data:image/jpeg;base64,' + data;
         }
         //depois explico isso aqui
-        let position = this.slidePicturesPet.realIndex > this.picturesPet.length ? this.slidePicturesPet.realIndex : this.picturesPet.length;
+        let position = 0;
 
         var objImage = {
             id: `__${position}`,
             position: position,
             picture: imageData
         };
-
-        this.slidePicturesPet.slideTo(position + 1);
+        
         if (objImage.position < this.picturesPet.length) {
             this.picturesPet[objImage.position] = objImage;
         } else {
