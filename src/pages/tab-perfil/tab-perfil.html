@@ -1,11 +1,11 @@
 <ion-content>
-	<div *ngIf="!waitRequest && !locked" class="not-authenticate" padding>
+	<div *ngIf="!waitRequest && locked" class="not-authenticate" padding>
 		<p text-center class="txt-login">Para ter acesso ao seu perfil e ao cadastro de pets, é necessário fazer o login.</p>
 		<button ion-button round block (click)="facebookLogin()" class="bt-login-face">Fazer login com FaceBook</button>
 		<button ion-button round block (click)="googleLogin()" class="bt-login-google">Fazer login com Google</button>
 	</div>
 
-	<div *ngIf="locked" class="content-perfil">
+	<div *ngIf="!locked" class="content-perfil">
 		<ion-segment [(ngModel)]="tab">
 			<ion-segment-button value="perfil">
 				Meu Perfil
@@ -25,10 +25,10 @@
 						<ion-list>
 							<ion-item>
 								<ion-label color="dark" stacked class="label-sobre">Sobre min</ion-label>
-								<ion-input type="text" placeholder="Escreva um pouco sobre você" [(ngModel)]="userInfo.description"></ion-input>
+								<ion-input type="text" placeholder="Escreva um pouco sobre você" maxlength="150" [(ngModel)]="userInfo.description"></ion-input>
 							</ion-item>
 						</ion-list>
-						<p class="limit">300</p>
+						<p class="limit">{{150 - userInfo.description.length}}</p>
 					</ion-card-content>
 				</ion-card>
 				<div class="container-bt-editar">

@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, ViewController, AlertController, ToastController, LoadingController, Slides } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, NavParams, ViewController, AlertController, ToastController, LoadingController, Slides, FabContainer } from 'ionic-angular';
 
 import firebase from 'firebase';
 
@@ -15,7 +15,6 @@ import { PetsProvider } from '../../providers/pets/pets.service';
 })
 
 export class AddPet {
-
 	public pet: Pet = <Pet> {
 		name: "",
 		about: "",
@@ -27,12 +26,13 @@ export class AddPet {
 		ageMonths: 0,
 		pictures: { }
 	};
+
 	public picturesPet: Array<any> = [];
-	public imageDefault = "assets/img/img-default-pet.jpg";
+    public currentPhoto = 0;
 
 	private editMode: Boolean = false;
 	private userInfo;
-	private loader;	
+	private loader;
 
 	constructor(
 		public navCtrl: NavController,
@@ -79,7 +79,9 @@ export class AddPet {
 	 * TODO: Impedir que mais de tres imagens sejam adicionadas
 	 * TODO: Se não adicionar fotos na sequencia, vai dar erro perhaps, testar!
 	 */
-	public getPictureCamera() {
+	public getPictureCamera(currentFab: FabContainer) {
+        currentFab.close();
+
 		var options: CameraOptions = {
 			destinationType: this.camera.DestinationType.DATA_URL,
 			encodingType: this.camera.EncodingType.JPEG,
@@ -92,7 +94,9 @@ export class AddPet {
 	}
 
 	//TODO: Fazer ainda...
-	public getPictureLibrary() {
+	public getPictureLibrary(currentFab: FabContainer) {
+        currentFab.close();
+
 		var options: ImagePickerOptions = {
 			maximumImagesCount: 1,
 			quality: 50
@@ -105,6 +109,11 @@ export class AddPet {
 				this.loader.dismiss();
 			});
 	}
+
+    public closeFabs (fab1: FabContainer, fab2: FabContainer) {
+        fab1.close();
+        fab2.close();
+    }
 
 	//------------------------
 	// ------- PRIVATE -------
@@ -133,14 +142,14 @@ export class AddPet {
             imageData = 'data:image/jpeg;base64,' + data;
         }
         //depois explico isso aqui
-        let position = 0;
+        let position = this.currentPhoto;
 
         var objImage = {
             id: `__${position}`,
             position: position,
             picture: imageData
         };
-        
+
         if (objImage.position < this.picturesPet.length) {
             this.picturesPet[objImage.position] = objImage;
         } else {
