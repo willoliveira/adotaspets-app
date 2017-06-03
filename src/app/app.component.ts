@@ -14,7 +14,7 @@ import { Home } from '../pages/home/home';
 })
 export class AdotaPets {
 	rootPage:any;
-	
+
 	constructor(
 		private platform: Platform,
 		private statusBar: StatusBar,
@@ -29,7 +29,7 @@ export class AdotaPets {
 			messagingSenderId: "865809069618"
 		};
 		firebase.initializeApp(firebaseConfig);
-		
+
 		platform.ready().then(() => {
 			this.storage.get("userInfo")
 				.then(this.initApp.bind(this))
@@ -45,11 +45,11 @@ export class AdotaPets {
 			this.rootPage = Login;
 		}
 
-		this.statusBar.styleDefault();
+		this.statusBar.backgroundColorByHexString("#155818");
 
 		setTimeout(() => {
 			this.splashScreen.hide();
-		}, 100);		
+		}, 100);
 	}
 }
 

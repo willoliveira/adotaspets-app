@@ -9,61 +9,26 @@
 	<div class="container-add-photos">
 		<p class="txt-add-photo">Adicione fotos do pet</p>
 
-        <div class="box-photo b1">
-			<ion-fab right top #fab1>
-				<button ion-fab class="add-pet-photo" custom-mini color="darkTheme" (click)="closeFabs(fab2, fab3)"><ion-icon name='add'></ion-icon></button>
+        <div *ngFor="let pictureCount of [0, 1, 2]"
+            [class]="'box-photo b' + (pictureCount + 1)">
+			<ion-fab right top #fabsPictures *ngIf="!picturesPet[pictureCount]">
+				<button ion-fab class="add-pet-photo" custom-mini color="darkTheme" (click)="closeFabs(pictureCount)"><ion-icon name='add'></ion-icon></button>
 				<ion-fab-list side="left">
-					<button (click)="currentPhoto = 0; getPictureCamera(fab1);" ion-fab custom-mini color="primary"><ion-icon name="camera"></ion-icon></button>
+					<button (click)="currentPhoto = pictureCount; getPictureCamera(pictureCount);" ion-fab custom-mini color="primary"><ion-icon name="camera"></ion-icon></button>
 				</ion-fab-list>
 				<ion-fab-list side="bottom">
-					<button (click)="currentPhoto = 0; getPictureLibrary(fab1);" ion-fab custom-mini color="primary"><ion-icon name="image"></ion-icon></button>
+					<button (click)="currentPhoto = pictureCount; getPictureLibrary(pictureCount);" ion-fab custom-mini color="primary"><ion-icon name="image"></ion-icon></button>
 				</ion-fab-list>
 			</ion-fab>
 
-            <ion-fab top right (click)="deleteImage(0)" *ngIf="false">
-                <button ion-fab color="redTheme" custom-mini><ion-icon name="trash"></ion-icon></button>
+            <ion-fab top right *ngIf="picturesPet[pictureCount]">
+                <button ion-fab color="redTheme" custom-mini (click)="showConfirmDeletePet(pictureCount)" ><ion-icon name="trash"></ion-icon></button>
             </ion-fab>
 
-            <div class="photo" [ngStyle]="{'background-image': (picturesPet.length > 0 ? 'url(' + picturesPet[0].picture + ')' : null)}">
-                <h1>1</h1>
-            </div>
-        </div>
-        <div class="box-photo b2">
-			<ion-fab right top #fab2>
-				<button ion-fab class="add-pet-photo" custom-mini color="darkTheme" (click)="closeFabs(fab1, fab3)"><ion-icon name='add'></ion-icon></button>
-				<ion-fab-list side="left">
-					<button (click)="currentPhoto = 1; getPictureCamera(fab2);" ion-fab custom-mini color="primary"><ion-icon name="camera"></ion-icon></button>
-				</ion-fab-list>
-				<ion-fab-list side="bottom">
-					<button (click)="currentPhoto = 1; getPictureLibrary(fab2);" ion-fab custom-mini color="primary"><ion-icon name="image"></ion-icon></button>
-				</ion-fab-list>
-			</ion-fab>
-
-            <ion-fab top right (click)="deleteImage(1)" *ngIf="false">
-                <button ion-fab color="redTheme" custom-mini><ion-icon name="trash"></ion-icon></button>
-            </ion-fab>
-
-            <div class="photo" [ngStyle]="{'background-image': (picturesPet.length > 1 ? 'url(' + picturesPet[1].picture + ')' : null)}">
-                <h1>2</h1>
-            </div>
-        </div>
-        <div class="box-photo b3">
-			<ion-fab right top #fab3>
-				<button ion-fab class="add-pet-photo" custom-mini color="darkTheme" (click)="closeFabs(fab1, fab2)"><ion-icon name='add'></ion-icon></button>
-				<ion-fab-list side="left">
-					<button (click)="currentPhoto = 2; getPictureCamera(fab3);" ion-fab custom-mini color="primary"><ion-icon name="camera"></ion-icon></button>
-				</ion-fab-list>
-				<ion-fab-list side="bottom">
-					<button (click)="currentPhoto = 2; getPictureLibrary(fab3);" ion-fab custom-mini color="primary"><ion-icon name="image"></ion-icon></button>
-				</ion-fab-list>
-			</ion-fab>
-
-            <ion-fab top right (click)="deleteImage(2)" *ngIf="false">
-                <button ion-fab color="redTheme" custom-mini><ion-icon name="trash"></ion-icon></button>
-            </ion-fab>
-
-            <div class="photo" [ngStyle]="{'background-image': (picturesPet.length > 2 ? 'url(' + picturesPet[2].picture + ')' : null)}">
-                <h1>3</h1>
+            <div class="photo" [ngStyle]="{
+                    'background-image': (picturesPet.length > pictureCount ? 'url(' + picturesPet[pictureCount].picture + ')' : null)
+                }">
+                <h1>{{pictureCount + 1}}</h1>
             </div>
         </div>
 	</div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChildren, QueryList,  } from '@angular/core';
 import { NavController, NavParams, ViewController, AlertController, ToastController, LoadingController, Slides, FabContainer } from 'ionic-angular';
 
 import firebase from 'firebase';
@@ -28,11 +28,14 @@ export class AddPet {
 	};
 
 	public picturesPet: Array<any> = [];
+	public picturesPetDeleted: Array<any> = [];
     public currentPhoto = 0;
 
 	private editMode: Boolean = false;
 	private userInfo;
 	private loader;
+
+    @ViewChildren('fabsPictures') fabsPictures: QueryList<FabContainer>;
 
 	constructor(
 		public navCtrl: NavController,
@@ -56,31 +59,33 @@ export class AddPet {
 		if (!this.loader) { this.showLoading(); }
 
 		if (this.pet.id) {
-			this.updatePet.call(this);
+            var images: Array<any> = this.picturesPet.filter(picture => picture.status).concat(this.picturesPetDeleted);
+            this.picturesPetDeleted = [];
+
+		    if (images.length) { this.savePicturesRecursive(images, "Pet atualizado!"); }
+            else this.updatePet.call(this);
 		} else {
 			this.postPet.call(this);
 		}
 	}
 
-    public showConfirmDeletePet(pet) {
+    public showConfirmDeletePet(pictureCount) {
 		let confirm = this.alertCtrl.create({
 			title: 'Tem certeza?',
-			message: 'A foto do seu sera deletada para sempre.',
+			message: 'A foto do seu pet sera deletada para sempre.',
 			buttons: [
 				{ text: 'Cancelar', handler: () => { confirm.dismiss() } },
-				{ text: 'Excluir', handler: this.deleteImage.bind(this, pet) }
+				{ text: 'Excluir', handler: this.deleteImage.bind(this, pictureCount) }
 			]
 		});
 		confirm.present();
 	}
 
 	/**
-	 * TODO: Melhorar codigo no geral
 	 * TODO: Impedir que mais de tres imagens sejam adicionadas
-	 * TODO: Se não adicionar fotos na sequencia, vai dar erro perhaps, testar!
 	 */
-	public getPictureCamera(currentFab: FabContainer) {
-        currentFab.close();
+	public getPictureCamera(pictureIndex: number, teste: any) {
+        this.closeFabs();
 
 		var options: CameraOptions = {
 			destinationType: this.camera.DestinationType.DATA_URL,
@@ -89,19 +94,20 @@ export class AddPet {
 		};
 
 		this.camera.getPicture(options)
-			.then(this.onSuccessGetImage.bind(this) )
+			.then(this.onSuccessGetImage.bind(this))
             .catch(this.onError.bind(this, "Erro ao capturar imagem"))
 	}
 
 	//TODO: Fazer ainda...
-	public getPictureLibrary(currentFab: FabContainer) {
-        currentFab.close();
+	public getPictureLibrary(pictureIndex: number) {
+        // this.fabsPictures.toArray()[pictureIndex].close();
+        this.closeFabs();
 
 		var options: ImagePickerOptions = {
 			maximumImagesCount: 1,
 			quality: 50
 		};
-
+        //todo: ainda não fiz esse...
 		this.imagePicker.getPictures(options)
 			.then(this.onSuccessGetImage.bind(this))
             .catch((err) => {
@@ -110,9 +116,15 @@ export class AddPet {
 			});
 	}
 
-    public closeFabs (fab1: FabContainer, fab2: FabContainer) {
-        fab1.close();
-        fab2.close();
+    public closeFabs (index?: number) {
+        var fabs = this.fabsPictures.toArray();
+        fabs.forEach((fab, i) => {
+            // if (typeof index !== undefined) {
+            //     if (index !== i) { fab.close(); }
+            // } else {
+                fab.close();
+            // }
+        });
     }
 
 	//------------------------
@@ -128,11 +140,27 @@ export class AddPet {
 				this.editMode = true;
 
 				if (pet.hasOwnProperty("pictures")) {
-					this.picturesPet = Object.keys(pet.pictures).map(picture => pet.pictures[picture]);
+					this.picturesPet = Object.keys(pet.pictures)
+                        .map(picture => pet.pictures[picture])
+                        .sort((a, b) => {
+                            if (a.position > b.position) return 1;
+                            if (a.position < b.position) return -1;
+                            return 0;
+                        });
 				}
 			}
 		}
 	}
+
+    guid() {
+        function s4() {
+            return Math
+                .floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
+        }
+        return s4() + s4() + s4() + s4() + '-' + s4() + s4() + '-' + s4() + s4() + '-' + s4() + '-' + s4() + s4();
+    }
 
     private onSuccessGetImage(data) {
         var imageData;
@@ -141,64 +169,33 @@ export class AddPet {
         } else {
             imageData = 'data:image/jpeg;base64,' + data;
         }
-        //depois explico isso aqui
-        // var position = 0;//this.slidePicturesPet.realIndex > this.picturesPet.length ? this.slidePicturesPet.realIndex : this.picturesPet.length;
-        let position = this.currentPhoto;
-
         var objImage = {
-            id: `__${position}`,
-            position: position,
-            picture: imageData
+            picture: imageData,
+            status: "update"
         };
+        if (this.currentPhoto < this.picturesPet.length) {
+            objImage["position"] =  this.currentPhoto;
+            let petPicture = Object.keys(this.pet.pictures)
+                .map(picture => this.pet.pictures[picture])
+                .find(picture => picture.position === objImage["position"]);
 
-        // this.slidePicturesPet.slideTo(position + 1);
-        if (objImage.position < this.picturesPet.length) {
-            this.picturesPet[objImage.position] = objImage;
+            //depois fazer um merge melhor se pa
+            objImage["id"] = petPicture.id;
+
+            this.picturesPet[objImage["position"]] = objImage;
         } else {
+            objImage["position"] = this.picturesPet.length;
+            objImage["id"] = this.guid();
             this.picturesPet.push(objImage);
-        }
-
-        if (this.editMode) {
-            this.showLoading();
-            objImage.id = `${this.pet.id}${objImage.id}`;
-
-            this.petsProvider
-                .postImagePet(this.pet.id, objImage.id, objImage.picture)
-                .then((snapshot: firebase.storage.UploadTaskSnapshot) => {
-
-                    let petCache: Pet = Object.assign({}, this.pet);
-                    if (!petCache.pictures) petCache.pictures = {};
-
-                    //atualiza a foto com a que subiu no firebase
-                    this.picturesPet[position].picture = snapshot.downloadURL;
-
-                    petCache.pictures[objImage.id] = objImage;
-
-                    this.petsProvider
-                        .updatePet(petCache)
-                        .then(() => { this.loader.dismiss(); })
-                        .catch(() => {
-                            //se da erro deleta
-                            this.picturesPet.splice(position, 1);
-                            delete petCache.pictures[objImage.id];
-
-                            this.onError("Erro ao capturar imagem");
-                        });
-                });
-        } else {
-            this.picturesPet[position]["local"] = true;
         }
     }
 
     private deleteImage(index) {
-        if (this.picturesPet[index].local) {
-            this.picturesPet.splice(index, 1);
-        } else {
-            this.petsProvider
-                .deleteImagePet(this.pet.id, this.picturesPet[index].id)
-                .then(() => { this.picturesPet.splice(index, 1); })
-                .catch(this.onError.bind(this, "Erro ao deletar imagem"));
+        if (!this.picturesPet[index].local) {
+            this.picturesPetDeleted.push(Object.assign(this.picturesPet[index], { status: "delete" }));
         }
+        this.picturesPet.splice(index, 1);
+        this.picturesPet.forEach((picture, index) => { picture.position = index });
     }
 
 	private showLoading() {
@@ -214,27 +211,40 @@ export class AddPet {
 		toast.present();
 	}
 
-	private savePicturesRecursive(msgSuccess) {
-		var images: Array<any> = this.picturesPet.filter(picture => picture.local);
+    /**
+     * TODO: Depois, voltar aqui e ver o que fazer se der erro... Talvez chamar a funcao para atualizar novamente
+     * @param msgSuccess
+     */
+	private savePicturesRecursive(images, msgSuccess) {
 		if (images.length) {
 			var image = images.pop();
-			image.id =  `${this.pet.id}${image.id}`;
-			this.petsProvider
-				.postImagePet(this.pet.id, image.id, image.picture)
-				.then((snapshot: firebase.storage.UploadTaskSnapshot) => {
-					delete image.local;
-					if (!this.pet.hasOwnProperty("pictures")) this.pet.pictures = { };
-					this.pet.pictures[image.id] = Object.assign(image, { picture: snapshot.downloadURL });
-					this.savePicturesRecursive(msgSuccess);
-				}, () => {
-					this.loader.dismiss();
-				});
+            if (image["status"] === "delete") {
+                this.petsProvider
+                    .deleteImagePet(this.pet.id, image["id"])
+                    .then(() => {
+                        delete this.pet.pictures[image["id"]];
+                        this.savePicturesRecursive(images, msgSuccess);
+                    })
+                    .catch(() => {
+                        this.loader.dismiss();
+                    });
+            } else if (image["status"] === "update") {
+                this.petsProvider
+                    .postImagePet(this.pet.id, image)
+                    .then((snapshot: firebase.storage.UploadTaskSnapshot) => {
+                        delete image.status;
+                        if (!this.pet.hasOwnProperty("pictures")) {
+                            this.pet.pictures = { };
+                        }
+                        this.pet.pictures[image.id] = Object.assign(image, { picture: snapshot.downloadURL });
+                        this.savePicturesRecursive(images, msgSuccess);
+                    })
+                    .catch(() => {
+                        this.loader.dismiss();
+                    });
+            }
 		} else {
 			this.postPets();
-			// TODO: Talvez usar esse por cuasa do toast de mensage, ouuu, setar a mensagem em uma variavel..
-			// this.petsProvider
-			// 	.updatePet(this.pet)
-			// 	.then(this.onSuccessPostPet.bind(this, msgSuccess));
 		}
 	}
 
@@ -263,9 +273,11 @@ export class AddPet {
 	//----------------------
 
 	private onSuccessPostPet(msgSuccess) {
-		var images: Array<any> = this.picturesPet.filter(picture => picture.local);
+		var images: Array<any> = this.picturesPet.filter(picture => picture.status).concat(this.picturesPetDeleted);
+        this.picturesPetDeleted = [];
 		if (images.length) {
-			this.savePicturesRecursive(msgSuccess);
+            this.picturesPetDeleted = [];
+			this.savePicturesRecursive(images, msgSuccess);
 		} else {
 			this.loader.dismiss();
 			this.presentToast(msgSuccess);

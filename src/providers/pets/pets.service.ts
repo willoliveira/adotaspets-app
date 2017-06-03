@@ -32,12 +32,13 @@ export class PetsProvider {
 		return firebase.database().ref().update(saveInfos);
 	}
 
-	postImagePet(petId, imgId, data) {
-        var imageRef = firebase.storage().ref().child(`images/pets/${petId}/${imgId}.jpg`);
-        if (imgId.match("data:image/jpeg;base64")) {
-		    return imageRef.putString(data, firebase.storage.StringFormat.DATA_URL);
+	postImagePet(petId, imageObject) {
+        var imageRef = firebase.storage().ref().child(`images/pets/${petId}/${imageObject.id}.jpg`);
+        if (imageObject.picture.match("data:image/jpeg;base64")) {
+		    return imageRef.putString(imageObject.picture, firebase.storage.StringFormat.DATA_URL);
         }
-        return imageRef.put(data, { contentType: 'image/jpeg' });
+        //TODO: esse aqui ainda não funciona
+        return imageRef.put(imageObject.picture, { contentType: 'image/jpeg' });
 	}
 
     deleteImagePet(petId, imgId) {

@@ -31,20 +31,17 @@ export class Login {
         }
 
 	public facebookLogin() {
-        // if (!cordova) {
-            window.open(`https://www.facebook.com/v2.9/dialog/oauth?client_id=294997080955756&redirect_uri=localhost:8100/#face`);
-        // }
-        // else
-		// this.authProvider.loginFace(['email']).then((response) => {
-		// 	this.authProvider.authFace(response.authResponse.accessToken)
-		// 		.then(this.authFaceSuccess.bind(this))
-		// 		.catch((error) => {
-		// 			console.log("Firebase failure: " + JSON.stringify(error));
-		// 		});
-		// })
-		// .catch((error) => {
-		// 	console.log(error);
-		// });
+
+		this.authProvider.loginFace(['email']).then((response) => {
+			this.authProvider.authFace(response.authResponse.accessToken)
+				.then(this.authFaceSuccess.bind(this))
+				.catch((error) => {
+					console.log("Firebase failure: " + JSON.stringify(error));
+				});
+		})
+		.catch((error) => {
+			console.log(error);
+		});
 	}
 
 	private authFaceSuccess(response) {

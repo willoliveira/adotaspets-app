@@ -85,6 +85,15 @@ export class TabPerfil {
 		actionSheet.present();
 	}
 
+    public imagePet(pet) {
+        var picture = 'assets/img/avatar-ts-slinky.png';
+        if (pet.pictures) {
+            let petPictureFirst = Object.keys(pet.pictures).find(petPicture => pet.pictures[petPicture].position == '0');
+            if (petPictureFirst) { picture = pet.pictures[petPictureFirst]["picture"]; }
+        }
+        return picture;
+    }
+
 	public openAddPetPage(pet: Pet) {
 		this.app.getRootNav().push(AddPet, {
             userInfo: this.userInfo,
