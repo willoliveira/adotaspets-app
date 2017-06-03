@@ -8,6 +8,9 @@ import { Storage } from '@ionic/storage';
 import { AuthenticateProvider } from '../../providers/authenticate/authenticate.service';
 import { UserProvider } from '../../providers/user/user.service';
 
+
+declare var cordova;
+
 @IonicPage()
 @Component({
 	selector: 'page-login',
@@ -22,20 +25,26 @@ export class Login {
 		public navParams: NavParams,
 		private storage: Storage,
 		private authProvider: AuthenticateProvider,
-		private userProvider: UserProvider) { }
+		private userProvider: UserProvider,
+        private fb: Facebook) {
+            console.log(this.fb);
+        }
 
 	public facebookLogin() {
-
-		this.authProvider.loginFace(['email']).then((response) => {
-			this.authProvider.authFace(response.authResponse.accessToken)
-				.then(this.authFaceSuccess.bind(this))
-				.catch((error) => {
-					console.log("Firebase failure: " + JSON.stringify(error));
-				});
-		})
-		.catch((error) => {
-			console.log(error);
-		});
+        // if (!cordova) {
+            window.open(`https://www.facebook.com/v2.9/dialog/oauth?client_id=294997080955756&redirect_uri=localhost:8100/#face`);
+        // }
+        // else
+		// this.authProvider.loginFace(['email']).then((response) => {
+		// 	this.authProvider.authFace(response.authResponse.accessToken)
+		// 		.then(this.authFaceSuccess.bind(this))
+		// 		.catch((error) => {
+		// 			console.log("Firebase failure: " + JSON.stringify(error));
+		// 		});
+		// })
+		// .catch((error) => {
+		// 	console.log(error);
+		// });
 	}
 
 	private authFaceSuccess(response) {

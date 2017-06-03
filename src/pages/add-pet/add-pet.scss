@@ -13,17 +13,45 @@ add-pet {
         }
     }
 
+    /*fab add/delete photo*/
+    .fab[custom-mini] {
+        margin: 8px;
+        width: 25px;
+        height: 25px;
+        line-height: 25px;
+
+        ion-icon {
+            font-size: 1.6rem;
+        }
+
+        .fab-close-icon {
+            line-height: 25px;
+        }
+    }
+
+    ion-fab-list[side=left] {
+        margin: 0px 40px;
+    }
+
+    .fab-list-active {
+        margin: 40px 0;
+        min-width: 25px;
+        min-height: 25px;
+    }
+
     .container-add-photos {
         margin: 10px;
 
         .txt-add-photo {
             font-size: 1.8rem;
             color: #4fb050;
+            margin-left: 6px;
         }
 
         .box-photo {
             float: left;
             padding: 5px;
+            position: relative;
 
             &.b1 {
                 width: 60%;
@@ -45,64 +73,41 @@ add-pet {
             .photo {
                 width: 100%;
                 height: 100%;
-                background-color: #E0E0E0;
                 border-radius: 3px;
                 text-align: center;
+                background-color: #E0E0E0;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center center;
+
+                h1 {
+                    color: #fff;
+                    margin: 0;
+                    text-align: left;
+                    padding: 10px;
+                    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
+                }
             }
         }
-
-        /*.container-slider {
-            position: relative;
-
-            ion-chip {
-                position: absolute;
-                top: 15px;
-                background: #fff;
-                left: 15px;
-                z-index: 1;
-            }
-
-            .swiper-slide {
-                background: #424242;
-            }
-
-            .slide-zoom {
-                height: 200px;
-            }
-
-            .swiper-slide img {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-            }
-
-            .swiper-pagination-bullet {
-                background: #fff;
-                opacity: .9;
-                box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-            }
-
-            .swiper-pagination-bullet-active {
-                background: #4caf50;
-                opacity: 1;
-                box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-            }
-        }*/
     }
 
     .small-text {
-        font-size: 14px;
+        font-size: 12px;
     }
 
-    .label-nome, .label-sobre, .label-breed {
-        font-size: 16px !important;
+    .label-nome, .label-sobre, .label-breed, .label-kind, .label-size {
+        font-size: 1.8rem !important;
+        color: #4fb050 !important;
+    }
+
+    textarea {
+        height: 50px;
     }
 
     .limit {
-        color: #B0BEC5;
+        color: #E0E0E0;
         text-align: right;
-        margin-top: 10px;
+        margin: 5px 16px 0 16px;
     }
 
     ion-list-header {
