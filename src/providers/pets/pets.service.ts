@@ -33,9 +33,11 @@ export class PetsProvider {
 	}
 
 	postImagePet(petId, imgId, data) {
-		return firebase.storage().ref()
-            .child(`images/pets/${petId}/${imgId}.jpg`)
-            .putString(data, firebase.storage.StringFormat.DATA_URL);
+        var imageRef = firebase.storage().ref().child(`images/pets/${petId}/${imgId}.jpg`);
+        if (imgId.match("data:image/jpeg;base64")) {
+		    return imageRef.putString(data, firebase.storage.StringFormat.DATA_URL);
+        }
+        return imageRef.put(data, { contentType: 'image/jpeg' });
 	}
 
     deleteImagePet(petId, imgId) {

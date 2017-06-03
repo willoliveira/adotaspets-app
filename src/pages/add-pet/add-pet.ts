@@ -135,7 +135,7 @@ export class AddPet {
             imageData = 'data:image/jpeg;base64,' + data;
         }
         //depois explico isso aqui
-        let position = this.slidePicturesPet.realIndex > this.picturesPet.length ? this.slidePicturesPet.realIndex : this.picturesPet.length;
+        var position = 0;//this.slidePicturesPet.realIndex > this.picturesPet.length ? this.slidePicturesPet.realIndex : this.picturesPet.length;
 
         var objImage = {
             id: `__${position}`,
@@ -143,7 +143,7 @@ export class AddPet {
             picture: imageData
         };
 
-        this.slidePicturesPet.slideTo(position + 1);
+        // this.slidePicturesPet.slideTo(position + 1);
         if (objImage.position < this.picturesPet.length) {
             this.picturesPet[objImage.position] = objImage;
         } else {
