@@ -37,7 +37,7 @@
 					</button>
 				</div>
 				<div class="container-bt-sair">
-					<button ion-button icon-right block class="bt-sair" round outline color="redTheme">
+					<button (click)="logout()" ion-button icon-right block class="bt-sair" round outline color="redTheme">
 						Sair <ion-icon name="log-out"></ion-icon>
 					</button>
 				</div>
@@ -53,7 +53,7 @@
 
 				<ion-card *ngFor="let pet of pets; let i = index; trackBy: id">
 					<ion-item>
-						<ion-avatar item-left [ngStyle]="{'background-image': 'url(' + (pet.pictures ? pet.pictures[pet.id + '__0'].picture : 'assets/img/avatar-ts-slinky.png') + ')'}"></ion-avatar>
+						<ion-avatar item-left [ngStyle]="{'background-image': 'url(' + imagePet(pet) + ')'}"></ion-avatar>
 						<h2>{{pet.name}}</h2>
 						<p>{{pet.kind}}, porte {{pet.size}}</p>
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import firebase from 'firebase';
+import GeoFire from 'geofire';
 
 @Injectable()
 export class AuthenticateProvider {

@@ -3,6 +3,7 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
+import { BackgroundMode } from '@ionic-native/background-mode';
 
 import firebase from 'firebase';
 
@@ -19,7 +20,8 @@ export class AdotaPets {
 		private platform: Platform,
 		private statusBar: StatusBar,
 		private splashScreen: SplashScreen,
-		private storage: Storage) {
+		private storage: Storage,
+        private backgroundMode: BackgroundMode) {
 		const firebaseConfig = {
 			apiKey: "AIzaSyAZ5V-6_ql43SrlOa-qKlAnXBsqQrHL9h0",
 			authDomain: "adotapets-7c2fa.firebaseapp.com",
@@ -29,6 +31,8 @@ export class AdotaPets {
 			messagingSenderId: "865809069618"
 		};
 		firebase.initializeApp(firebaseConfig);
+
+        this.backgroundMode.enable();
 
 		platform.ready().then(() => {
 			this.storage.get("userInfo")

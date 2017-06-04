@@ -51,6 +51,20 @@ export class TabPerfil {
 	//-------- PUBLIC---------
 	//------------------------
 
+    public logout() {
+        this.storage.remove('userInfo');
+        this.locked = true;
+        this.userInfo = <User> {};
+    }
+
+    public facebookLogin() {
+        this.app.getRootNav().push(Login);
+    }
+
+    public googleLogin() {
+
+    }
+
 	public openMenu(pet: Pet) {
 		let actionSheet = this.actionsheetCtrl.create({
 			title: 'Ações',

@@ -20,6 +20,8 @@ import { ModalFilter } from '../pages/modals/modal-filter/modal-filter';
 import { Camera } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Facebook, FacebookLoginResponse  } from '@ionic-native/facebook';
+import { BackgroundMode } from '@ionic-native/background-mode';
+import { Geolocation } from '@ionic-native/geolocation';
 
 import { PetsProvider } from '../providers/pets/pets.service';
 
@@ -51,7 +53,7 @@ import { PetsProvider } from '../providers/pets/pets.service';
 		SplashScreen,
 		{provide: ErrorHandler, useClass: IonicErrorHandler},
 
-		Camera, ImagePicker, Facebook,
+		Camera, ImagePicker, Facebook, BackgroundMode, Geolocation,
 		PetsProvider
 	]
 })
