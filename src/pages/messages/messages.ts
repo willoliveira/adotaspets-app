@@ -1,24 +1,24 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 
-/**
- * Generated class for the Messages page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+import { PopoverMessages } from '../popovers/popover-messages/popover-messages';
+
 @IonicPage()
+
 @Component({
-  selector: 'page-messages',
-  templateUrl: 'messages.html',
+    selector: 'page-messages',
+    templateUrl: 'messages.html'
 })
+
 export class Messages {
+    constructor(public navCtrl: NavController, public navParams: NavParams, public popoverCtrl: PopoverController) {
+    }    
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+    presentPopover(myEvent) {
+        let popover = this.popoverCtrl.create(PopoverMessages);
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad Messages');
-  }
-
+        popover.present({
+            ev: myEvent
+        });
+    }
 }

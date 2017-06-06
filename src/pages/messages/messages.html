@@ -1,18 +1,25 @@
-<!--
-  Generated template for the Messages page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>messages</ion-title>
-  </ion-navbar>
-
+    <ion-navbar>
+        <div class="photo-resp" [ngStyle]="{'background-image': 'url(assets/img/lula.jpg)'}"></div>
+        <ion-title>Nome do responsável</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="presentPopover($event)">
+                <ion-icon name="more"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
 </ion-header>
 
+<ion-content>    
+    <div class="msg">
+        <div class="message message-out">
+            <span class="text">á, eu gostei muito do dog! :)</span>
+        </div>        
+    </div>
 
-<ion-content padding>
-
+    <div class="msg">
+        <div class="message message-in">
+            <span class="text">Olá, como vai? Que bom que gostou! Vamos combinar pra vc pegar ele?</span>
+        </div>
+    </div>
 </ion-content>

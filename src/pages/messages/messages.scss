@@ -1,3 +1,65 @@
 page-messages {
+    ion-content {
+        background-color: #F5F5F5 !important;
+    }
 
+    ion-header {
+        .toolbar-background-md {
+            background-image: linear-gradient(260deg, #8bc34a, #4caf50);
+        }
+
+        .toolbar-title-md {
+            color: #fff;
+            line-height: 40px;
+            width: 95%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+            padding: 0;
+        }
+
+        ion-icon {
+            color: #fff;
+        }
+
+        .photo-resp {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            float: left;
+            margin-right: 15px;
+            box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+        }
+    }
+
+    .msg {
+        padding-left: 9%;
+        padding-right: 9%;
+        margin-bottom: 12px;
+        position: relative;        
+
+        .message-in, .message-out {
+            border-radius: 7.5px;
+            position: relative;
+            box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);
+        }   
+
+        .message-out {
+            background-color: #dcf8c6;
+            float: right;
+        }     
+
+        .message-in {
+            background-color: #fff;
+            float: left;
+        }
+
+        .text {
+                   
+        }
+    }        
 }
