@@ -1,6 +1,13 @@
 popover-messages {
-    p {
-        padding: 0 20px;
+    ion-label {        
         color: #616161;
+    }
+
+    .list-md {
+        margin: 0;
+    }    
+
+    .list-md .item-block .item-inner {
+        border: 0;
     }
 }

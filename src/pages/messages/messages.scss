@@ -1,6 +1,6 @@
 page-messages {
     ion-content {
-        background-color: #F5F5F5 !important;
+        background: url(../assets/img/bg-messages.jpg) center center repeat;
     }
 
     ion-header {
@@ -36,30 +36,52 @@ page-messages {
         }
     }
 
-    .msg {
-        padding-left: 9%;
-        padding-right: 9%;
-        margin-bottom: 12px;
-        position: relative;        
+    .message {        
+        margin-top: 10px;
+        margin-bottom: 10px;
+        position: relative;                
 
         .message-in, .message-out {
             border-radius: 7.5px;
             position: relative;
             box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);
+            padding: 10px;                        
         }   
 
         .message-out {
-            background-color: #dcf8c6;
-            float: right;
+            background-color: #dcf8c6;            
+            margin-left: 50px;       
+            margin-right: 20px;                        
+
+            &::after {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 0;                
+                right: -10px;
+                top: 0px;
+                bottom: auto;
+                border: 10px solid;
+                border-color: #dcf8c6 transparent transparent;
+            }
         }     
 
         .message-in {
-            background-color: #fff;
-            float: left;
-        }
+            background-color: #fff;     
+            margin-right: 50px;
+            margin-left: 20px;  
 
-        .text {
-                   
-        }
+            &::after {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 0;                
+                left: -10px;
+                top: 0px;
+                bottom: auto;
+                border: 10px solid;
+                border-color: #fff transparent transparent;
+            }                      
+        }                
     }        
 }
