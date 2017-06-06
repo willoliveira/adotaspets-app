@@ -29,7 +29,7 @@ export class UserProvider {
     setLocation(userId, position: Geoposition) {
         var firebaseRef = firebase.database().ref(`users/${userId}`);
         var geoFire = new GeoFire(firebaseRef);
-        return geoFire.set("location", [position.coords.latitude, position.coords.longitude])
+        return geoFire.set("", [position.coords.latitude, position.coords.longitude])
             .then(() => geoFire);
     }
 }

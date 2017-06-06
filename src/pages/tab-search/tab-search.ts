@@ -146,15 +146,15 @@ export class TabSearch {
             this.geolocation.getCurrentPosition()
                 .then((position: Geoposition) => {
                     this.userProvider.setLocation(this.userInfo.id, position)
-                        .then((geoFire) => {
-
-                            var geoQuery = geoFire.query({
+                        .then(() => {
+                            let firebaseRef = firebase.database().ref(`users/`);
+                            let geoFire = new GeoFire(firebaseRef);
+                            let geoQuery = geoFire.query({
                                 center: [position.coords.latitude, position.coords.longitude],
-                                radius: 20
+                                radius: 50
                             });
-
                             geoQuery.on("key_entered", function(key, location, distance) {
-                                console.log(key + " entered query at " + location + " (" + distance + " km from center)");
+                                console.log(key, " entered query at " + location + " (" + distance + " km from center)");
                             });
                         })
                         .catch(() => {
