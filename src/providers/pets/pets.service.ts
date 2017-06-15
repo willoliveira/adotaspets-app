@@ -1,35 +1,50 @@
 import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
 import { Pet } from '../../models/pet.model';
+
+import Config from '../../utils/Config.ts';
 
 import firebase from 'firebase';
 
 @Injectable()
 export class PetsProvider {
 
-	constructor() { }
+    constructor(public http: Http) { }
 
 	postNewPet(pet: Pet) {
-		var saveInfos = { };
-		//salvando o pet
-		saveInfos[`/pets/${pet.id}`] = pet;
-		//salvando a referencia do pet no objeto do user
-		//TODO: Melhorar essas definições talvez, do que salvar no objeto do user
-		saveInfos[`/users/${pet.userId}/pets/${pet.id}`] = { id: pet.id };
-		return firebase.database().ref().update(saveInfos);
+		// var saveInfos = { };
+		// //salvando o pet
+		// saveInfos[`/pets/${pet.id}`] = pet;
+		// //salvando a referencia do pet no objeto do user
+		// //TODO: Melhorar essas definições talvez, do que salvar no objeto do user
+		// saveInfos[`/users/${pet.userId}/pets/${pet.id}`] = { id: pet.id };
+		// return firebase.database().ref().update(saveInfos);
+        return this.http
+            .post(`${Config.api_url}/v1/pet`, pet)
+            .map((response: Response) => response.json());
 	}
 
-	updatePet(pet) {
-		return firebase.database().ref(`/pets/${pet.id}`).update(pet);
+	updatePet(pet: Pet) {
+		// return firebase.database().ref(`/pets/${pet.id}`).update(pet);
+        return this.http
+            .put(`${Config.api_url}/v1/pet/${pet._id}`, pet)
+            .map((response: Response) => response.json());
 	}
 
     //DELETAR TAMBEM AS IMAGENS
-	deletePet(userId, petId) {
-		var saveInfos = { };
-		// deletando o pet
-		saveInfos[`/pets/${petId}`] = null;
-		// deletando o pet do usuario
-		saveInfos[`/users/${userId}/pets/${petId}`] = null;
-		return firebase.database().ref().update(saveInfos);
+	deletePet(petId) {
+		// var saveInfos = { };
+		// // deletando o pet
+		// saveInfos[`/pets/${petId}`] = null;
+		// // deletando o pet do usuario
+		// saveInfos[`/users/${userId}/pets/${petId}`] = null;
+		// return firebase.database().ref().update(saveInfos);
+        return this.http
+            .delete(`${Config.api_url}/v1/pet/${petId}`)
+            .map((response: Response) => response.json());
 	}
 
 	postImagePet(petId, imageObject) {
@@ -46,59 +61,4 @@ export class PetsProvider {
             .child(`images/pets/${petId}/${imgId}.jpg`)
             .delete();
 	}
-
-
-	/**
-	 * Inicializa todos os eventos relacionado a pets do usuario
-	 * @param userId
-	 */
-	getPetToUserAllEvents(events, userId, callback) {
-		var eventsSplit = events.split(' ');
-		//depois fazer uma verificação se os eventos são aceitos por essa funcao, um enum serviria...
-		eventsSplit.array.forEach(event => {
-			getPetToUser(userId).on(event, callback.bind(this, event));
-		});
-	}
-
-	/**
-	 * Quando adiciona um pet
-	 * @param userId
-	 */
-	getPetToUserAdded(userId, callback) {
-		getPetToUser(userId).on('child_added', callback);
-	}
-
-	/**
-	 * Quando remove um pet
-	 * @param userId
-	 */
-	getPetToUserRemoved(userId, callback) {
-		getPetToUser(userId).on('child_removed', callback);
-	}
-
-	/**
-	 * Quando altera alguma informação de algum nó dos pets
-	 * @param userId
-	 */
-	getPetToUserChanged(userId, callback) {
-		getPetToUser(userId).on('child_changed', callback);
-	}
-
-	/**
-	 * Pega dos dados dos pets do user
-	 * @param userId
-	 */
-	getPetToUserOnce(userId) {
-		return getPetToUser(userId).once("value");
-	}
-}
-
-/**
- * Fica ouvindo alteração nos objetos dos pets do usuario
- * Usar com os eventos: child_changed, child_added e child_removed
- * ex: .on('child_removed', handler)
- * @param userId id do usuario dono do pet
- */
-function getPetToUser(userId) {
-	return firebase.database().ref(`pets/`).orderByChild("userId").equalTo(userId);
 }

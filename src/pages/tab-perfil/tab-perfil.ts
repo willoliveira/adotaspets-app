@@ -101,7 +101,7 @@ export class TabPerfil {
 
     public imagePet(pet) {
         var picture = 'assets/img/avatar-ts-slinky.png';
-        if (pet.pictures) {
+        if (pet.pictures.length) {
             let petPictureFirst = Object.keys(pet.pictures).find(petPicture => pet.pictures[petPicture].position == '0');
             if (petPictureFirst) { picture = pet.pictures[petPictureFirst]["picture"]; }
         }
@@ -143,27 +143,6 @@ export class TabPerfil {
 		return this.sanitizer.bypassSecurityTrustStyle(`url(${url})`);
 	}
 
-	private managePetsObject(event: string, data: firebase.database.DataSnapshot) {
-		var index = this.pets.findIndex((element) => element.id === data.key);
-		switch (event) {
-			case "added":
-				if (index === -1) {
-					this.pets.push(data.val());
-				}
-				break;
-			case "removed":
-				if (index > -1) {
-					this.pets.splice(index, 1);
-				}
-				break;
-			case "changed":
-				if (index > -1) {
-					this.pets[index] = Object.assign(this.pets[index], data.val());
-				}
-				break;
-		}
-	}
-
 	private showConfirmDeletePet(pet) {
 		let confirm = this.alertCtrl.create({
 			title: 'Tem certeza?',
@@ -177,7 +156,19 @@ export class TabPerfil {
 	}
 
 	private onDeletePet(pet) {
-		this.petsProvider.deletePet(this.userInfo.id, pet.id)
+        this.showLoading();
+		this.petsProvider
+            .deletePet(pet._id)
+            .subscribe(response => {
+                this.loader.dismiss();
+                if (response.content) {
+                    this.presentToast(`Pet ${response.content._id} foi deletado com sucesso`);
+                    var index = this.pets.findIndex((pet) => pet._id === response.content._id);
+                    if (index > -1) {
+                        this.pets.splice(index, 1);
+                    }
+                }
+            });
 	}
 
 	//----------------------
@@ -185,27 +176,19 @@ export class TabPerfil {
 	//----------------------
 
 	onSuccessGetInfoStorage(userInfo: User) {
-		this.loader.dismiss();
-		this.waitRequest = false;
 		if (userInfo) {
+            console.log(userInfo)
 			this.userInfo = userInfo;
 			this.userPicture = this.safeStyleUrl(userInfo.picture);
 			this.locked = false;
 
-            //Inicializa os eventos referente aos pet do usuario
-			//TODO: Testar esse depois
-			// this.userProvider.getPetToUserAllEvents.call(this, this.userInfo.id, this.managePetsObject);
-
-            // TODO: FAZER ASSIM DEPOIS
-            // this.petsProvider.getPetToUserOnce(this.userInfo.id)
-            //     .then(data => {
-            //         this.pets = data.val()
-            //     })
-
-			//TODO: Talvez fazer um esquema que dentro do provider ele assine todos os eventos de uma vez só
-            this.petsProvider.getPetToUserAdded(this.userInfo.id, this.managePetsObject.bind(this, "added"));
-            this.petsProvider.getPetToUserRemoved(this.userInfo.id, this.managePetsObject.bind(this, "removed"));
-            this.petsProvider.getPetToUserChanged(this.userInfo.id, this.managePetsObject.bind(this, "changed"));
+            this.userProvider
+                .getPetToUser(userInfo._id)
+                .subscribe(response => {
+                    this.pets = response.content;
+                    this.loader.dismiss();
+                    this.waitRequest = false;
+                });
 		} else {
 			// tava mandando pro Login, deixar lockado o perfil
 			// this.app.getRootNav().push(Login);

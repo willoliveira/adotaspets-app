@@ -22,15 +22,6 @@ export class AdotaPets {
 		private splashScreen: SplashScreen,
 		private storage: Storage,
         private backgroundMode: BackgroundMode) {
-		const firebaseConfig = {
-			apiKey: "AIzaSyAZ5V-6_ql43SrlOa-qKlAnXBsqQrHL9h0",
-			authDomain: "adotapets-7c2fa.firebaseapp.com",
-			databaseURL: "https://adotapets-7c2fa.firebaseio.com",
-			projectId: "adotapets-7c2fa",
-			storageBucket: "adotapets-7c2fa.appspot.com",
-			messagingSenderId: "865809069618"
-		};
-		firebase.initializeApp(firebaseConfig);
 
         this.backgroundMode.enable();
 
@@ -41,8 +32,8 @@ export class AdotaPets {
 		});
 	}
 
-	private initApp(uid) {
-		if (uid) {
+	private initApp(userInfo) {
+		if (userInfo) {
 			this.rootPage = Home;
 		}
 		else {

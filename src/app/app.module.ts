@@ -24,6 +24,7 @@ import { BackgroundMode } from '@ionic-native/background-mode';
 import { Geolocation } from '@ionic-native/geolocation';
 
 import { PetsProvider } from '../providers/pets/pets.service';
+import { TesteProvider } from '../providers/teste/teste';
 
 @NgModule({
 	declarations: [
@@ -54,7 +55,8 @@ import { PetsProvider } from '../providers/pets/pets.service';
 		{provide: ErrorHandler, useClass: IonicErrorHandler},
 
 		Camera, ImagePicker, Facebook, BackgroundMode, Geolocation,
-		PetsProvider
+		PetsProvider,
+    TesteProvider
 	]
 })
 export class AppModule {}

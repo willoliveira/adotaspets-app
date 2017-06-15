@@ -26,17 +26,16 @@ export class Login {
 		private storage: Storage,
 		private authProvider: AuthenticateProvider,
 		private userProvider: UserProvider,
-        private fb: Facebook) {
-            console.log(this.fb);
-        }
+        private fb: Facebook) { }
 
 	public facebookLogin() {
 
-		this.authProvider.loginFace(['email']).then((response) => {
-			this.authProvider.authFace(response.authResponse.accessToken)
-				.then(this.authFaceSuccess.bind(this))
+        this.fb.login(['public_profile', 'email']).then((response) => {
+            let params = new Array<string>();
+            this.fb.api("me?fields=name,gender,email", params)
+                .then(this.authFaceSuccess.bind(this))
 				.catch((error) => {
-					console.log("Firebase failure: " + JSON.stringify(error));
+					console.log("failure: " + JSON.stringify(error));
 				});
 		})
 		.catch((error) => {
@@ -44,33 +43,34 @@ export class Login {
 		});
 	}
 
-	private authFaceSuccess(response) {
+	private authFaceSuccess(userFace) {
+        console.log(userFace)
 		//Verifica se já existe usuário na base, se não cadastra
 		this.userProvider
-			.getUserOnce(response.uid)
-			.then((responseGetUserOnce) => {
-				var val = responseGetUserOnce.val();
-				if (val) {
-					this.storage.set("userInfo", val);
-					this.goToHome();
+			.getUserByEmail(userFace.email)
+			.subscribe((responseUser) => {
+                console.log(responseUser);
+				if (responseUser.content) {
+                    this.onSuccessPostUser(responseUser.content);
 				} else {
 					let userInfo = {
-						id: response.uid,
-						email: response.email,
+						email: userFace.email,
 						description: "",
-						name: response.displayName,
-						picture: response.photoURL,
-						pets: ""
+						name: userFace.name,
+						picture: "https://graph.facebook.com/" + userFace.id + "/picture?type=large",
+						pets: []
 					};
 					this.userProvider
-						.postUser(response.uid, userInfo)
-						.then(this.onSuccessPostUser.bind(this, userInfo));
+						.postUser(userInfo)
+						.subscribe(this.onSuccessPostUser.bind(this));
 				}
-			});
+			}, () => {
+                console.log("Error");
+            });
 	}
 
-	private onSuccessPostUser(userInfo) {
-		this.storage.set('userInfo', userInfo);
+	private onSuccessPostUser(response) {
+		this.storage.set('userInfo', response[0]);
 		this.goToHome();
 	}
 

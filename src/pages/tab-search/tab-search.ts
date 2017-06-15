@@ -140,27 +140,6 @@ export class TabSearch {
 		if (userInfo) {
 			this.userInfo = userInfo;
 			this.locked = false;
-
-            //TODO: ta sempre colocando o location por enquanto, depois vou adicionar via cadastro, e de um lugar só talvez
-            //TODO: Adicionar opção de buscar pelo meu lugar atual, ou de um lugar especifico, minha casa por exemplo
-            this.geolocation.getCurrentPosition()
-                .then((position: Geoposition) => {
-                    this.userProvider.setLocation(this.userInfo.id, position)
-                        .then(() => {
-                            let firebaseRef = firebase.database().ref(`users/`);
-                            let geoFire = new GeoFire(firebaseRef);
-                            let geoQuery = geoFire.query({
-                                center: [position.coords.latitude, position.coords.longitude],
-                                radius: 50
-                            });
-                            geoQuery.on("key_entered", function(key, location, distance) {
-                                console.log(key, " entered query at " + location + " (" + distance + " km from center)");
-                            });
-                        })
-                        .catch(() => {
-                            console.log("Geofire key set error");
-                        });
-                });
 		} else {
 			// tava mandando pro Login, deixar lockado o perfil
 			// this.app.getRootNav().push(Login);

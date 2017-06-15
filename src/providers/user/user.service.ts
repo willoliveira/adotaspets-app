@@ -1,35 +1,48 @@
 import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
-import firebase from 'firebase';
-import GeoFire from 'geofire';
+import Config from '../../utils/Config.ts';
 
-import { Geoposition } from '@ionic-native/geolocation';
 
 @Injectable()
 export class UserProvider {
+
+    constructor(public http: Http) { }
 
 	/**
 	 * Cria um novo usuario
 	 * @param userId
 	 * @param data
 	 */
-	postUser(userId, data) {
-		return firebase.database().ref(`users/${userId}`).set(data);
+	postUser(data) {
+		// return firebase.database().ref(`users/${userId}`).set(data);
+        // return this.http.post(`${Config.api_url}/v1/user`, data);
+        return this.http
+            .post(`${Config.api_url}/v1/user`, data)
+            .map((response: Response) => response.json());
 	}
 
 	/**
 	 * Pega dos dados do usuario
 	 * @param userId
 	 */
-	getUserOnce(userId) {
-		return firebase.database().ref(`users/${userId}`).once('value');
+	getUserByEmail(userEmail) {
+		// return firebase.database().ref(`users/${userId}`).once('value');
+        return this.http
+            .get(`${Config.api_url}/v1/user/email/${userEmail}`)
+            .map(response => response.json());;
 	}
 
-
-    setLocation(userId, position: Geoposition) {
-        var firebaseRef = firebase.database().ref(`users/${userId}`);
-        var geoFire = new GeoFire(firebaseRef);
-        return geoFire.set("", [position.coords.latitude, position.coords.longitude])
-            .then(() => geoFire);
-    }
+    /**
+	 * Pega dos dados dos pets do user
+	 * @param userId
+	 */
+	getPetToUser(userId) {
+		// return getPetToUser(userId).once("value");
+        return this.http
+            .get(`${Config.api_url}/v1/user/${userId}/pets`)
+            .map((response: Response) => response.json());
+	}
 }

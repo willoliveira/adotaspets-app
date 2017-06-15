@@ -1,7 +1,6 @@
 import { Component, ViewChildren, QueryList,  } from '@angular/core';
 import { NavController, NavParams, ViewController, AlertController, ToastController, LoadingController, Slides, FabContainer } from 'ionic-angular';
 
-import firebase from 'firebase';
 
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
@@ -58,7 +57,7 @@ export class AddPet {
 	public postPets() {
 		if (!this.loader) { this.showLoading(); }
 
-		if (this.pet.id) {
+		if (this.pet._id) {
             var images: Array<any> = this.picturesPet.filter(picture => picture.status).concat(this.picturesPetDeleted);
             this.picturesPetDeleted = [];
 
@@ -99,6 +98,7 @@ export class AddPet {
 	}
 
 	//TODO: Fazer ainda...
+    //Aqui vai usar o Transfer provavelmente
 	public getPictureLibrary(pictureIndex: number) {
         // this.fabsPictures.toArray()[pictureIndex].close();
         this.closeFabs();
@@ -139,15 +139,14 @@ export class AddPet {
 				this.pet = pet;
 				this.editMode = true;
 
-				if (pet.hasOwnProperty("pictures")) {
-					this.picturesPet = Object.keys(pet.pictures)
-                        .map(picture => pet.pictures[picture])
-                        .sort((a, b) => {
-                            if (a.position > b.position) return 1;
-                            if (a.position < b.position) return -1;
-                            return 0;
-                        });
-				}
+				// if (pet.hasOwnProperty("pictures")) {
+				// 	this.picturesPet = Object.keys(pet.pictures)
+                //         .sort((a, b) => {
+                //             if (a.position > b.position) return 1;
+                //             if (a.position < b.position) return -1;
+                //             return 0;
+                //         });
+				// }
 			}
 		}
 	}
@@ -220,7 +219,7 @@ export class AddPet {
 			var image = images.pop();
             if (image["status"] === "delete") {
                 this.petsProvider
-                    .deleteImagePet(this.pet.id, image["id"])
+                    .deleteImagePet(this.pet._id, image["id"])
                     .then(() => {
                         delete this.pet.pictures[image["id"]];
                         this.savePicturesRecursive(images, msgSuccess);
@@ -230,7 +229,7 @@ export class AddPet {
                     });
             } else if (image["status"] === "update") {
                 this.petsProvider
-                    .postImagePet(this.pet.id, image)
+                    .postImagePet(this.pet._id, image)
                     .then((snapshot: firebase.storage.UploadTaskSnapshot) => {
                         delete image.status;
                         if (!this.pet.hasOwnProperty("pictures")) {
@@ -249,22 +248,23 @@ export class AddPet {
 	}
 
 	private postPet() {
-		this.pet.userId = this.userInfo.id;
-		var newPetKey = firebase.database().ref().child('pets').push().key;
-
-		this.pet.id = newPetKey;
+		this.pet.userId = this.userInfo._id;
 
 		this.petsProvider
 			.postNewPet(this.pet)
-			.then(this.onSuccessPostPet.bind(this, "Pet cadastrado com sucesso!"))
-			.catch(this.onError.bind(this, "Erro ao cadastro um pet!"));
+			.subscribe(
+                this.onSuccessPostPet.bind(this, "Pet cadastrado com sucesso!"),
+                this.onError.bind(this, "Erro ao cadastro um pet!")
+            );
 	}
 
 	private updatePet() {
 		this.petsProvider
 			.updatePet(this.pet)
-			.then(this.onSuccessPostPet.bind(this, "Pet atualizado com sucesso!"))
-			.catch(this.onError.bind(this, "Erro ao cadastro um pet!"));
+			.subscribe(
+                this.onSuccessPostPet.bind(this, "Pet atualizado com sucesso!"),
+                this.onError.bind(this, "Erro ao cadastro um pet!")
+            );
 	}
 
 
