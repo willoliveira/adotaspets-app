@@ -5,8 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 import { BackgroundMode } from '@ionic-native/background-mode';
 
-import firebase from 'firebase';
-
 import { Login } from '../pages/login/login';
 import { Home } from '../pages/home/home';
 

@@ -13,7 +13,7 @@ import { MessagesModule } from '../pages/messages/messages.module';
 import { PerfilModule } from '../pages/perfil/perfil.module';
 import { PetModule } from '../pages/pet/pet.module';
 import { ResponsibleModule } from '../pages/responsible/responsible.module';
-import { AddPet } from '../pages/add-pet/add-pet';
+import { AddPet } from '../pages/modals/add-pet/add-pet';
 
 import { ModalFilter } from '../pages/modals/modal-filter/modal-filter';
 
@@ -24,7 +24,6 @@ import { BackgroundMode } from '@ionic-native/background-mode';
 import { Geolocation } from '@ionic-native/geolocation';
 
 import { PetsProvider } from '../providers/pets/pets.service';
-import { TesteProvider } from '../providers/teste/teste';
 
 @NgModule({
 	declarations: [
@@ -55,8 +54,7 @@ import { TesteProvider } from '../providers/teste/teste';
 		{provide: ErrorHandler, useClass: IonicErrorHandler},
 
 		Camera, ImagePicker, Facebook, BackgroundMode, Geolocation,
-		PetsProvider,
-    TesteProvider
+		PetsProvider
 	]
 })
 export class AppModule {}

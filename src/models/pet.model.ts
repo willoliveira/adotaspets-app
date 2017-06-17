@@ -1,6 +1,6 @@
 export interface Pet {
     _id: string;
-    userId: string;
+    _userId: string;
     name: string;
     kind: string;
     breed: string;
@@ -9,5 +9,9 @@ export interface Pet {
     genre: string,
     ageYears: number,
     ageMonths: number,
-    pictures: Object;
+    pictures: Array<{
+        position: Number,
+        picture: String,
+        status: String
+    }>;
 }

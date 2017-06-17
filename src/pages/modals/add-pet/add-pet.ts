@@ -5,8 +5,8 @@ import { NavController, NavParams, ViewController, AlertController, ToastControl
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
 
-import { Pet } from '../../models/pet.model';
-import { PetsProvider } from '../../providers/pets/pets.service';
+import { Pet } from '../../../models/pet.model';
+import { PetsProvider } from '../../../providers/pets/pets.service';
 
 @Component({
 	selector: 'add-pet',
@@ -23,7 +23,7 @@ export class AddPet {
 		genre: "",
 		ageYears: 0,
 		ageMonths: 0,
-		pictures: { }
+		pictures: []
 	};
 
 	public picturesPet: Array<any> = [];
@@ -61,8 +61,12 @@ export class AddPet {
             var images: Array<any> = this.picturesPet.filter(picture => picture.status).concat(this.picturesPetDeleted);
             this.picturesPetDeleted = [];
 
-		    if (images.length) { this.savePicturesRecursive(images, "Pet atualizado!"); }
-            else this.updatePet.call(this);
+		    if (images.length) {
+                this.savePicturesRecursive(images, "Pet atualizado!");
+            }
+            else {
+                this.updatePet.call(this);
+            }
 		} else {
 			this.postPet.call(this);
 		}
@@ -138,7 +142,6 @@ export class AddPet {
 			if (pet) {
 				this.pet = pet;
 				this.editMode = true;
-
 				// if (pet.hasOwnProperty("pictures")) {
 				// 	this.picturesPet = Object.keys(pet.pictures)
                 //         .sort((a, b) => {
@@ -150,16 +153,6 @@ export class AddPet {
 			}
 		}
 	}
-
-    guid() {
-        function s4() {
-            return Math
-                .floor((1 + Math.random()) * 0x10000)
-                .toString(16)
-                .substring(1);
-        }
-        return s4() + s4() + s4() + s4() + '-' + s4() + s4() + '-' + s4() + s4() + '-' + s4() + '-' + s4() + s4();
-    }
 
     private onSuccessGetImage(data) {
         var imageData;
@@ -184,7 +177,6 @@ export class AddPet {
             this.picturesPet[objImage["position"]] = objImage;
         } else {
             objImage["position"] = this.picturesPet.length;
-            objImage["id"] = this.guid();
             this.picturesPet.push(objImage);
         }
     }
@@ -233,7 +225,7 @@ export class AddPet {
                     .then((snapshot: firebase.storage.UploadTaskSnapshot) => {
                         delete image.status;
                         if (!this.pet.hasOwnProperty("pictures")) {
-                            this.pet.pictures = { };
+                            this.pet.pictures = [];
                         }
                         this.pet.pictures[image.id] = Object.assign(image, { picture: snapshot.downloadURL });
                         this.savePicturesRecursive(images, msgSuccess);
@@ -248,8 +240,7 @@ export class AddPet {
 	}
 
 	private postPet() {
-		this.pet.userId = this.userInfo._id;
-
+		this.pet._userId = this.userInfo._id;
 		this.petsProvider
 			.postNewPet(this.pet)
 			.subscribe(
@@ -282,7 +273,9 @@ export class AddPet {
 			this.loader.dismiss();
 			this.presentToast(msgSuccess);
 
-			this.navCtrl.pop();
+
+            this.viewCtrl.dismiss(this.pet);
+			// this.navCtrl.pop();
 		}
 	}
 

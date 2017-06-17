@@ -9,9 +9,6 @@ import { UserProvider } from '../../providers/user/user.service';
 
 import { ModalFilter } from '../modals/modal-filter/modal-filter';
 
-import firebase from 'firebase';
-import GeoFire from 'geofire';
-
 @Component({
 	selector: 'page-tab-search',
 	templateUrl: 'tab-search.html',

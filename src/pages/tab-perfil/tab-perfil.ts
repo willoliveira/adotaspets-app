@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { App, IonicPage, NavController, NavParams, ActionSheetController, AlertController, Platform, ToastController, LoadingController } from 'ionic-angular';
+import { App, IonicPage, NavController, NavParams, ActionSheetController, AlertController, Platform, ToastController, LoadingController, ModalController } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 import { UserProvider } from '../../providers/user/user.service';
@@ -7,7 +7,7 @@ import { PetsProvider } from '../../providers/pets/pets.service';
 
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { AddPet } from '../add-pet/add-pet';
+import { AddPet } from '../modals/add-pet/add-pet';
 import { Login } from '../login/login';
 
 import { User } from '../../models/user.model';
@@ -36,6 +36,7 @@ export class TabPerfil {
 		public actionsheetCtrl: ActionSheetController,
 		public platform: Platform,
 		public app: App,
+        public modalCtrl: ModalController,
 		private loadingCtrl: LoadingController,
 		private toastCtrl: ToastController,
 		private alertCtrl: AlertController,
@@ -109,10 +110,25 @@ export class TabPerfil {
     }
 
 	public openAddPetPage(pet: Pet) {
-		this.app.getRootNav().push(AddPet, {
+        let addPetModal = this.modalCtrl.create(AddPet, {
             userInfo: this.userInfo,
 			pet: pet
         });
+        addPetModal.present();
+        addPetModal.onDidDismiss(data => {
+            if (data._id) {
+                let petUpdate = this.pets.find(pet => pet._id === data._id)
+                if (petUpdate) {
+                    petUpdate = data;
+                }
+            } else {
+                this.pets.push(data);
+            }
+        });
+		// this.app.getRootNav().push(AddPet, {
+        //     userInfo: this.userInfo,
+		// 	pet: pet
+        // });
 	}
 
 	//------------------------
@@ -162,8 +178,8 @@ export class TabPerfil {
             .subscribe(response => {
                 this.loader.dismiss();
                 if (response.content) {
-                    this.presentToast(`Pet ${response.content._id} foi deletado com sucesso`);
-                    var index = this.pets.findIndex((pet) => pet._id === response.content._id);
+                    this.presentToast(`Pet ${pet.name} foi deletado com sucesso`);
+                    var index = this.pets.findIndex(pet => pet._id === response.content._id);
                     if (index > -1) {
                         this.pets.splice(index, 1);
                     }
@@ -177,7 +193,6 @@ export class TabPerfil {
 
 	onSuccessGetInfoStorage(userInfo: User) {
 		if (userInfo) {
-            console.log(userInfo)
 			this.userInfo = userInfo;
 			this.userPicture = this.safeStyleUrl(userInfo.picture);
 			this.locked = false;
