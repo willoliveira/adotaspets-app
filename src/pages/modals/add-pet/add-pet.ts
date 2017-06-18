@@ -62,7 +62,7 @@ export class AddPet {
             this.picturesPetDeleted = [];
 
 		    if (images.length) {
-                this.savePicturesRecursive(images, "Pet atualizado!");
+                this.savePicturesRecursive(images, `Pet ${this.pet.name} atualizado com sucesso!`);
             }
             else {
                 this.updatePet.call(this);
@@ -244,7 +244,7 @@ export class AddPet {
 		this.petsProvider
 			.postNewPet(this.pet)
 			.subscribe(
-                this.onSuccessPostPet.bind(this, "Pet cadastrado com sucesso!"),
+                this.onSuccessPostPet.bind(this, `Pet ${this.pet.name} cadastrado com sucesso!`),
                 this.onError.bind(this, "Erro ao cadastro um pet!")
             );
 	}
@@ -253,7 +253,7 @@ export class AddPet {
 		this.petsProvider
 			.updatePet(this.pet)
 			.subscribe(
-                this.onSuccessPostPet.bind(this, "Pet atualizado com sucesso!"),
+                this.onSuccessPostPet.bind(this, `Pet ${this.pet.name} atualizado com sucesso!`),
                 this.onError.bind(this, "Erro ao cadastro um pet!")
             );
 	}

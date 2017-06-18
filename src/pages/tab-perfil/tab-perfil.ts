@@ -199,11 +199,22 @@ export class TabPerfil {
 
             this.userProvider
                 .getPetToUser(userInfo._id)
-                .subscribe(response => {
-                    this.pets = response.content;
-                    this.loader.dismiss();
-                    this.waitRequest = false;
-                });
+                .subscribe(
+                    response => {
+                        this.pets = response.content;
+                        this.loader.dismiss();
+                        this.waitRequest = false;
+                    },
+                    response => {
+                        this.loader.dismiss();
+                        let res = response.json();
+                        if (res.message) {
+                            this.presentToast(res.message);
+                        }
+                        else {
+                            this.presentToast("Erro para recuperar os pets do usuário!");
+                        }
+                    });
 		} else {
 			// tava mandando pro Login, deixar lockado o perfil
 			// this.app.getRootNav().push(Login);
