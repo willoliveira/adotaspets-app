@@ -5,8 +5,8 @@ import { HttpModule } from '@angular/http';
 
 import { Login } from './login';
 
-import { AuthenticateProvider } from '../../providers/authenticate/authenticate.service';
-import { UserProvider } from '../../providers/user/user.service';
+import { AuthenticateService } from '../../services/authenticate.service';
+import { UserService } from '../../services/user.service';
 
 @NgModule({
 	declarations: [
@@ -20,8 +20,8 @@ import { UserProvider } from '../../providers/user/user.service';
 		Login
 	],
 	providers: [
-		AuthenticateProvider,
-		UserProvider
+		AuthenticateService,
+		UserService
 	]
 })
 export class LoginModule {}

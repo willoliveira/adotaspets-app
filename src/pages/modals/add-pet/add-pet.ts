@@ -6,7 +6,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
 
 import { Pet } from '../../../models/pet.model';
-import { PetsProvider } from '../../../providers/pets/pets.service';
+import { PetService } from '../../../services/pet.service';
 
 @Component({
 	selector: 'add-pet',
@@ -43,7 +43,7 @@ export class AddPet {
 		private loadingCtrl: LoadingController,
         private alertCtrl: AlertController,
 		private toastCtrl: ToastController,
-		private petsProvider: PetsProvider,
+		private petService: PetService,
 		private camera: Camera,
 		private imagePicker: ImagePicker) {
 
@@ -210,7 +210,7 @@ export class AddPet {
 		if (images.length) {
 			var image = images.pop();
             if (image["status"] === "delete") {
-                this.petsProvider
+                this.petService
                     .deleteImagePet(this.pet._id, image["id"])
                     .then(() => {
                         delete this.pet.pictures[image["id"]];
@@ -220,7 +220,7 @@ export class AddPet {
                         this.loader.dismiss();
                     });
             } else if (image["status"] === "update") {
-                this.petsProvider
+                this.petService
                     .postImagePet(this.pet._id, image)
                     .then((snapshot: firebase.storage.UploadTaskSnapshot) => {
                         delete image.status;
@@ -241,7 +241,7 @@ export class AddPet {
 
 	private postPet() {
 		this.pet._userId = this.userInfo._id;
-		this.petsProvider
+		this.petService
 			.postNewPet(this.pet)
 			.subscribe(
                 this.onSuccessPostPet.bind(this, `Pet ${this.pet.name} cadastrado com sucesso!`),
@@ -250,7 +250,7 @@ export class AddPet {
 	}
 
 	private updatePet() {
-		this.petsProvider
+		this.petService
 			.updatePet(this.pet)
 			.subscribe(
                 this.onSuccessPostPet.bind(this, `Pet ${this.pet.name} atualizado com sucesso!`),

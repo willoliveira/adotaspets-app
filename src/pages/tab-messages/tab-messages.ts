@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { App, IonicPage, NavController, NavParams } from 'ionic-angular';
-
 import { Messages } from '../messages/messages';
 
 @Component({
@@ -9,10 +8,17 @@ import { Messages } from '../messages/messages';
 })
 
 export class TabMessages {
-  constructor(public app: App, public navCtrl: NavController, public navParams: NavParams) {
-  }
+    constructor(
+        public app: App,
+        public navCtrl: NavController,
+        public navParams: NavParams
+    ) {}
 
-  public openMessages() {
-      this.app.getRootNav().push(Messages);
-  }
+    /**
+     * Abre pagina das mensagens
+     * @param msgError: String
+    */
+    public openMessages() {
+        this.app.getRootNav().push(Messages);
+    }
 }

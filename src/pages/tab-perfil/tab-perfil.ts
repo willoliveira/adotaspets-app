@@ -1,15 +1,11 @@
 import { Component } from '@angular/core';
-import { App, IonicPage, NavController, NavParams, ActionSheetController, AlertController, Platform, ToastController, LoadingController, ModalController } from 'ionic-angular';
-
+import { App, ActionSheetController, AlertController, Platform, ToastController, LoadingController, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { UserProvider } from '../../providers/user/user.service';
-import { PetsProvider } from '../../providers/pets/pets.service';
-
+import { UserService } from '../../services/user.service';
+import { PetService } from '../../services/pet.service';
 import { DomSanitizer } from '@angular/platform-browser';
-
 import { AddPet } from '../modals/add-pet/add-pet';
 import { Login } from '../login/login';
-
 import { User } from '../../models/user.model';
 import { Pet } from '../../models/pet.model';
 
@@ -23,50 +19,61 @@ export class TabPerfil {
 	public locked: Boolean = true;
 	public waitRequest: Boolean = true;
 	public userPicture;
-	public userInfo:User = <User> {
+	public pets: Array<Pet> = <Array<Pet>> [];
+	public loader;
+	public toaster;
+    public userInfo: User = <User> {
         name: "", description: ""
     };
-
-	public pets: Array<Pet> = <Array<Pet>> [];
-
-	private loader;
-	private toaster;
 
 	constructor(
 		public actionsheetCtrl: ActionSheetController,
 		public platform: Platform,
 		public app: App,
         public modalCtrl: ModalController,
-		private loadingCtrl: LoadingController,
-		private toastCtrl: ToastController,
-		private alertCtrl: AlertController,
-		private userProvider: UserProvider,
-		private petsProvider: PetsProvider,
-		private storage: Storage,
-		private sanitizer: DomSanitizer
-		) {
-			this.initPage();
-		}
+		public loadingCtrl: LoadingController,
+		public toastCtrl: ToastController,
+		public alertCtrl: AlertController,
+		public userService: UserService,
+		public petService: PetService,
+		public storage: Storage,
+		public sanitizer: DomSanitizer
+    ) {}
 
-	//------------------------
-	//-------- PUBLIC---------
-	//------------------------
+    /**
+     * Inicializa com o metodo get inicial
+    */
+	ngOnInit () {
+		this.initPage();
+	}
 
-    public logout() {
+    /**
+     * Metodo de logout
+    */
+    logout() {
         this.storage.remove('userInfo');
         this.locked = true;
         this.userInfo = <User> {};
     }
 
-    public facebookLogin() {
+    /**
+     * Login facebook
+    */
+    facebookLogin() {
         this.app.getRootNav().push(Login);
     }
 
-    public googleLogin() {
-
+    /**
+     * Login google
+    */
+    googleLogin() {
     }
 
-	public openMenu(pet: Pet) {
+    /**
+     * Abre menu de opcoes do pet
+     * @param pet: Pet
+    */
+	openMenu(pet: Pet) {
 		let actionSheet = this.actionsheetCtrl.create({
 			title: 'Ações',
 			cssClass: 'action-sheets-basic-page',
@@ -100,7 +107,11 @@ export class TabPerfil {
 		actionSheet.present();
 	}
 
-    public imagePet(pet) {
+    /**
+     * Retorna foto principal do pet
+     * @param pet: Object
+    */
+    imagePet(pet) {
         var picture = 'assets/img/avatar-ts-slinky.png';
         if (pet.pictures.length) {
             let petPictureFirst = Object.keys(pet.pictures).find(petPicture => pet.pictures[petPicture].position == '0');
@@ -109,12 +120,17 @@ export class TabPerfil {
         return picture;
     }
 
-	public openAddPetPage(pet: Pet) {
+    /**
+     * Abre pagina de add pet
+     * @param pet: Pet
+    */
+	openAddPetPage(pet: Pet) {
         let addPetModal = this.modalCtrl.create(AddPet, {
             userInfo: this.userInfo,
 			pet: pet
         });
         addPetModal.present();
+
         addPetModal.onDidDismiss(data => {
             if (data._id) {
                 let petUpdate = this.pets.find(pet => pet._id === data._id)
@@ -125,29 +141,36 @@ export class TabPerfil {
                 this.pets.push(data);
             }
         });
+
 		// this.app.getRootNav().push(AddPet, {
         //     userInfo: this.userInfo,
 		// 	pet: pet
         // });
 	}
 
-	//------------------------
-	// ------- PRIVATE -------
-	//------------------------
-
-	private initPage() {
+    /**
+     * Inicializa a pagina
+    */
+	initPage () {
 		this.showLoading();
 		this.storage.get('userInfo')
 			.then(this.onSuccessGetInfoStorage.bind(this))
 			.catch(this.onError.bind(this, "Error get in storage"));
 	}
 
-	private showLoading() {
+    /**
+     * Show preloader
+    */
+	showLoading () {
 		this.loader = this.loadingCtrl.create({ content: "Loading" });
 		this.loader.present();
 	}
 
-	private presentToast(msg) {
+    /**
+     * Show toast
+     * @param msg: String
+    */
+	presentToast(msg) {
 		let toast = this.toastCtrl.create({
 			message: msg,
 			duration: 3000
@@ -155,11 +178,19 @@ export class TabPerfil {
 		toast.present();
 	}
 
-	private safeStyleUrl(url) {
+    /**
+     * Render imagem
+     * @param url: String
+    */
+	safeStyleUrl (url) {
 		return this.sanitizer.bypassSecurityTrustStyle(`url(${url})`);
 	}
 
-	private showConfirmDeletePet(pet) {
+    /**
+     * Confirmacao de delete
+     * @param pet: Object
+    */
+	showConfirmDeletePet (pet) {
 		let confirm = this.alertCtrl.create({
 			title: 'Tem certeza?',
 			message: 'Seu pet será excluido permanentemente.',
@@ -171,9 +202,13 @@ export class TabPerfil {
 		confirm.present();
 	}
 
-	private onDeletePet(pet) {
+    /**
+     * Metodo de delete do pet
+     * @param pet: Object
+    */
+	onDeletePet (pet) {
         this.showLoading();
-		this.petsProvider
+		this.petService
             .deletePet(pet._id)
             .subscribe(response => {
                 this.loader.dismiss();
@@ -187,17 +222,17 @@ export class TabPerfil {
             });
 	}
 
-	//----------------------
-	//------- EVENTS -------
-	//----------------------
-
+    /**
+     * Callback de sucesso get user storage
+     * @param userInfo: User
+    */
 	onSuccessGetInfoStorage(userInfo: User) {
 		if (userInfo) {
 			this.userInfo = userInfo;
 			this.userPicture = this.safeStyleUrl(userInfo.picture);
 			this.locked = false;
 
-            this.userProvider
+            this.userService
                 .getPetToUser(userInfo._id)
                 .subscribe(
                     response => {
@@ -222,11 +257,13 @@ export class TabPerfil {
 		}
 	}
 
+    /**
+     * Callback de erro get user storage
+     * @param msgError: String
+    */
 	onError(msgError) {
 		this.waitRequest = false;
 		this.loader.dismiss();
-
 		this.presentToast(msgError);
 	}
-
 }

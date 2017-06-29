@@ -5,8 +5,8 @@ import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 
 import { Storage } from '@ionic/storage';
 
-import { AuthenticateProvider } from '../../providers/authenticate/authenticate.service';
-import { UserProvider } from '../../providers/user/user.service';
+import { AuthenticateService } from '../../services/authenticate.service';
+import { UserService } from '../../services/user.service';
 
 
 declare var cordova;
@@ -24,8 +24,8 @@ export class Login {
 		public navCtrl: NavController,
 		public navParams: NavParams,
 		private storage: Storage,
-		private authProvider: AuthenticateProvider,
-		private userProvider: UserProvider,
+		private authProvider: AuthenticateService,
+		private userProvider: UserService,
         private fb: Facebook) { }
 
 	public facebookLogin() {

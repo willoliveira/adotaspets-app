@@ -1,33 +1,29 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { App, ModalController, ToastController, LoadingController } from 'ionic-angular';
-
 import { Storage } from '@ionic/storage';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
-
 import { User } from '../../models/user.model';
-import { UserProvider } from '../../providers/user/user.service';
-
+import { UserService } from '../../services/user.service';
 import { ModalFilter } from '../modals/modal-filter/modal-filter';
 
 @Component({
-	selector: 'page-tab-search',
+    selector: 'page-tab-search',
 	templateUrl: 'tab-search.html',
 })
-export class TabSearch {
-	public bgAvatarResp: String = "assets/img/lula.jpg";
-	public zIndexFabs: Number = 1;
-	public waitRequest: Boolean = true;
-	public locked: Boolean = false;
 
-	public anima = {
+export class TabSearch {
+    public bgAvatarResp = "assets/img/lula.jpg";
+	public zIndexFabs = 1;
+	public waitRequest = true;
+	public locked = false;
+	public userInfo;
+	public loader;
+    public anima = {
 		likePet: false,
 		cardPet: false,
 		notlikePet: false,
 		containerSearching: true
 	};
-
-	private userInfo;
-	private loader;
 
 	@ViewChild('currentCardPet') currentCardPet:ElementRef;
 
@@ -36,51 +32,69 @@ export class TabSearch {
 		public toastCtrl: ToastController,
 		public loadingCtrl: LoadingController,
 		public storage: Storage,
-		public userProvider: UserProvider,
-        private geolocation: Geolocation,
-		public app: App) { }
+		public userService: UserService,
+        public geolocation: Geolocation,
+		public app: App
+    ) {}
 
+    /**
+     * Inicializa com o metodo de search dos pets
+    */
 	ngOnInit () {
-		this.initPage();
-
+		//this.initPage();
 		this.getCurrentPet();
 	}
 
-
-	//----------------------
-	// ------ PUBLIC -------
-	//----------------------
-
+    /**
+     * Abre modal de filtros do search
+    */
 	openModalFilters() {
 		let modal = this.modalCtrl.create(ModalFilter);
 		modal.present();
 	}
 
-
-	//------------------------
-	// ------- PRIVATE -------
-	//------------------------
-
-	private initPage() {
+	/*initPage() {
 		this.storage.get('userInfo')
 			.then(this.onSuccessGetInfoStorage.bind(this))
 			.catch(this.onError.bind(this, "Error get in storage"));
-	}
+	}*/
 
-	private getCurrentPet () {
+    /**
+     * Search de um pet por vez
+    */
+	getCurrentPet () {
 		this.zIndexFabs = 1;
 		this.waitRequest = true;
 		this.anima.likePet = this.anima.notlikePet = this.anima.cardPet = false;
 
-		setTimeout(function () {
-			this.zIndexFabs = 999;
-			this.waitRequest = this.anima.containerSearching = false;
-			this.anima.cardPet = true;
-		}.bind(this), 3000);
+        let data = {
+            longitude: -48.990231,
+            latitude: -22.452031,
+            minDistance: 10,
+            maxDistance: 100,
+            filtersPet: { "size": "large", "ageYears": 2 }
+        };
+
+        this.userService
+            .getPetByLocUser(data)
+            .subscribe(
+                res => {
+                    this.zIndexFabs = 999;
+                    this.waitRequest = this.anima.containerSearching = false;
+                    this.anima.cardPet = true;
+
+                    console.log(res);
+                },
+                err => {
+                    console.log(err);
+                }
+            );
 	}
 
-
-	private likePet () {
+    /**
+     * Evento de click para o like
+    */
+	likePet () {
 		if (this.anima.containerSearching)
 			return null;
 
@@ -97,7 +111,10 @@ export class TabSearch {
 		toast.present();
 	}
 
-	private notlikePet () {
+    /**
+     * Evento de click para o 'nao gostei'
+    */
+	notlikePet () {
 		if (this.anima.containerSearching)
 			return null;
 
@@ -107,18 +124,20 @@ export class TabSearch {
 		elemCardPet.addEventListener("animationend", this.animationendCard.bind(this));
 	}
 
-	private animationendCard (event) {
+    /**
+     * Callback de fim para a animacao do card em css
+     * @param event: Event
+    */
+	animationendCard (event) {
 		event.target.removeEventListener("animationend", this.animationendCard.bind(this));
 		this.getCurrentPet();
 	}
 
-
-	private showLoading() {
-		this.loader = this.loadingCtrl.create({ content: "Loading" });
-		this.loader.present();
-	}
-
-	private presentToast(msg) {
+    /**
+     * Toast geral
+     * @param msg: String
+    */
+	presentToast(msg) {
 		let toast = this.toastCtrl.create({
 			message: msg,
 			duration: 3000
@@ -126,12 +145,16 @@ export class TabSearch {
 		toast.present();
 	}
 
+    //showLoading() {
+		//this.loader = this.loadingCtrl.create({ content: "Loading" });
+		//this.loader.present();
+	//}
 
-	//----------------------
-	//------- EVENTS -------
-	//----------------------
+    /*
+    EVENTS PRIVATES
+    */
 
-	onSuccessGetInfoStorage(userInfo: User) {
+	/*onSuccessGetInfoStorage(userInfo: User) {
 		this.loader && this.loader.dismiss();
 		this.waitRequest = false;
 		if (userInfo) {
@@ -149,5 +172,5 @@ export class TabSearch {
 		this.loader.dismiss();
 
 		this.presentToast(msgError);
-	}
+	}*/
 }
