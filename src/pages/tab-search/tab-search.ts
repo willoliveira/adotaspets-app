@@ -18,6 +18,7 @@ export class TabSearch {
 	public locked = false;
 	public userInfo;
 	public loader;
+	public userPet;
     public anima = {
 		likePet: false,
 		cardPet: false,
@@ -51,6 +52,10 @@ export class TabSearch {
 	openModalFilters() {
 		let modal = this.modalCtrl.create(ModalFilter);
 		modal.present();
+
+		modal.onDidDismiss(data => {
+			console.log(data);
+        });		
 	}
 
 	/*initPage() {
@@ -65,7 +70,7 @@ export class TabSearch {
 	getCurrentPet () {
 		this.zIndexFabs = 1;
 		this.waitRequest = true;
-		this.anima.likePet = this.anima.notlikePet = this.anima.cardPet = false;
+		this.anima.likePet = this.anima.notlikePet = this.anima.cardPet = false;		
 
         let data = {
             longitude: -48.990231,
@@ -83,12 +88,17 @@ export class TabSearch {
                     this.waitRequest = this.anima.containerSearching = false;
                     this.anima.cardPet = true;
 
-                    console.log(res);
+					this.userPet = res;
+					this.userPet.distance = Math.round(parseInt(this.userPet.distance)/1000);					
                 },
                 err => {
                     console.log(err);
                 }
             );
+	}
+
+	teste () {
+		console.log("as");
 	}
 
     /**

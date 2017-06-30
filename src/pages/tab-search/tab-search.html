@@ -29,28 +29,28 @@
 
 		<ion-card-content>
 			<ion-card-title>
-				Joaquim
+				{{userPet.pet.name}}
 			</ion-card-title>
 
-			<p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine...</p>
+			<p>{{userPet.pet.about}}</p>
 		</ion-card-content>
 
         <ion-item>
 			<ion-avatar item-left [ngStyle]="{'background-image': 'url(' + bgAvatarResp + ')'}"></ion-avatar>
-			<h2>Luís Inacio Lula da Silva</h2>
+			<h2>{{userPet.name}}</h2>
 			<p>Responsável</p>
 		</ion-item>
 
 		<ion-item>
 			<ion-icon name="paw" item-left large></ion-icon>
-			<h2>Cachorro</h2>
-			<p>Porte grande</p>
+			<h2>{{userPet.pet.kind}}</h2>
+			<p>{{userPet.pet.size}}</p>
 		</ion-item>
 
 		<ion-item>
 			<ion-icon name="pin" item-left large></ion-icon>
 			<h2>Distância</h2>
-			<p>7 Km</p>
+			<p>{{userPet.distance}} Km</p>
 		</ion-item>
 	</ion-card>
 

@@ -49,7 +49,7 @@ export class UserService {
 	*/
 	getPetByLocUser(data) {
         return this.http
-            .post(`${Config.api_url}/v1/1getPetByLocUser`, data)
+            .post(`${Config.api_url}/v1/getPetByLocUser`, data)
             .map((res:Response) => res.json())
             .catch((err:any) => Observable.throw(err.json().message || 'Erro no servidor'));
 	}
