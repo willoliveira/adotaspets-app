@@ -23,7 +23,14 @@ export class TabPerfil {
 	public loader;
 	public toaster;
     public userInfo: User = <User> {
-        name: "", description: ""
+        name: "",
+        description: "",
+        email: "",        
+        picture: "",
+        loc: {
+            type: "",
+            coordinates: []
+        }
     };
 
 	constructor(
@@ -151,8 +158,7 @@ export class TabPerfil {
     /**
      * Inicializa a pagina
     */
-	initPage () {
-		this.showLoading();
+	initPage () {		
 		this.storage.get('userInfo')
 			.then(this.onSuccessGetInfoStorage.bind(this))
 			.catch(this.onError.bind(this, "Error get in storage"));
@@ -227,6 +233,21 @@ export class TabPerfil {
      * @param userInfo: User
     */
 	onSuccessGetInfoStorage(userInfo: User) {
+        this.showLoading();
+        
+        /*Para testes no desenvolvimento*/
+        userInfo = {
+            _id: "594189b1b669890b4c71f354",
+            name: "Odassi",
+            description: "description",
+            email: "email",        
+            picture: "picture",
+            loc: {
+                type: "Point",
+                coordinates: [-48.990231, -22.452031]
+            }            
+        };
+
 		if (userInfo) {
 			this.userInfo = userInfo;
 			this.userPicture = this.safeStyleUrl(userInfo.picture);
@@ -239,8 +260,10 @@ export class TabPerfil {
                         this.pets = response.content;
                         this.loader.dismiss();
                         this.waitRequest = false;
+                        this.locked = true;
                     },
                     response => {
+                        this.locked = true;
                         this.loader.dismiss();
                         let res = response.json();
                         if (res.message) {
@@ -253,6 +276,7 @@ export class TabPerfil {
 		} else {
 			// tava mandando pro Login, deixar lockado o perfil
 			// this.app.getRootNav().push(Login);
+            this.loader.dismiss();
 			this.locked = true;
 		}
 	}

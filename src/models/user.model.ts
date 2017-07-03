@@ -4,4 +4,8 @@ export interface User {
     description: string;
     name: string;
     picture: string;
+    loc: {
+        type: string,
+        coordinates: Array<number>
+    }
 }

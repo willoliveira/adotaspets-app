@@ -1,10 +1,7 @@
 import { Component, ViewChildren, QueryList,  } from '@angular/core';
 import { NavController, NavParams, ViewController, AlertController, ToastController, LoadingController, Slides, FabContainer } from 'ionic-angular';
-
-
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
-
 import { Pet } from '../../../models/pet.model';
 import { PetService } from '../../../services/pet.service';
 
@@ -13,7 +10,13 @@ import { PetService } from '../../../services/pet.service';
 	templateUrl: 'add-pet.html'
 })
 
-export class AddPet {
+export class AddPet {	
+	public picturesPet: Array<any> = [];
+	public picturesPetDeleted: Array<any> = [];
+    public currentPhoto = 0;
+	public editMode: Boolean = false;
+	public userInfo;
+	public loader;
 	public pet: Pet = <Pet> {
 		name: "",
 		about: "",
@@ -26,35 +29,28 @@ export class AddPet {
 		pictures: []
 	};
 
-	public picturesPet: Array<any> = [];
-	public picturesPetDeleted: Array<any> = [];
-    public currentPhoto = 0;
-
-	private editMode: Boolean = false;
-	private userInfo;
-	private loader;
-
     @ViewChildren('fabsPictures') fabsPictures: QueryList<FabContainer>;
 
 	constructor(
 		public navCtrl: NavController,
 		public navParams: NavParams,
 		public viewCtrl: ViewController,
-		private loadingCtrl: LoadingController,
-        private alertCtrl: AlertController,
-		private toastCtrl: ToastController,
-		private petService: PetService,
-		private camera: Camera,
-		private imagePicker: ImagePicker) {
+		public loadingCtrl: LoadingController,
+        public alertCtrl: AlertController,
+		public toastCtrl: ToastController,
+		public petService: PetService,
+		public camera: Camera,
+		public imagePicker: ImagePicker
+	) {}
 
+	/**
+     * Inicializa com o metodo get inicial
+    */
+	ngOnInit () {
 		this.initPage(this.navParams.get("userInfo"), this.navParams.get("pet"));
 	}
 
-	//------------------------
-	//-------- PUBLIC---------
-	//------------------------
-
-	public postPets() {
+	postPets() {
 		if (!this.loader) { this.showLoading(); }
 
 		if (this.pet._id) {
@@ -72,7 +68,7 @@ export class AddPet {
 		}
 	}
 
-    public showConfirmDeletePet(pictureCount) {
+    showConfirmDeletePet(pictureCount) {
 		let confirm = this.alertCtrl.create({
 			title: 'Tem certeza?',
 			message: 'A foto do seu pet sera deletada para sempre.',
@@ -87,7 +83,7 @@ export class AddPet {
 	/**
 	 * TODO: Impedir que mais de tres imagens sejam adicionadas
 	 */
-	public getPictureCamera(pictureIndex: number, teste: any) {
+	getPictureCamera(pictureIndex: number, teste: any) {
         this.closeFabs();
 
 		var options: CameraOptions = {
@@ -103,7 +99,7 @@ export class AddPet {
 
 	//TODO: Fazer ainda...
     //Aqui vai usar o Transfer provavelmente
-	public getPictureLibrary(pictureIndex: number) {
+	getPictureLibrary(pictureIndex: number) {
         // this.fabsPictures.toArray()[pictureIndex].close();
         this.closeFabs();
 
@@ -120,7 +116,7 @@ export class AddPet {
 			});
 	}
 
-    public closeFabs (index?: number) {
+    closeFabs (index?: number) {
         var fabs = this.fabsPictures.toArray();
         fabs.forEach((fab, i) => {
             // if (typeof index !== undefined) {
@@ -129,13 +125,9 @@ export class AddPet {
                 fab.close();
             // }
         });
-    }
+    }	
 
-	//------------------------
-	// ------- PRIVATE -------
-	//------------------------
-
-	private initPage(userInfo, pet) {
+	initPage(userInfo, pet) {
 		//se não tiver, soltar um erro talvez
 		if (userInfo) {
 			this.userInfo = userInfo;
@@ -154,7 +146,7 @@ export class AddPet {
 		}
 	}
 
-    private onSuccessGetImage(data) {
+    onSuccessGetImage(data) {
         var imageData;
         if (typeof data === 'object') {
             imageData = data[0];
@@ -181,7 +173,7 @@ export class AddPet {
         }
     }
 
-    private deleteImage(index) {
+    deleteImage(index) {
         if (!this.picturesPet[index].local) {
             this.picturesPetDeleted.push(Object.assign(this.picturesPet[index], { status: "delete" }));
         }
@@ -189,12 +181,12 @@ export class AddPet {
         this.picturesPet.forEach((picture, index) => { picture.position = index });
     }
 
-	private showLoading() {
+	showLoading() {
 		this.loader = this.loadingCtrl.create({ content: "Loading" });
 		this.loader.present();
 	}
 
-	private presentToast(msg) {
+	presentToast(msg) {
 		let toast = this.toastCtrl.create({
 			message: msg,
 			duration: 3000
@@ -206,7 +198,7 @@ export class AddPet {
      * TODO: Depois, voltar aqui e ver o que fazer se der erro... Talvez chamar a funcao para atualizar novamente
      * @param msgSuccess
      */
-	private savePicturesRecursive(images, msgSuccess) {
+	savePicturesRecursive(images, msgSuccess) {
 		if (images.length) {
 			var image = images.pop();
             if (image["status"] === "delete") {
@@ -239,7 +231,7 @@ export class AddPet {
 		}
 	}
 
-	private postPet() {
+	postPet() {
 		this.pet._userId = this.userInfo._id;
 		this.petService
 			.postNewPet(this.pet)
@@ -249,7 +241,7 @@ export class AddPet {
             );
 	}
 
-	private updatePet() {
+	updatePet() {
 		this.petService
 			.updatePet(this.pet)
 			.subscribe(
@@ -258,12 +250,7 @@ export class AddPet {
             );
 	}
 
-
-	//----------------------
-	//------- EVENTS -------
-	//----------------------
-
-	private onSuccessPostPet(msgSuccess) {
+	onSuccessPostPet(msgSuccess) {
 		var images: Array<any> = this.picturesPet.filter(picture => picture.status).concat(this.picturesPetDeleted);
         this.picturesPetDeleted = [];
 		if (images.length) {
@@ -279,9 +266,8 @@ export class AddPet {
 		}
 	}
 
-	private onError(msgError) {
+	onError(msgError) {
 		this.loader.dismiss();
 		this.presentToast(msgError);
 	}
-
 }

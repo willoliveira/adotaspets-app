@@ -45,7 +45,8 @@ add-pet {
         .txt-add-photo {
             font-size: 1.8rem;
             color: #4fb050;
-            margin-left: 6px;
+            margin-left: 5px;
+            margin-right: 5px;
         }
 
         .box-photo {
@@ -117,5 +118,9 @@ add-pet {
 
     .container-bt-add {
         margin: 10px;
+    }
+
+    .first-item {
+        border-top: 1px solid #dedede;
     }
 }
