@@ -16,8 +16,8 @@ export class TabSearch {
 	public zIndexFabs = 1;
 	public waitRequest = true;
 	public locked = false;
-	public userInfo;
-	public loader;
+	private userInfo;
+	private loader;
 	public userPet;
     public anima = {
 		likePet: false,
@@ -34,7 +34,7 @@ export class TabSearch {
 		public loadingCtrl: LoadingController,
 		public storage: Storage,
 		public userService: UserService,
-        public geolocation: Geolocation,
+        private geolocation: Geolocation,
 		public app: App
     ) {}
 
@@ -47,16 +47,25 @@ export class TabSearch {
 	}
 
     /**
+     * ------------ PUBLIC ------------
+    */
+
+    /**
      * Abre modal de filtros do search
     */
-	openModalFilters() {
+	public openModalFilters() {
 		let modal = this.modalCtrl.create(ModalFilter);
-		modal.present();
 
 		modal.onDidDismiss(data => {
 			console.log(data);
-        });		
+        });
+
+        modal.present();
 	}
+
+    /**
+     * ------------ PRIVATE ------------
+    */
 
 	/*initPage() {
 		this.storage.get('userInfo')
@@ -67,10 +76,10 @@ export class TabSearch {
     /**
      * Search de um pet por vez
     */
-	getCurrentPet () {
+	private getCurrentPet () {
 		this.zIndexFabs = 1;
 		this.waitRequest = true;
-		this.anima.likePet = this.anima.notlikePet = this.anima.cardPet = false;		
+		this.anima.likePet = this.anima.notlikePet = this.anima.cardPet = false;
 
         let data = {
             longitude: -48.990231,
@@ -89,7 +98,7 @@ export class TabSearch {
                     this.anima.cardPet = true;
 
 					this.userPet = res;
-					this.userPet.distance = Math.round(parseInt(this.userPet.distance)/1000);					
+					this.userPet.distance = Math.round(parseInt(this.userPet.distance)/1000);
                 },
                 err => {
                     console.log(err);
@@ -97,14 +106,14 @@ export class TabSearch {
             );
 	}
 
-	teste () {
+	private teste () {
 		console.log("as");
 	}
 
     /**
      * Evento de click para o like
     */
-	likePet () {
+	private likePet () {
 		if (this.anima.containerSearching)
 			return null;
 
@@ -124,7 +133,7 @@ export class TabSearch {
     /**
      * Evento de click para o 'nao gostei'
     */
-	notlikePet () {
+	private notlikePet () {
 		if (this.anima.containerSearching)
 			return null;
 
@@ -138,7 +147,7 @@ export class TabSearch {
      * Callback de fim para a animacao do card em css
      * @param event: Event
     */
-	animationendCard (event) {
+	private animationendCard (event) {
 		event.target.removeEventListener("animationend", this.animationendCard.bind(this));
 		this.getCurrentPet();
 	}
@@ -147,7 +156,7 @@ export class TabSearch {
      * Toast geral
      * @param msg: String
     */
-	presentToast(msg) {
+	private presentToast(msg) {
 		let toast = this.toastCtrl.create({
 			message: msg,
 			duration: 3000
@@ -160,8 +169,8 @@ export class TabSearch {
 		//this.loader.present();
 	//}
 
-    /*
-    EVENTS PRIVATES
+    /**
+     * ------------ EVENTS ------------
     */
 
 	/*onSuccessGetInfoStorage(userInfo: User) {

@@ -10,13 +10,13 @@ import { PetService } from '../../../services/pet.service';
 	templateUrl: 'add-pet.html'
 })
 
-export class AddPet {	
+export class AddPet {
 	public picturesPet: Array<any> = [];
 	public picturesPetDeleted: Array<any> = [];
     public currentPhoto = 0;
-	public editMode: Boolean = false;
-	public userInfo;
-	public loader;
+	private editMode: Boolean = false;
+	private userInfo;
+	private loader;
 	public pet: Pet = <Pet> {
 		name: "",
 		about: "",
@@ -35,12 +35,12 @@ export class AddPet {
 		public navCtrl: NavController,
 		public navParams: NavParams,
 		public viewCtrl: ViewController,
-		public loadingCtrl: LoadingController,
-        public alertCtrl: AlertController,
-		public toastCtrl: ToastController,
-		public petService: PetService,
-		public camera: Camera,
-		public imagePicker: ImagePicker
+		private loadingCtrl: LoadingController,
+        private alertCtrl: AlertController,
+		private toastCtrl: ToastController,
+		private petService: PetService,
+		private camera: Camera,
+		private imagePicker: ImagePicker
 	) {}
 
 	/**
@@ -50,7 +50,11 @@ export class AddPet {
 		this.initPage(this.navParams.get("userInfo"), this.navParams.get("pet"));
 	}
 
-	postPets() {
+    /**
+     * ------------ PUBLIC ------------
+    */
+
+	public postPets() {
 		if (!this.loader) { this.showLoading(); }
 
 		if (this.pet._id) {
@@ -68,7 +72,7 @@ export class AddPet {
 		}
 	}
 
-    showConfirmDeletePet(pictureCount) {
+    public showConfirmDeletePet(pictureCount) {
 		let confirm = this.alertCtrl.create({
 			title: 'Tem certeza?',
 			message: 'A foto do seu pet sera deletada para sempre.',
@@ -83,7 +87,7 @@ export class AddPet {
 	/**
 	 * TODO: Impedir que mais de tres imagens sejam adicionadas
 	 */
-	getPictureCamera(pictureIndex: number, teste: any) {
+	public getPictureCamera(pictureIndex: number, teste: any) {
         this.closeFabs();
 
 		var options: CameraOptions = {
@@ -99,7 +103,7 @@ export class AddPet {
 
 	//TODO: Fazer ainda...
     //Aqui vai usar o Transfer provavelmente
-	getPictureLibrary(pictureIndex: number) {
+	public getPictureLibrary(pictureIndex: number) {
         // this.fabsPictures.toArray()[pictureIndex].close();
         this.closeFabs();
 
@@ -116,7 +120,7 @@ export class AddPet {
 			});
 	}
 
-    closeFabs (index?: number) {
+    public closeFabs (index?: number) {
         var fabs = this.fabsPictures.toArray();
         fabs.forEach((fab, i) => {
             // if (typeof index !== undefined) {
@@ -125,9 +129,13 @@ export class AddPet {
                 fab.close();
             // }
         });
-    }	
+    }
 
-	initPage(userInfo, pet) {
+    /**
+     * ------------ PRIVATE ------------
+    */
+
+	private initPage(userInfo, pet) {
 		//se não tiver, soltar um erro talvez
 		if (userInfo) {
 			this.userInfo = userInfo;
@@ -146,7 +154,7 @@ export class AddPet {
 		}
 	}
 
-    onSuccessGetImage(data) {
+    private onSuccessGetImage(data) {
         var imageData;
         if (typeof data === 'object') {
             imageData = data[0];
@@ -173,7 +181,7 @@ export class AddPet {
         }
     }
 
-    deleteImage(index) {
+    private deleteImage(index) {
         if (!this.picturesPet[index].local) {
             this.picturesPetDeleted.push(Object.assign(this.picturesPet[index], { status: "delete" }));
         }
@@ -181,12 +189,12 @@ export class AddPet {
         this.picturesPet.forEach((picture, index) => { picture.position = index });
     }
 
-	showLoading() {
+	private showLoading() {
 		this.loader = this.loadingCtrl.create({ content: "Loading" });
 		this.loader.present();
 	}
 
-	presentToast(msg) {
+	private presentToast(msg) {
 		let toast = this.toastCtrl.create({
 			message: msg,
 			duration: 3000
@@ -198,7 +206,7 @@ export class AddPet {
      * TODO: Depois, voltar aqui e ver o que fazer se der erro... Talvez chamar a funcao para atualizar novamente
      * @param msgSuccess
      */
-	savePicturesRecursive(images, msgSuccess) {
+	private savePicturesRecursive(images, msgSuccess) {
 		if (images.length) {
 			var image = images.pop();
             if (image["status"] === "delete") {
@@ -231,7 +239,7 @@ export class AddPet {
 		}
 	}
 
-	postPet() {
+	private postPet() {
 		this.pet._userId = this.userInfo._id;
 		this.petService
 			.postNewPet(this.pet)
@@ -241,7 +249,7 @@ export class AddPet {
             );
 	}
 
-	updatePet() {
+	private updatePet() {
 		this.petService
 			.updatePet(this.pet)
 			.subscribe(
@@ -249,6 +257,10 @@ export class AddPet {
                 this.onError.bind(this, "Erro ao cadastro um pet!")
             );
 	}
+
+    /**
+     * ------------ EVENTS ------------
+    */
 
 	onSuccessPostPet(msgSuccess) {
 		var images: Array<any> = this.picturesPet.filter(picture => picture.status).concat(this.picturesPetDeleted);

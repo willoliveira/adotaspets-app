@@ -20,12 +20,12 @@ export class TabPerfil {
 	public waitRequest: Boolean = true;
 	public userPicture;
 	public pets: Array<Pet> = <Array<Pet>> [];
-	public loader;
-	public toaster;
+	private loader;
+	private toaster;
     public userInfo: User = <User> {
         name: "",
         description: "",
-        email: "",        
+        email: "",
         picture: "",
         loc: {
             type: "",
@@ -38,13 +38,13 @@ export class TabPerfil {
 		public platform: Platform,
 		public app: App,
         public modalCtrl: ModalController,
-		public loadingCtrl: LoadingController,
-		public toastCtrl: ToastController,
-		public alertCtrl: AlertController,
-		public userService: UserService,
-		public petService: PetService,
-		public storage: Storage,
-		public sanitizer: DomSanitizer
+		private loadingCtrl: LoadingController,
+		private toastCtrl: ToastController,
+		private alertCtrl: AlertController,
+		private userService: UserService,
+		private petService: PetService,
+		private storage: Storage,
+		private sanitizer: DomSanitizer
     ) {}
 
     /**
@@ -55,9 +55,13 @@ export class TabPerfil {
 	}
 
     /**
+     * ------------ PUBLIC ------------
+    */
+
+    /**
      * Metodo de logout
     */
-    logout() {
+    public logout() {
         this.storage.remove('userInfo');
         this.locked = true;
         this.userInfo = <User> {};
@@ -66,21 +70,21 @@ export class TabPerfil {
     /**
      * Login facebook
     */
-    facebookLogin() {
+    public facebookLogin() {
         this.app.getRootNav().push(Login);
     }
 
     /**
      * Login google
     */
-    googleLogin() {
+    public googleLogin() {
     }
 
     /**
      * Abre menu de opcoes do pet
      * @param pet: Pet
     */
-	openMenu(pet: Pet) {
+	public openMenu(pet: Pet) {
 		let actionSheet = this.actionsheetCtrl.create({
 			title: 'Ações',
 			cssClass: 'action-sheets-basic-page',
@@ -118,7 +122,7 @@ export class TabPerfil {
      * Retorna foto principal do pet
      * @param pet: Object
     */
-    imagePet(pet) {
+    public imagePet(pet) {
         var picture = 'assets/img/avatar-ts-slinky.png';
         if (pet.pictures.length) {
             let petPictureFirst = Object.keys(pet.pictures).find(petPicture => pet.pictures[petPicture].position == '0');
@@ -131,7 +135,7 @@ export class TabPerfil {
      * Abre pagina de add pet
      * @param pet: Pet
     */
-	openAddPetPage(pet: Pet) {
+	public openAddPetPage(pet: Pet) {
         let addPetModal = this.modalCtrl.create(AddPet, {
             userInfo: this.userInfo,
 			pet: pet
@@ -156,9 +160,13 @@ export class TabPerfil {
 	}
 
     /**
+     * ------------ PRIVATE ------------
+    */
+
+    /**
      * Inicializa a pagina
     */
-	initPage () {		
+	private initPage () {
 		this.storage.get('userInfo')
 			.then(this.onSuccessGetInfoStorage.bind(this))
 			.catch(this.onError.bind(this, "Error get in storage"));
@@ -167,7 +175,7 @@ export class TabPerfil {
     /**
      * Show preloader
     */
-	showLoading () {
+	private showLoading () {
 		this.loader = this.loadingCtrl.create({ content: "Loading" });
 		this.loader.present();
 	}
@@ -176,7 +184,7 @@ export class TabPerfil {
      * Show toast
      * @param msg: String
     */
-	presentToast(msg) {
+	private presentToast(msg) {
 		let toast = this.toastCtrl.create({
 			message: msg,
 			duration: 3000
@@ -188,7 +196,7 @@ export class TabPerfil {
      * Render imagem
      * @param url: String
     */
-	safeStyleUrl (url) {
+	private safeStyleUrl (url) {
 		return this.sanitizer.bypassSecurityTrustStyle(`url(${url})`);
 	}
 
@@ -196,7 +204,7 @@ export class TabPerfil {
      * Confirmacao de delete
      * @param pet: Object
     */
-	showConfirmDeletePet (pet) {
+	private showConfirmDeletePet (pet) {
 		let confirm = this.alertCtrl.create({
 			title: 'Tem certeza?',
 			message: 'Seu pet será excluido permanentemente.',
@@ -212,7 +220,7 @@ export class TabPerfil {
      * Metodo de delete do pet
      * @param pet: Object
     */
-	onDeletePet (pet) {
+	private onDeletePet (pet) {
         this.showLoading();
 		this.petService
             .deletePet(pet._id)
@@ -229,23 +237,27 @@ export class TabPerfil {
 	}
 
     /**
+     * ------------ EVENTS ------------
+    */
+
+    /**
      * Callback de sucesso get user storage
      * @param userInfo: User
     */
 	onSuccessGetInfoStorage(userInfo: User) {
         this.showLoading();
-        
+
         /*Para testes no desenvolvimento*/
         userInfo = {
             _id: "594189b1b669890b4c71f354",
             name: "Odassi",
             description: "description",
-            email: "email",        
+            email: "email",
             picture: "picture",
             loc: {
                 type: "Point",
                 coordinates: [-48.990231, -22.452031]
-            }            
+            }
         };
 
 		if (userInfo) {
