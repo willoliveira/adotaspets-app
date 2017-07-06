@@ -249,7 +249,7 @@ export class TabPerfil {
 
         /*Para testes no desenvolvimento*/
         userInfo = {
-            _id: "594189b1b669890b4c71f354",
+            _id: "594029a1261c1c28cccaa161",
             name: "Odassi",
             description: "description",
             email: "email",

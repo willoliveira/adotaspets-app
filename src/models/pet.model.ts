@@ -11,7 +11,6 @@ export interface Pet {
     ageMonths: number,
     pictures: Array<{
         position: Number,
-        picture: String,
-        status: String
+        picture: String
     }>;
 }

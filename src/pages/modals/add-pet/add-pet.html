@@ -9,13 +9,14 @@
 	<div class="container-add-photos">
 		<p class="txt-add-photo">Adicione fotos do pet</p>
 
-        <div *ngFor="let pictureCount of [0, 1, 2]"
-            [class]="'box-photo b' + (pictureCount + 1)">
-			<ion-fab right top #fabsPictures *ngIf="!picturesPet[pictureCount]">
+        <div *ngFor="let pictureCount of [0, 1, 2]" [class]="'box-photo b' + (pictureCount + 1)">
+		    <ion-fab right top #fabsPictures *ngIf="!picturesPet[pictureCount]">
 				<button ion-fab class="add-pet-photo" custom-mini color="darkTheme" (click)="closeFabs(pictureCount)"><ion-icon name='add'></ion-icon></button>
+
 				<ion-fab-list side="left">
 					<button (click)="currentPhoto = pictureCount; getPictureCamera(pictureCount);" ion-fab custom-mini color="primary"><ion-icon name="camera"></ion-icon></button>
 				</ion-fab-list>
+
 				<ion-fab-list side="bottom">
 					<button (click)="currentPhoto = pictureCount; getPictureLibrary(pictureCount);" ion-fab custom-mini color="primary"><ion-icon name="image"></ion-icon></button>
 				</ion-fab-list>
@@ -25,14 +26,12 @@
                 <button ion-fab color="redTheme" custom-mini (click)="showConfirmDeletePet(pictureCount)" ><ion-icon name="trash"></ion-icon></button>
             </ion-fab>
 
-            <div class="photo" [ngStyle]="{
-                    'background-image': (picturesPet.length > pictureCount ? 'url(' + picturesPet[pictureCount].picture + ')' : null)
-                }">
+            <div class="photo" [ngStyle]="{ 'background-image': (picturesPet.length > pictureCount ? 'url(' + picturesPet[pictureCount].picture + ')' : null) }">
                 <h1>{{pictureCount + 1}}</h1>
             </div>
         </div>
 	</div>
-	
+
 	<ion-item class="first-item">
 		<ion-label stacked class="label-nome">Nome do pet</ion-label>
 		<ion-input [(ngModel)]="pet.name" type="text" placeholder="Escreva o nome do pet"></ion-input>
@@ -45,7 +44,7 @@
 	<ion-item>
 		<ion-label stacked class="label-breed">Raça do pet</ion-label>
 		<ion-input [(ngModel)]="pet.breed" type="text" placeholder="Escreva a raça do pet"></ion-input>
-	</ion-item>	
+	</ion-item>
 
 	<ion-item>
 		<ion-label class="label-kind">Categoria do pet</ion-label>
@@ -103,7 +102,7 @@
     </ion-list>
 
 	<div class="container-bt-add">
-		<button (click)="postPets()" ion-button icon-right block round outline color="greenTheme">
+		<button (click)="postPet()" ion-button icon-right block round outline color="greenTheme">
 			{{ editMode ? 'Atualizar' : 'Adicionar'}} pet
 			<ion-icon *ngIf="!editMode" name="add"></ion-icon>
 			<ion-icon *ngIf="editMode" name="create"></ion-icon>

@@ -41,7 +41,7 @@ export class AddPet {
 		private petService: PetService,
 		private camera: Camera,
 		private imagePicker: ImagePicker
-	) {}
+    ) {}
 
 	/**
      * Inicializa com o metodo get inicial
@@ -54,8 +54,9 @@ export class AddPet {
      * ------------ PUBLIC ------------
     */
 
-	public postPets() {
-		if (!this.loader) { this.showLoading(); }
+	/*public postPets() {
+		if (!this.loader)
+            this.showLoading();
 
 		if (this.pet._id) {
             var images: Array<any> = this.picturesPet.filter(picture => picture.status).concat(this.picturesPetDeleted);
@@ -70,7 +71,7 @@ export class AddPet {
 		} else {
 			this.postPet.call(this);
 		}
-	}
+    }*/
 
     public showConfirmDeletePet(pictureCount) {
 		let confirm = this.alertCtrl.create({
@@ -87,10 +88,11 @@ export class AddPet {
 	/**
 	 * TODO: Impedir que mais de tres imagens sejam adicionadas
 	 */
-	public getPictureCamera(pictureIndex: number, teste: any) {
+	public getPictureCamera(pictureIndex: number) {
         this.closeFabs();
 
 		var options: CameraOptions = {
+            quality: 80,
 			destinationType: this.camera.DestinationType.DATA_URL,
 			encodingType: this.camera.EncodingType.JPEG,
 			mediaType: this.camera.MediaType.PICTURE
@@ -156,17 +158,19 @@ export class AddPet {
 
     private onSuccessGetImage(data) {
         var imageData;
-        if (typeof data === 'object') {
-            imageData = data[0];
-        } else {
-            imageData = 'data:image/jpeg;base64,' + data;
-        }
+
+        (typeof data === 'object') ? imageData = data[0] : imageData = 'data:image/jpeg;base64,' + data;
+
         var objImage = {
             picture: imageData,
-            status: "update"
+            position: this.currentPhoto
         };
-        if (this.currentPhoto < this.picturesPet.length) {
+
+        this.picturesPet.push(objImage);
+
+        /*if (this.currentPhoto < this.picturesPet.length) {
             objImage["position"] =  this.currentPhoto;
+
             let petPicture = Object.keys(this.pet.pictures)
                 .map(picture => this.pet.pictures[picture])
                 .find(picture => picture.position === objImage["position"]);
@@ -178,7 +182,7 @@ export class AddPet {
         } else {
             objImage["position"] = this.picturesPet.length;
             this.picturesPet.push(objImage);
-        }
+        }*/
     }
 
     private deleteImage(index) {
@@ -205,7 +209,7 @@ export class AddPet {
     /**
      * TODO: Depois, voltar aqui e ver o que fazer se der erro... Talvez chamar a funcao para atualizar novamente
      * @param msgSuccess
-     */
+    */
 	private savePicturesRecursive(images, msgSuccess) {
 		if (images.length) {
 			var image = images.pop();
@@ -235,17 +239,19 @@ export class AddPet {
                     });
             }
 		} else {
-			this.postPets();
+			//this.postPets();
 		}
 	}
 
 	private postPet() {
 		this.pet._userId = this.userInfo._id;
+        this.pet.pictures = this.picturesPet;
+
 		this.petService
 			.postNewPet(this.pet)
 			.subscribe(
                 this.onSuccessPostPet.bind(this, `Pet ${this.pet.name} cadastrado com sucesso!`),
-                this.onError.bind(this, "Erro ao cadastro um pet!")
+                this.onError.bind(this, "Erro ao cadastrar o pet!")
             );
 	}
 
@@ -263,23 +269,24 @@ export class AddPet {
     */
 
 	onSuccessPostPet(msgSuccess) {
-		var images: Array<any> = this.picturesPet.filter(picture => picture.status).concat(this.picturesPetDeleted);
+		/*var images: Array<any> = this.picturesPet.filter(picture => picture.status).concat(this.picturesPetDeleted);
         this.picturesPetDeleted = [];
+
 		if (images.length) {
             this.picturesPetDeleted = [];
 			this.savePicturesRecursive(images, msgSuccess);
 		} else {
 			this.loader.dismiss();
 			this.presentToast(msgSuccess);
-
-
             this.viewCtrl.dismiss(this.pet);
 			// this.navCtrl.pop();
-		}
+		}*/
+
+        this.presentToast(msgSuccess);
 	}
 
 	onError(msgError) {
-		this.loader.dismiss();
+		//this.loader.dismiss();
 		this.presentToast(msgError);
 	}
 }
