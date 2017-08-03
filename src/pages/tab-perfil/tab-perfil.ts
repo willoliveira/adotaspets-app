@@ -246,20 +246,6 @@ export class TabPerfil {
     */
 	onSuccessGetInfoStorage(userInfo: User) {
         this.showLoading();
-
-        /*Para testes no desenvolvimento*/
-        userInfo = {
-            _id: "594029a1261c1c28cccaa161",
-            name: "Odassi",
-            description: "description",
-            email: "email",
-            picture: "picture",
-            loc: {
-                type: "Point",
-                coordinates: [-48.990231, -22.452031]
-            }
-        };
-
 		if (userInfo) {
 			this.userInfo = userInfo;
 			this.userPicture = this.safeStyleUrl(userInfo.picture);

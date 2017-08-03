@@ -4,7 +4,6 @@ import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-an
 import { PopoverMessages } from '../popovers/popover-messages/popover-messages';
 
 @IonicPage()
-
 @Component({
     selector: 'page-messages',
     templateUrl: 'messages.html'
@@ -12,7 +11,7 @@ import { PopoverMessages } from '../popovers/popover-messages/popover-messages';
 
 export class Messages {
     constructor(public navCtrl: NavController, public navParams: NavParams, public popoverCtrl: PopoverController) {
-    }    
+    }
 
     presentPopover(myEvent) {
         let popover = this.popoverCtrl.create(PopoverMessages);

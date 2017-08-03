@@ -1,3 +1,21 @@
+
+export const SizePet = {
+	SMALL: "small",
+	MEDIUM: "medium",
+	LARGE: "large"
+};
+
+export const KindPet = {
+	DOG: "dog",
+	CATE: "cat",
+	OTHERS: "others"
+};
+
+export const GenrePet = {
+	MALE: "male",
+	FEMALE: "female"
+};
+
 export interface Pet {
     _id: string;
     _userId: string;
@@ -13,4 +31,4 @@ export interface Pet {
         position: Number,
         picture: String
     }>;
-}
+};

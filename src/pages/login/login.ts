@@ -75,6 +75,20 @@ export class Login {
 	}
 
 	public goToHome() {
+        /*Para testes no desenvolvimento*/
+        var userInfo = {
+            // _id: "594029a1261c1c28cccaa161",
+            _id: "5942da98444a293d906fd736",
+            name: "Odassi",
+            description: "description",
+            email: "email",
+            picture: "picture",
+            loc: {
+                type: "Point",
+                coordinates: [-48.990231, -22.452031]
+            }
+        };
+        this.storage.set('userInfo', userInfo);
 		this.navCtrl.setRoot(Home);
 	}
 }

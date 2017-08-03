@@ -1,10 +1,14 @@
 <ion-content>
+	<ion-item *ngIf="!waitRequest && !rooms.length">
+	</ion-item>
 	<ion-list>
-		<ion-item (click)="openMessages()">
+        <ion-item
+            *ngFor="let room of rooms"
+            (click)="openMessages()">
 			<ion-avatar item-left>
 				<img src="assets/img/avatar-finn.png">
 			</ion-avatar>
-			
+
 			<h2>Finn</h2>
 			<h3>I'm a big deal</h3>
 			<p>Listen, I've had a pretty messed up day...</p>

@@ -1,16 +1,19 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { Home } from './home';
+import { HttpModule } from '@angular/http';
 
+import { Home } from './home';
 import { TabMessages } from '../tab-messages/tab-messages';
 import { TabPerfil } from '../tab-perfil/tab-perfil';
 import { TabSearch } from '../tab-search/tab-search';
 
 import { Camera } from '@ionic-native/camera';
 
+import { MessageService } from '../../services/message.service';
+
 @NgModule({
 	declarations: [
-		Home,
+        Home,
 
 		TabMessages,
 		TabPerfil,
@@ -22,10 +25,11 @@ import { Camera } from '@ionic-native/camera';
 		TabSearch
 	],
 	imports: [
-		IonicPageModule.forChild(Home),
+        HttpModule,
+		IonicPageModule.forChild(Home)
 	],
     providers: [
-        Camera
+        Camera, MessageService
     ],
 	exports: [
 		Home
