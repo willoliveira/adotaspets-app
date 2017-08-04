@@ -59,6 +59,13 @@ export class TabPerfil {
     */
 
     /**
+     * Open modal edit description
+    */
+    public openModalEdit() {
+        
+    }
+
+    /**
      * Metodo de logout
     */
     public logout() {

@@ -20,24 +20,19 @@
 				<div class="img-user-perfil" [style.background-image]="userPicture"></div>
 				<h3 class="name-perfil" text-center>{{userInfo.name}}</h3>
 
-				<ion-card>
-					<ion-card-content>
-						<ion-list>
-							<ion-item>
-								<ion-label color="dark" stacked class="label-sobre">Sobre min</ion-label>
-								<ion-input type="text" placeholder="Escreva um pouco sobre você" maxlength="150" [(ngModel)]="userInfo.description"></ion-input>
-							</ion-item>
-						</ion-list>
-						<p class="limit">{{150 - userInfo.description.length}}</p>
-					</ion-card-content>
-				</ion-card>
-				<div class="container-bt-editar">
-					<button ion-button icon-right block class="bt-sair" round outline color="greenTheme">
-						Editar <ion-icon name="create"></ion-icon>
-					</button>
+				<div class="container-description">
+					<h3>Sobre mim</h3>
+					<p>{{userInfo.description}}</p>
+
+					<div class="container-bt-editar">
+						<button (click)="openModalEdit()" ion-button icon-right block round outline color="greenTheme">
+							Editar <ion-icon name="create"></ion-icon>
+						</button>
+					</div>
 				</div>
+				
 				<div class="container-bt-sair">
-					<button (click)="logout()" ion-button icon-right block class="bt-sair" round outline color="redTheme">
+					<button (click)="logout()" ion-button icon-right block round outline color="redTheme">
 						Sair <ion-icon name="log-out"></ion-icon>
 					</button>
 				</div>

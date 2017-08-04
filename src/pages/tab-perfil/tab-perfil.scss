@@ -50,8 +50,20 @@ page-tab-perfil {
             margin-bottom: 25px;
         }
 
-        .label-sobre {
-            font-size: 16px !important;
+        .container-description {
+            padding: 13px 16px 13px 16px;
+            color: #37474F;          
+            background: #F5F5F5;
+            border-radius: 5px;
+            margin: 0 10px;    
+
+            h3, p {
+                text-align: center;
+            }          
+
+            .container-bt-editar {                
+                margin-top: 20px;                
+            }
         }
 
         .limit {
@@ -60,18 +72,15 @@ page-tab-perfil {
             margin-top: 10px;
         }
 
-        .container-bt-editar, .container-bt-sair {
+        .container-bt-sair {
             margin: 0 10px;
             margin-top: 20px;
+            margin-bottom: 20px;
 
             button {
                 height: 40px;
             }
-        }
-
-        .container-bt-sair {
-            margin-bottom: 20px;
-        }
+        }        
     }
 
     .tab-pets {
