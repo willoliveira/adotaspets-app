@@ -1,4 +1,4 @@
-import { User } from './user.model.ts';
+import { User } from './user.model';
 
 export const RoomType = {
     SINGLE: "single",
@@ -7,6 +7,6 @@ export const RoomType = {
 
 export interface Room {
     _id: string;
-    participants: Array<string>;
+    participants: Array<User>;
     type: string
 };
