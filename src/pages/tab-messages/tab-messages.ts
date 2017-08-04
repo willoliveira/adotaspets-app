@@ -37,8 +37,8 @@ export class TabMessages extends DefaultPage {
 	 * Abre pagina das mensagens
 	 * @param msgError: String
 	*/
-	public openMessages() {
-		this.app.getRootNav().push(Messages);
+	public openMessages(room) {
+		this.app.getRootNav().push(Messages, { room });
     }
 
     private onSuccessGetInfoStorage(userInfo: User) {

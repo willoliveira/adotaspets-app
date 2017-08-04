@@ -2,9 +2,7 @@
 	<ion-item *ngIf="!waitRequest && !rooms.length">
 	</ion-item>
 	<ion-list>
-        <ion-item
-            *ngFor="let room of rooms"
-            (click)="openMessages()">
+        <ion-item *ngFor="let room of rooms" (click)="openMessages(room)">
 			<ion-avatar item-left>
 				<img src="assets/img/avatar-finn.png">
 			</ion-avatar>
