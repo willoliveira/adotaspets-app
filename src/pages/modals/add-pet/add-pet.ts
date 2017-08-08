@@ -137,6 +137,10 @@ export class AddPet {
      * ------------ PRIVATE ------------
     */
 
+	private dismiss() {
+        this.viewCtrl.dismiss(this.pet);
+	}
+	
 	private initPage(userInfo, pet) {
 		//se não tiver, soltar um erro talvez
 		if (userInfo) {

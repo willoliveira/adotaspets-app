@@ -5,6 +5,7 @@ import { UserService } from '../../services/user.service';
 import { PetService } from '../../services/pet.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AddPet } from '../modals/add-pet/add-pet';
+import { ModalEditUser } from '../modals/edit-user/edit-user';
 import { Login } from '../login/login';
 import { User } from '../../models/user.model';
 import { Pet } from '../../models/pet.model';
@@ -61,8 +62,15 @@ export class TabPerfil {
     /**
      * Open modal edit description
     */
-    public openModalEdit() {
-        
+    public openModalEditUser() {
+        let modalEditUser = this.modalCtrl.create(ModalEditUser, {
+            userInfo: this.userInfo
+        });
+
+        modalEditUser.present();
+
+        modalEditUser.onDidDismiss(data => {            
+        });
     }
 
     /**

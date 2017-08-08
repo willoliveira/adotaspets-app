@@ -1,5 +1,5 @@
 add-pet {
-    ion-header {
+    ion-toolbar {
         .toolbar-background-md {
             background-image: linear-gradient(260deg, #8bc34a, #4caf50);
         }
@@ -11,7 +11,7 @@ add-pet {
         ion-icon {
             color: #fff;
         }
-    }
+    }    
 
     /*fab add/delete photo*/
     .fab[custom-mini] {
