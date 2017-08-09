@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { App, IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
-@Component({})
+//@Component({})
 export class DefaultPage {
 
     public waitRequest: Boolean = false;
