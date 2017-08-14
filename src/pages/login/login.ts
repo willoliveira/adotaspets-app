@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Home } from '../home/home';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 import { Storage } from '@ionic/storage';
 
@@ -26,11 +27,15 @@ export class Login {
 		private storage: Storage,
 		private authProvider: AuthenticateService,
 		private userProvider: UserService,
-        private fb: Facebook) { }
+		private fb: Facebook,
+		private googlePlus: GooglePlus) { }
 
 	public facebookLogin() {
+		this.fb.login(['public_profile', 'user_friends', 'email'])
+			.then((res: FacebookLoginResponse) => console.log('Logged into Facebook!', res))
+			.catch(e => console.log('Error logging into Facebook', e));
 
-        this.fb.login(['public_profile', 'email']).then((response) => {
+        /*this.fb.login(['public_profile', 'email']).then((response) => {
             let params = new Array<string>();
             this.fb.api("me?fields=name,gender,email", params)
                 .then(this.authFaceSuccess.bind(this))
@@ -40,7 +45,14 @@ export class Login {
 		})
 		.catch((error) => {
 			console.log(error);
-		});
+		});*/
+	}
+
+	public googleLogin() {
+		//this.googlePlus.login({'webClientId': '349595714070-fgdvau5okrej0e66t7udtcnrpjv199ai.apps.googleusercontent.com', 'offline': true})
+		this.googlePlus.login({})
+			.then( res => console.log(res))
+			.catch(err => console.error(err));
 	}
 
 	private authFaceSuccess(userFace) {
