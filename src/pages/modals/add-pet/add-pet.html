@@ -1,4 +1,4 @@
-<ion-header>	
+<ion-header>
 	<ion-toolbar>
         <ion-title>
             Adicionar pet
@@ -39,74 +39,90 @@
         </div>
 	</div>
 
-	<ion-item class="first-item">
-		<ion-label stacked class="label-nome">Nome do pet</ion-label>
-		<ion-input [(ngModel)]="pet.name" type="text" placeholder="Escreva o nome do pet"></ion-input>
-	</ion-item>
-	<ion-item>
-		<ion-label stacked class="label-sobre">Sobre o pet</ion-label>
-		<ion-textarea [(ngModel)]="pet.about" maxlength="150" placeholder="Escreva um pouco sobre o pet"></ion-textarea>
-	</ion-item>
-	<p class="limit">{{150 - pet.about.length}}</p>
-	<ion-item>
-		<ion-label stacked class="label-breed">Raça do pet</ion-label>
-		<ion-input [(ngModel)]="pet.breed" type="text" placeholder="Escreva a raça do pet"></ion-input>
-	</ion-item>
-
-	<ion-item>
-		<ion-label class="label-kind">Categoria do pet</ion-label>
-		<ion-select [(ngModel)]="pet.kind" cancelText="Cancelar" okText="Ok">
-			<ion-option value="dog">Cachorro</ion-option>
-			<ion-option value="cat">Gato</ion-option>
-			<ion-option value="others">Outros</ion-option>
-		</ion-select>
-	</ion-item>
-
-	<ion-item>
-		<ion-label class="label-size">Porte do pet</ion-label>
-		<ion-select [(ngModel)]="pet.size" cancelText="Cancelar" okText="Ok">
-			<ion-option value="small">Pequeno</ion-option>
-			<ion-option value="medium">Médio</ion-option>
-			<ion-option value="large">Grande</ion-option>
-		</ion-select>
-	</ion-item>
-
-    <ion-list radio-group [(ngModel)]="pet.genre">
-        <ion-list-header>
-            Sexo
-        </ion-list-header>
+    <div class="form-item">
         <ion-item>
-            <ion-label>Macho</ion-label>
-            <ion-radio value="male" color="dark"></ion-radio>
+            <ion-label stacked class="label-nome">Nome do pet</ion-label>
+            <ion-input [(ngModel)]="pet.name" type="text" placeholder="Escreva o nome do pet"></ion-input>
         </ion-item>
-        <ion-item>
-            <ion-label>Fêmea</ion-label>
-            <ion-radio value="female" color="dark"></ion-radio>
-        </ion-item>
-    </ion-list>
+    </div>
 
-    <ion-list>
-        <ion-list-header>
-            Idade
-            <ion-badge color="greenTheme" item-right *ngIf="pet.ageYears > 0 || pet.ageMonths > 0">
-                {{ pet.ageYears > 0 ? (pet.ageYears == 1 ? pet.ageYears + ' ano' : pet.ageYears + ' anos') : '' }}
-                {{ pet.ageYears > 0 && pet.ageMonths > 0 ? ' e ' : '' }}
-                {{ pet.ageMonths > 0 ? (pet.ageMonths == 1 ? pet.ageMonths + ' mês' : pet.ageMonths + ' meses') : '' }}
-            </ion-badge>
-        </ion-list-header>
+    <div class="form-item">
         <ion-item>
-            <ion-range min="0" max="30" pin="true" [(ngModel)]="pet.ageYears" color="greenTheme">
-                <ion-label range-left class="small-text">Anos</ion-label>
-                <ion-label range-right>Anos</ion-label>
-            </ion-range>
+            <ion-label stacked class="label-sobre">Sobre o pet</ion-label>
+            <ion-textarea [(ngModel)]="pet.about" maxlength="150" placeholder="Escreva um pouco sobre o pet"></ion-textarea>
         </ion-item>
+        <p class="limit">{{150 - pet.about.length}}</p>
+    </div>
+
+    <div class="form-item">
         <ion-item>
-            <ion-range min="0" max="11" pin="true" [(ngModel)]="pet.ageMonths" color="greenTheme">
-                <ion-label range-left class="small-text">Meses</ion-label>
-                <ion-label range-right>Meses</ion-label>
-            </ion-range>
+            <ion-label stacked class="label-breed">Raça do pet</ion-label>
+            <ion-input [(ngModel)]="pet.breed" type="text" placeholder="Escreva a raça do pet"></ion-input>
         </ion-item>
-    </ion-list>
+    </div>
+
+    <div class="form-item">
+        <ion-item>
+            <ion-label class="label-kind">Categoria do pet</ion-label>
+            <ion-select [(ngModel)]="pet.kind" cancelText="Cancelar" okText="Ok">
+                <ion-option value="dog">Cachorro</ion-option>
+                <ion-option value="cat">Gato</ion-option>
+                <ion-option value="others">Outros</ion-option>
+            </ion-select>
+        </ion-item>
+    </div>
+
+    <div class="form-item">
+        <ion-item>
+            <ion-label class="label-size">Porte do pet</ion-label>
+            <ion-select [(ngModel)]="pet.size" cancelText="Cancelar" okText="Ok">
+                <ion-option value="small">Pequeno</ion-option>
+                <ion-option value="medium">Médio</ion-option>
+                <ion-option value="large">Grande</ion-option>
+            </ion-select>
+        </ion-item>
+    </div>
+
+    <div class="form-item">
+        <ion-list radio-group [(ngModel)]="pet.genre">
+            <ion-list-header>
+                Sexo
+            </ion-list-header>
+            <ion-item>
+                <ion-label>Macho</ion-label>
+                <ion-radio value="male" color="dark"></ion-radio>
+            </ion-item>
+            <ion-item>
+                <ion-label>Fêmea</ion-label>
+                <ion-radio value="female" color="dark"></ion-radio>
+            </ion-item>
+        </ion-list>
+    </div>
+
+    <div class="form-item">
+        <ion-list>
+            <ion-list-header>
+                Idade
+                <ion-badge color="greenTheme" item-right *ngIf="pet.ageYears > 0 || pet.ageMonths > 0">
+                    {{ pet.ageYears > 0 ? (pet.ageYears == 1 ? pet.ageYears + ' ano' : pet.ageYears + ' anos') : '' }}
+                    {{ pet.ageYears > 0 && pet.ageMonths > 0 ? ' e ' : '' }}
+                    {{ pet.ageMonths > 0 ? (pet.ageMonths == 1 ? pet.ageMonths + ' mês' : pet.ageMonths + ' meses') : '' }}
+                </ion-badge>
+            </ion-list-header>
+            <ion-item>
+                <ion-range min="0" max="30" pin="true" [(ngModel)]="pet.ageYears" color="greenTheme">
+                    <ion-label range-left class="small-text">Anos</ion-label>
+                    <ion-label range-right>Anos</ion-label>
+                </ion-range>
+            </ion-item>
+            <ion-item>
+                <ion-range min="0" max="11" pin="true" [(ngModel)]="pet.ageMonths" color="greenTheme">
+                    <ion-label range-left class="small-text">Meses</ion-label>
+                    <ion-label range-right>Meses</ion-label>
+                </ion-range>
+            </ion-item>
+        </ion-list>
+    </div>
 
 	<div class="container-bt-add">
 		<button (click)="postPet()" ion-button icon-right block round outline color="greenTheme">

@@ -11,7 +11,7 @@ add-pet {
         ion-icon {
             color: #fff;
         }
-    }    
+    }
 
     /*fab add/delete photo*/
     .fab[custom-mini] {
@@ -40,13 +40,18 @@ add-pet {
     }
 
     .container-add-photos {
+        width: calc(100% - 20px);
+        display: inline-block;
+        padding: 13px 16px 13px 16px;
+        color: #37474F;
+        background: #F5F5F5;
+        border-radius: 5px;
         margin: 10px;
 
         .txt-add-photo {
             font-size: 1.8rem;
             color: #4fb050;
-            margin-left: 5px;
-            margin-right: 5px;
+            margin: 0 0 10px 0;
         }
 
         .box-photo {
@@ -57,7 +62,6 @@ add-pet {
             &.b1 {
                 width: 60%;
                 height: 200px;
-                margin-bottom: 10px;
             }
 
             &.b2 {
@@ -68,7 +72,6 @@ add-pet {
             &.b3 {
                 width: 40%;
                 height: 100px;
-                margin-bottom: 10px;
             }
 
             .photo {
@@ -120,7 +123,26 @@ add-pet {
         margin: 10px;
     }
 
-    .first-item {
-        border-top: 1px solid #dedede;
+    /*form-item*/
+    .form-item {
+        padding: 13px 16px 13px 16px;
+        color: #37474F;
+        background: #F5F5F5;
+        border-radius: 5px;
+        margin: 0 10px 10px 10px;
+
+        .item {
+            background-color: transparent;
+            border: 0;
+            padding: 0;
+
+            .item-inner {
+                padding: 0;
+
+                .label {
+                    margin: 0;
+                }
+            }
+        }
     }
 }
