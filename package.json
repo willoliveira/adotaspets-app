@@ -86,7 +86,7 @@
             "cordova-plugin-background-mode": {},
             "cordova-plugin-geolocation": {},
             "cordova-plugin-googleplus": {
-                "REVERSED_CLIENT_ID": "349595714070-fgdvau5okrej0e66t7udtcnrpjv199ai.apps.googleusercontent.com"
+                "REVERSED_CLIENT_ID": "com.googleusercontent.apps.865809069618-a2m86lpc48f5b336b86csp5508khrghh"
             }
         },
         "platforms": [
